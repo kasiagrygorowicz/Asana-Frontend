@@ -75,7 +75,7 @@ function Home() {
             </Grid>
                 <Stack direction="column">
                     <Box sx={{ height: 125}}></Box>
-                    <Box sx={{ width: 780, height: 75, textAlign: 'center', alignSelf: 'center'}}>
+                    <Box sx={{ width: 900, height: 75, textAlign: 'center', alignSelf: 'center'}}>
                         <Typography variant="h3" fontFamily="Sora">Join us for new growth opportunities</Typography>
                     </Box>
                     <Box sx={{ width: 700, height: 150,  alignItems: 'center', display: 'flex', textAlign: 'center', alignSelf: 'center', borderTop: '2px solid blue'}}>
