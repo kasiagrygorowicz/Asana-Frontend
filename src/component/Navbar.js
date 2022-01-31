@@ -34,11 +34,17 @@ function Navbar() {
             </Link>
           </div>
           <div className="navbar-right"> 
-            <LanguageIcon className='language' />
+            <LanguageIcon className='language' sx={{alignSelf: 'center'}}/>
             <Button style={{color: 'white', marginRight: '10px', paddingLeft: '14px', borderLeft: '2px solid white', borderRadius: '0px'}}>
-               Log in 
+              <Link to="/login" className='login'>
+                Log in 
+              </Link>
             </Button>
-            <Button color="primary" variant="contained" style={{color: 'white', borderRadius: '20px', backgroundColor: '#195FA5'}}> Sign up </Button>
+            <Button color="primary" variant="contained" style={{color: 'white', borderRadius: '20px', backgroundColor: '#195FA5'}}>
+              <Link to="/signup" className='signup'>
+                Sign up
+              </Link>
+            </Button>
           </div>
       </Toolbar>
     </AppBar>

@@ -5,6 +5,8 @@ import Home from "./pages/Home";
 import Features from "./pages/Features";
 import About from "./pages/About.js";
 import Pricing from "./pages/Pricing";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 import Footer from "./component/Footer"
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
         <Route path="/features" element={<Features />} />
         <Route path="/pricing" element={<Pricing />} />
         <Route path="/about" element={<About />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/login" element={<Login />} />
       </Routes>
       <Footer />
     </Router>
