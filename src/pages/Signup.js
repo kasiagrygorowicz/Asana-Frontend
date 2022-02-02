@@ -7,12 +7,12 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { Checkbox } from '@material-ui/core';
 
-function Signup() {
+function Signup(props) {
           return (
             <Container maxWidth='xl'>
                 <Box sx={{ height: 50}}></Box>
                 <Stack direction="column">
-                    <Typography variant="h2" fontFamily="Sora" align="center" alignSelf='center' height='100px' fontWeight="bold">Sign up</Typography>
+                    <Typography variant="h2" fontFamily="Sora" align="center" alignSelf='center' height='100px' fontWeight="bold">{props.t('signup')}</Typography>
                 </Stack>
                 <Grid
                 container

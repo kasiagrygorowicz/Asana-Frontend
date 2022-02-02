@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { Link } from "react-router-dom";
 
-function Login() {
+function Login(props) {
     return (
         <Container maxWidth='x1'>
             <Box sx={{ height: 20}}></Box>
@@ -66,7 +66,7 @@ function Login() {
                                     <Box sx={{ height: 40}}></Box>
                                     <Button variant="contained" size="large" sx={{ width: 200, height: 60, fontSize: 24, alignSelf: 'center', borderRadius: 30}}>
                                         <Typography textTransform='none' sx={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
-                                            Login
+                                            {props.t('login')}
                                         </Typography>
                                     </Button>
                                     <Box sx={{ height: 30}}></Box>
