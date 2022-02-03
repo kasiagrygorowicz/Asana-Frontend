@@ -38,6 +38,10 @@ function Navbar() {
                     <Link to="/about" className="navbar-link">
                         {t('about')}
                     </Link>
+                    {/* Visible only when user is logged in tbd*/}
+                    <Link to="/dashboard" className="navbar-link">
+                        {t('dashboard')}
+                    </Link>
                 </div>
                 <div className="navbar-right">
                   <FormControl>

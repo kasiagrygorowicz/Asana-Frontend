@@ -4,11 +4,9 @@ const navbar_pl = {
     features : 'Możliwości',
     pricing : 'Oferta',
     about : 'O nas',
+    dashboard: 'Projekty',
     login : 'Zaloguj się',
     signup : 'Zarejestruj się'
-
-
-
 }
 
 export default navbar_pl
