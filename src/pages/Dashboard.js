@@ -15,7 +15,7 @@ function Dashboard() {
             <Box sx={{ width: '80%', height: 80, alignItems: 'center'}}>
                 <Typography variant="h3" fontFamily="Sora">Your projects</Typography>
             </Box>
-            <Box sx={{ width: '80%', height: 2, borderBottom: '2px solid black'}}></Box>
+            <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
             <Box sx={{margin: 30}}>
                 <Grid container spacing={10}>
                     <Grid item xs={3}>

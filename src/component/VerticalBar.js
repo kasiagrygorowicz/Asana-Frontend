@@ -3,6 +3,7 @@ import {
   Typography,
   Box,
 } from "@material-ui/core";
+import {Link} from "react-router-dom";
 import ProjectCardSmall from "./ProjectCardSmall";
 
 function VerticalBar() {
@@ -25,7 +26,9 @@ function VerticalBar() {
           <ProjectCardSmall title="Team A"/>
           <ProjectCardSmall title="Team B"/>
           <ProjectCardSmall title="Team C"/>
-          <ProjectCardSmall title="Add team" type="add"/>
+          <Link to="/addteam" style={{textDecoration: 'none'}}>
+            <ProjectCardSmall title="Add team" type="add"/>
+          </Link>
         </Box>
 
 
@@ -37,7 +40,9 @@ function VerticalBar() {
           <ProjectCardSmall title="Project A"/>
           <ProjectCardSmall title="Project B"/>
           <ProjectCardSmall title="Project C"/>
-          <ProjectCardSmall title="Add project" type="add"/>
+          <Link to="/addproject" style={{textDecoration: 'none'}}>
+            <ProjectCardSmall title="Add project" type="add"/>
+          </Link>
         </Box>
       </Box>
   );

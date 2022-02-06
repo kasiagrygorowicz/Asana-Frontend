@@ -5,11 +5,10 @@ import {
     AppBar,
     Toolbar,
     Typography,
-    Button, MenuItem, Select, ListItemIcon, InputLabel, FormControl
+    Button, MenuItem, Select, FormControl
 } from "@material-ui/core";
 import LanguageIcon from '@mui/icons-material/Language';
 import {Link} from "react-router-dom";
-import {fontFamily} from '@mui/system';
 
 
 import {useTranslation} from "react-i18next";
