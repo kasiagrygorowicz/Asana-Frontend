@@ -38,14 +38,14 @@ function AddProject() {
             <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
             <Box sx={{margin: 20}}></Box>
             <Box sx={{ width: '15%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600}}>Project name:</Typography>
+                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>Project name:</Typography>
             </Box>
             <Box sx={{ width: '40%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
-                <Input name="name" type="name" placeholder="Enter project name" disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: 20}}></Input>
+                <Input name="name" type="name" placeholder="Enter project name" disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}}></Input>
             </Box>
             <Box sx={{clear: 'both', height: 10}}></Box>
             <Box sx={{ width: '15%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600}}>Team:</Typography>
+                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>Team:</Typography>
             </Box>
             <Box sx={{background: '#4786C6', borderRadius: 30, width: '20%',height: 60, alignItems: 'center', float: 'left', margin: 10, display: 'flex'}}>
             <FormControl style={{marginLeft: '5%', width: '90%', background: '#4786C6', borderRadius: 30, disableUnderline: 'true'}}>
@@ -69,10 +69,10 @@ function AddProject() {
             </Box>
             <Box sx={{clear: 'both', height: 10}}></Box>
             <Box sx={{ width: '15%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600}}>Description:</Typography>
+                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>Description:</Typography>
             </Box>
             <Box sx={{ width: '40%', height: 120, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
-                <Input name="name" type="name" multiline placeholder="Write your description here" disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: 20}} rows={4}></Input>
+                <Input name="name" type="name" multiline placeholder="Write your description here" disableUnderline='true' sx={{ align: 'center'}} style={{paddingLeft: '5%', width: '95%'}} rows={4}></Input>
             </Box>
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Button variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
