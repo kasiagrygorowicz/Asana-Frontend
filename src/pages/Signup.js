@@ -7,12 +7,12 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { Checkbox } from '@material-ui/core';
 
-function Signup(props) {
+function Signup({t}) {
           return (
             <Container maxWidth='xl'>
                 <Box sx={{ height: 50}}></Box>
                 <Stack direction="column">
-                    <Typography variant="h2" fontFamily="Sora" align="center" alignSelf='center' height='100px' fontWeight="bold">{props.t('signup')}</Typography>
+                    <Typography variant="h2" fontFamily="Sora" align="center" alignSelf='center' height='100px' fontWeight="bold">{t('signup')}</Typography>
                 </Stack>
                 <Grid
                 container
@@ -23,25 +23,25 @@ function Signup(props) {
                         <Stack direction="row" spacing={6}>
                             <Stack direction="column">
                                 <Box sx={{ width: 400, height: 70, alignItems: 'center', display: 'flex'}}>
-                                    <Typography variant="h4" fontFamily="Sora">User Name</Typography>
+                                    <Typography variant="h4" fontFamily="Sora">{t('signupPage.username')}</Typography>
                                 </Box>
                                 <Box sx={{ width: 400, height: 60, alignItems: 'center', display: 'flex', background: '#DEE2E6', borderRadius: '30px' }}>
-                                    <Input name="email" type="email" placeholder="Enter Name" disableUnderline='true' sx={{width: 350, align: 'center', marginLeft: '20px'}}></Input>
+                                    <Input name="email" type="email" placeholder={t('signupPage.username')} disableUnderline='true' sx={{width: 350, align: 'center', marginLeft: '20px'}}></Input>
                                 </Box>
                                 <Box sx={{ width: 400, height: 70, alignItems: 'center', display: 'flex'}}>
-                                    <Typography variant="h4" fontFamily="Sora">Email</Typography>
+                                    <Typography variant="h4" fontFamily="Sora">{t('signupPage.email')}</Typography>
                                 </Box>
                                 <Box sx={{ width: 400, height: 60, alignItems: 'center', display: 'flex', background: '#DEE2E6', borderRadius: '30px' }}>
-                                    <Input name="email" type="email" placeholder="Enter Email" disableUnderline='true' sx={{width: 350, align: 'center', marginLeft: '20px'}}></Input>
+                                    <Input name="email" type="email" placeholder={t('signupPage.email')} disableUnderline='true' sx={{width: 350, align: 'center', marginLeft: '20px'}}></Input>
                                 </Box>
                                 <Box sx={{ width: 400, height: 70, alignItems: 'center', display: 'flex'}}>
-                                    <Typography variant="h4" fontFamily="Sora">Password</Typography>
+                                    <Typography variant="h4" fontFamily="Sora">{t('signupPage.password')}</Typography>
                                 </Box>
                                 <Box sx={{ width: 400, height: 60, alignItems: 'center', display: 'flex', background: '#DEE2E6', borderRadius: '30px' }}>
                                     <Input name="password" type="password" placeholder="*********" disableUnderline='true' sx={{width: 350, align: 'center', marginLeft: '20px'}}></Input>
                                 </Box>
                                 <Box sx={{ width: 400, height: 70, alignItems: 'center', display: 'flex'}}>
-                                    <Typography variant="h4" fontFamily="Sora">Confirm Password</Typography>
+                                    <Typography variant="h4" fontFamily="Sora">{t('signupPage.confirmPassword')}</Typography>
                                 </Box>
                                 <Box sx={{ width: 400, height: 60, alignItems: 'center', display: 'flex', background: '#DEE2E6', borderRadius: '30px' }}>
                                     <Input name="password" type="password" placeholder="*********" disableUnderline='true' sx={{width: 350, align: 'center', marginLeft: '20px'}}></Input>
@@ -52,7 +52,7 @@ function Signup(props) {
                                 </Box>
                                 <Button variant="contained" size="large" sx={{ width: 200, height: 60, fontSize: 24, alignSelf: 'center', borderRadius: 30}}>
                                     <Typography textTransform='none' sx={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
-                                        Sign up
+                                        {t('signup')}
                                     </Typography>
                                 </Button>
                             </Stack>

@@ -8,11 +8,11 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 
-function Home(props) {
+function Home({t}) {
     return(
         <Container maxWidth='xl'>
             <Box sx={{ width: 568, height: 300, alignItems: 'center', display: 'flex'}}>
-                <Typography variant="h2" fontFamily="Sora">Rebuild your project creation.</Typography>
+                <Typography variant="h2" fontFamily="Sora">{t('homePage.title')}</Typography>
             </Box>
         <Grid
         container
@@ -26,12 +26,12 @@ function Home(props) {
                     </Box>
                     <Stack direction="column">
                         <Box sx={{ width: 580, height: 100, alignItems: 'center', display: 'flex'}}>
-                            <Typography variant="h3" fontFamily="Sora">Manage easier</Typography>
+                            <Typography variant="h3" fontFamily="Sora">{t('homePage.subtitle')}</Typography>
                         </Box>
                         <Box sx={{ width: 580, height: 250, alignItems: 'center', display: 'flex'}}>
                             <Box sx={{ width: 20, height: 175, borderLeft: '2px solid blue'}}></Box>
                             <Box sx={{ width: 540, height: 250, alignItems: 'center', display: 'flex'}}>
-                            <Typography variant="h4" fontFamily="Sora">Simplicity of usage is a priority along with ease of managing project goals and tasks.</Typography>
+                            <Typography variant="h4" fontFamily="Sora">{t('homePage.subtitleMsg')}</Typography>
                         </Box>
                         </Box>
                     </Stack>
@@ -41,12 +41,12 @@ function Home(props) {
                 <Stack direction="row" spacing={6}>
                     <Stack direction="column">
                         <Box sx={{ width: 580, height: 100, alignItems: 'center', display: 'flex'}}>
-                            <Typography variant="h3" fontFamily="Sora">Plan faster</Typography>
+                            <Typography variant="h3" fontFamily="Sora">{t('homePage.subtitle2')}</Typography>
                         </Box>
                         <Box sx={{ width: 580, height: 250, alignItems: 'center', display: 'flex'}}>
                             <Box sx={{ width: 20, height: 200, borderLeft: '2px solid blue'}}></Box>
                             <Box sx={{ width: 540, height: 250, alignItems: 'center', display: 'flex'}}>
-                            <Typography variant="h4" fontFamily="Sora">Time is valuable during development so we have put emphasis on optimising certain features to speed up your production.</Typography>
+                            <Typography variant="h4" fontFamily="Sora">{t('homePage.subtitleMsg2')}</Typography>
                             </Box>
                         </Box>
                     </Stack>
@@ -62,12 +62,12 @@ function Home(props) {
                     </Box>
                     <Stack direction="column">
                         <Box sx={{ width: 580, height: 100, alignItems: 'center', display: 'flex'}}>
-                            <Typography variant="h3" fontFamily="Sora">Work together</Typography>
+                            <Typography variant="h3" fontFamily="Sora">{t('homePage.subtitle3')}</Typography>
                         </Box>
                         <Box sx={{ width: 580, height: 250, alignItems: 'center', display: 'flex'}}>
                             <Box sx={{ width: 20, height: 200, borderLeft: '2px solid blue'}}></Box>
                             <Box sx={{ width: 540, height: 250, alignItems: 'center', display: 'flex'}}>
-                            <Typography variant="h4" fontFamily="Sora">Mr. Project will enable you to easily share tasks with co-workers and consult each other. Together, you will achieve your future milestones.</Typography>
+                            <Typography variant="h4" fontFamily="Sora">{t('homePage.subtitleMsg3')}</Typography>
                             </Box>
                         </Box>
                     </Stack>
@@ -76,12 +76,12 @@ function Home(props) {
                 <Stack direction="column">
                     <Box sx={{ height: 125}}></Box>
                     <Box sx={{ width: 900, height: 75, textAlign: 'center', alignSelf: 'center'}}>
-                        <Typography variant="h3" fontFamily="Sora">Join us for new growth opportunities</Typography>
+                        <Typography variant="h3" fontFamily="Sora">{t('homePage.join')}</Typography>
                     </Box>
                     <Box sx={{ width: 700, height: 150,  alignItems: 'center', display: 'flex', textAlign: 'center', alignSelf: 'center', borderTop: '2px solid blue'}}>
-                        <Typography variant="h4" fontFamily="Sora">Discover a new side of planning with Mr. Project and let him rebuild your way of designing.</Typography>
+                        <Typography variant="h4" fontFamily="Sora">{t('homePage.joinMsg')}</Typography>
                     </Box>
-                    <Button variant="contained" size="large" sx={{ width: 200, height: 60, fontSize: 24, alignSelf: 'center', borderRadius: 30}}>Sign up</Button>
+                    <Button variant="contained" size="large" sx={{ width: 200, height: 60, fontSize: 24, alignSelf: 'center', borderRadius: 30}}>{t('signup')}</Button>
                 </Stack>
         </Grid>
         <Box sx={{height: 75}}></Box>

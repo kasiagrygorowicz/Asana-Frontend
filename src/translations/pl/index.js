@@ -1,1 +1,2 @@
-export { default as pl } from './Navbar';
+
+export { default as pl } from "./polish"

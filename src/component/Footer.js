@@ -8,13 +8,13 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import LanguageIcon from '@mui/icons-material/Language';
 
-function Footer() {
+function Footer({t}) {
 return(
     <Toolbar sx={{background: '#6C757D', height: 156 }}>
         <Stack direction="row">
         <Box sx={{width: 100, height: 156}}></Box>
             <Box sx={{width: 400, height: 156, alignItems: 'center', display: 'flex', alignText: 'center'}}>
-                <Typography variant="h5" color="white" fontFamily="Sora">@2022 Warsaw University of Technology</Typography>
+                <Typography variant="h5" color="white" fontFamily="Sora">{t('company')}</Typography>
             </Box>
             <Box sx={{width: 100, height: 156}}></Box>
             <Box sx={{width: 400, height: 156, alignItems: 'center', display: 'flex'}}>
@@ -27,7 +27,7 @@ return(
                 <TwitterIcon fontSize='large' sx={{ color: "white" }}/>
             </Box>
             <Box sx={{width: 400, height: 156, alignItems: 'center', display: 'flex'}}>
-                <Typography variant="h5" color="white" fontFamily="Sora">Terms and Privacy</Typography>
+                <Typography variant="h5" color="white" fontFamily="Sora">{t('terms')}</Typography>
             </Box>
         </Stack>
     </Toolbar>

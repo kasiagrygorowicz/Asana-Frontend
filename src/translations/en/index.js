@@ -1,1 +1,1 @@
-export { default as en } from './Navbar';
+export { default as en } from './english';

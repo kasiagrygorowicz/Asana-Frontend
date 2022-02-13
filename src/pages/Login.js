@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { Link } from "react-router-dom";
 
-function Login(props) {
+function Login({t}) {
     return (
         <Container maxWidth='x1'>
             <Box sx={{ height: 20}}></Box>
@@ -42,7 +42,7 @@ function Login(props) {
                 </Grid>
                 <Grid item xs={5} direction="row" alignItems="center" alignContent="center">
                     <Box height={'15%'}></Box>
-                    <Typography variant="h2" fontFamily="Sora" align="center" alignSelf='center' height='100px' fontWeight="bold">Login</Typography>
+                    <Typography variant="h2" fontFamily="Sora" align="center" alignSelf='center' height='100px' fontWeight="bold">{t('login')}</Typography>
                         <Grid
                         container
                         direction="column"
@@ -52,13 +52,13 @@ function Login(props) {
                                 <Stack>
                                     <Stack direction="column">
                                     <Box sx={{ width: '100%', height: 70, alignItems: 'center', display: 'flex'}}>
-                                        <Typography variant="h4" fontFamily="Sora">Email</Typography>
+                                        <Typography variant="h4" fontFamily="Sora">{t('signupPage.email')}</Typography>
                                     </Box>
                                     <Box sx={{ width: '100%', height: 60, alignItems: 'center', display: 'flex', background: '#DEE2E6', borderRadius: '30px' }}>
-                                        <Input name="email" type="email" placeholder="Enter Email" disableUnderline='true' sx={{width: 350, align: 'center', marginLeft: '20px'}}></Input>
+                                        <Input name="email" type="email" placeholder={t('signupPage.email')} disableUnderline='true' sx={{width: 350, align: 'center', marginLeft: '20px'}}></Input>
                                     </Box>
                                     <Box sx={{ width: '100%', height: 70, alignItems: 'center', display: 'flex'}}>
-                                        <Typography variant="h4" fontFamily="Sora">Password</Typography>
+                                        <Typography variant="h4" fontFamily="Sora">{t('signupPage.password')}</Typography>
                                     </Box>
                                     <Box sx={{ width: '100%', height: 60, alignItems: 'center', display: 'flex', background: '#DEE2E6', borderRadius: '30px' }}>
                                         <Input name="password" type="password" placeholder="*********" disableUnderline='true' sx={{width: 350, align: 'center', marginLeft: '20px'}}></Input>
@@ -66,14 +66,14 @@ function Login(props) {
                                     <Box sx={{ height: 40}}></Box>
                                     <Button variant="contained" size="large" sx={{ width: 200, height: 60, fontSize: 24, alignSelf: 'center', borderRadius: 30}}>
                                         <Typography textTransform='none' sx={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
-                                            {props.t('login')}
+                                            {t('login')}
                                         </Typography>
                                     </Button>
                                     <Box sx={{ height: 30}}></Box>
                                     <Box sx={{ width: '100%', height: 70, alignItems: 'center', textAlign: 'center'}}>
-                                        <Typography variant="h7" fontFamily="Sora">Don't have an account? </Typography>
+                                        <Typography variant="h7" fontFamily="Sora">{t('noAccountMsg')} </Typography>
                                          <Link to="/signup">
-                                            <Typography variant="h7" fontFamily="Sora" color="#1A84EE" sx={{fontWeight: 'bold'}}> Sign up </Typography>
+                                            <Typography variant="h7" fontFamily="Sora" color="#1A84EE" sx={{fontWeight: 'bold'}}> {t('signup')} </Typography>
                                          </Link>
                                     </Box>
                                     </Stack>

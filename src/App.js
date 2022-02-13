@@ -20,7 +20,7 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home t={t} />} />
         <Route path="/features" element={<Features t={t}/>} />
         <Route path="/pricing" element={<Pricing t={t} />} />
         <Route path="/about" element={<About t={t}/>} />
@@ -30,7 +30,7 @@ function App() {
         <Route path="/signup" element={<Signup t={t}/>} />
         <Route path="/login" element={<Login t={t}/>} />
       </Routes>
-      <Footer />
+      <Footer t={t} />
     </Router>
   );
 }

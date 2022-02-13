@@ -17,6 +17,10 @@ function Navbar() {
 
     const [t, i18n] = useTranslation();
 
+    const selectLanguageHandler =(e)=>{
+        i18n.changeLanguage(e.target.value)
+    }
+
     return (
         <AppBar position="static">
             <Toolbar className='navbar-container'>
@@ -47,10 +51,9 @@ function Navbar() {
 
                                 <LanguageIcon className='language ' sx={{alignSelf: 'center'}}/>
 
-                    <Select>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
+                    <Select onChange={selectLanguageHandler}>
+                        <MenuItem value={'pl'}>Polski</MenuItem>
+                        <MenuItem value={'en'}>English</MenuItem>
                     </Select>
                   </FormControl>
                     <Button style={{
