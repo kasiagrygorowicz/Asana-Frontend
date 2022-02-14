@@ -13,6 +13,7 @@ import {useTranslation} from "react-i18next";
 import Dashboard from "./pages/Dashboard";
 import AddProject from "./pages/AddProject";
 import AddTeam from "./pages/AddTeam";
+import Project from "./pages/Project"
 
 function App() {
     const t = useTranslation()[0]
@@ -27,6 +28,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/addproject" element={<AddProject /> } />
         <Route path="/addteam" element={<AddTeam /> } />
+        <Route path="/project/:projectName" element={<Project />} />
         <Route path="/signup" element={<Signup t={t}/>} />
         <Route path="/login" element={<Login t={t}/>} />
       </Routes>

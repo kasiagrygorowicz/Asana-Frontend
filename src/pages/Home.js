@@ -1,6 +1,7 @@
 import image5 from "./images/image5.png";
 import image6 from "./images/image6.png";
 import image7 from "./images/image7.png";
+import { useNavigate } from "react-router-dom";
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Button from "@mui/material/Button";
@@ -9,6 +10,7 @@ import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 
 function Home({t}) {
+    const navigate = useNavigate();
     return(
         <Container maxWidth='xl'>
             <Box sx={{ width: 568, height: 300, alignItems: 'center', display: 'flex'}}>
@@ -29,7 +31,7 @@ function Home({t}) {
                             <Typography variant="h3" fontFamily="Sora">{t('homePage.subtitle')}</Typography>
                         </Box>
                         <Box sx={{ width: 580, height: 250, alignItems: 'center', display: 'flex'}}>
-                            <Box sx={{ width: 20, height: 175, borderLeft: '2px solid blue'}}></Box>
+                            <Box sx={{ width: 20, height: 200, borderLeft: '2px solid', borderColor: '#4399EF'}}></Box>
                             <Box sx={{ width: 540, height: 250, alignItems: 'center', display: 'flex'}}>
                             <Typography variant="h4" fontFamily="Sora">{t('homePage.subtitleMsg')}</Typography>
                         </Box>
@@ -44,7 +46,7 @@ function Home({t}) {
                             <Typography variant="h3" fontFamily="Sora">{t('homePage.subtitle2')}</Typography>
                         </Box>
                         <Box sx={{ width: 580, height: 250, alignItems: 'center', display: 'flex'}}>
-                            <Box sx={{ width: 20, height: 200, borderLeft: '2px solid blue'}}></Box>
+                            <Box sx={{ width: 20, height: 260, borderLeft: '2px solid', borderColor: '#4399EF'}}></Box>
                             <Box sx={{ width: 540, height: 250, alignItems: 'center', display: 'flex'}}>
                             <Typography variant="h4" fontFamily="Sora">{t('homePage.subtitleMsg2')}</Typography>
                             </Box>
@@ -65,7 +67,7 @@ function Home({t}) {
                             <Typography variant="h3" fontFamily="Sora">{t('homePage.subtitle3')}</Typography>
                         </Box>
                         <Box sx={{ width: 580, height: 250, alignItems: 'center', display: 'flex'}}>
-                            <Box sx={{ width: 20, height: 200, borderLeft: '2px solid blue'}}></Box>
+                            <Box sx={{ width: 20, height: 260, borderLeft: '2px solid', borderColor: '#4399EF'}}></Box>
                             <Box sx={{ width: 540, height: 250, alignItems: 'center', display: 'flex'}}>
                             <Typography variant="h4" fontFamily="Sora">{t('homePage.subtitleMsg3')}</Typography>
                             </Box>
@@ -75,16 +77,22 @@ function Home({t}) {
             </Grid>
                 <Stack direction="column">
                     <Box sx={{ height: 125}}></Box>
-                    <Box sx={{ width: 900, height: 75, textAlign: 'center', alignSelf: 'center'}}>
+                    <Box sx={{ width: 1300, height: 75, textAlign: 'center', alignSelf: 'center'}}>
                         <Typography variant="h3" fontFamily="Sora">{t('homePage.join')}</Typography>
                     </Box>
-                    <Box sx={{ width: 700, height: 150,  alignItems: 'center', display: 'flex', textAlign: 'center', alignSelf: 'center', borderTop: '2px solid blue'}}>
+                    <Box sx={{ width: 850, height: 150,  alignItems: 'center', display: 'flex', textAlign: 'center', alignSelf: 'center', borderTop: '2px solid', borderColor: '#4399EF'}}>
                         <Typography variant="h4" fontFamily="Sora">{t('homePage.joinMsg')}</Typography>
                     </Box>
-                    <Button variant="contained" size="large" sx={{ width: 200, height: 60, fontSize: 24, alignSelf: 'center', borderRadius: 30}}>{t('signup')}</Button>
+                    <Box sx={{ height: 25}}></Box>
+                    <Button variant="contained" size="large" onClick={() => {navigate("/signup");}} 
+                    sx={{ width: 230, height: 60, fontSize: 24, alignSelf: 'center', borderRadius: 30}}>
+                        <Typography textTransform='none' sx={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
+                        {t('signup')}
+                        </Typography>
+                    </Button>
                 </Stack>
         </Grid>
-        <Box sx={{height: 75}}></Box>
+        <Box sx={{height: 50}}></Box>
     </Container>
     );
   }

@@ -37,9 +37,15 @@ function VerticalBar() {
         </Box>
         <Box sx={{ width: '90%', height: 0, borderBottom: '2px solid white', marginLeft: '5%'}}></Box>
         <Box sx={{ width: '70%', margin: '10%', marginLeft: '15%'}}>
+          <Link to="/project/Project A" style={{textDecoration: 'none'}}>
           <ProjectCardSmall title="Project A"/>
+          </Link>
+          <Link to="/project/Project B" style={{textDecoration: 'none'}}>
           <ProjectCardSmall title="Project B"/>
+          </Link>
+          <Link to="/project/Project C" style={{textDecoration: 'none'}}>
           <ProjectCardSmall title="Project C"/>
+          </Link>
           <Link to="/addproject" style={{textDecoration: 'none'}}>
             <ProjectCardSmall title="Add project" type="add"/>
           </Link>

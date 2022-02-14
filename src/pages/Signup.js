@@ -50,7 +50,7 @@ function Signup({t}) {
                                     <Checkbox style ={{ color: "#195FA5" }}></Checkbox>
                                     <Typography fontFamily="Sora" fontSize="12px">I have read and accept <b>Terms of use</b>, <b>Privacy Policy</b> and <b>Cookie Terms</b>.</Typography>
                                 </Box>
-                                <Button variant="contained" size="large" sx={{ width: 200, height: 60, fontSize: 24, alignSelf: 'center', borderRadius: 30}}>
+                                <Button variant="contained" size="large" sx={{ width: 250, height: 60, fontSize: 24, alignSelf: 'center', borderRadius: 30}}>
                                     <Typography textTransform='none' sx={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
                                         {t('signup')}
                                     </Typography>

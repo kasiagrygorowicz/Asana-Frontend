@@ -19,7 +19,7 @@ return(
             <Box sx={{width: 100, height: 156}}></Box>
             <Box sx={{width: 400, height: 156, alignItems: 'center', display: 'flex'}}>
                 <LanguageIcon fontSize='large' sx={{ color: "white"}}/>
-                <Typography variant="h5" color="white" fontFamily="Sora">English</Typography>
+                <Typography variant="h5" color="white" fontFamily="Sora">{t('language')}</Typography>
             </Box>
             <Box sx={{width: 350, height: 156, alignItems: 'center', display: 'flex'}}>
                 <FacebookIcon fontSize='large' sx={{ color: "white" }}/>

@@ -10,6 +10,7 @@ const polish = {
     noAccountMsg :'Nie masz konta?',
     company :'@2022 Politechnika Warszawska',
     terms : 'Warunki i polityka prywatność',
+    language: 'Polski',
 
     signupPage : {
         username : 'Nazwa użytkownika',
@@ -21,15 +22,15 @@ const polish = {
 
 
     homePage: {
-        title: 'Rebuild your project creation',
-        subtitle :'Manage easier',
-        subtitleMsg : 'Simplicity of usage is a priority along with ease of managing project goals and tasks',
-        subtitle2 :'Plan faster',
-        subtitleMsg2 :'Time is valuable during development so we have put emphasis on optimising certain features to speed up your production',
-        subtitle3 : 'Work together',
-        subtitleMsg3 :'Mr. Project will enable you to easily share tasks with co-workers and consult each other. Together, you will achieve your future milestones',
-        join :'Join us for new growth opportunities',
-        joinMsg :'Discover a new side of planning with Mr. Project and let him rebuild your way of designing'
+        title: 'Przebuduj tworzenie swojego projektu',
+        subtitle :'Zarządzaj łatwiej',
+        subtitleMsg : 'Priorytetem jest prostota użytkowania oraz łatwość zarządzania celami i zadaniami projektu',
+        subtitle2 :'Planuj szybciej',
+        subtitleMsg2 :'Czas jest cenny podczas tworzenia, dlatego położyliśmy nacisk na optymalizację niektórych funkcji, aby przyspieszyć Twoją produkcję',
+        subtitle3 : 'Pracuj razem',
+        subtitleMsg3 :'Mr. Project pozwoli Ci łatwo dzielić się zadaniami ze współpracownikami i konsultować się nawzajem. Razem osiągniecie swoje przyszłe kamienie milowe',
+        join :'Dołącz do nas, aby uzyskać nowe możliwości rozwoju',
+        joinMsg :'Odkryj nową stronę planowania z Mr. Project i pozwól mu przebudować Twój sposób projektowania'
 
     }
 
