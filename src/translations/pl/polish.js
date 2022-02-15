@@ -38,8 +38,8 @@ const polish = {
         username : 'Nazwa użytkownika',
         password : 'Hasło',
         confirmPassword : 'Potwierdź hasło',
-        email : 'Email'
-
+        email : 'Email',
+        terms: 'Przeczytałem i akceptuję <strong>Warunki korzystania</strong>, <strong>Politykę prywatności</strong> i <strong>Warunki dotyczące plików cookie</strong>'
     },
 
     homePage: {

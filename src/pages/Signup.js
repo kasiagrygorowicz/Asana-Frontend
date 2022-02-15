@@ -6,6 +6,8 @@ import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import { Checkbox } from '@material-ui/core';
+import { Trans } from 'react-i18next'
+
 
 function Signup({t}) {
           return (
@@ -48,7 +50,7 @@ function Signup({t}) {
                                 </Box>
                                 <Box sx={{ width: 400, height: 80, alignItems: 'center', display: 'flex'}}>
                                     <Checkbox style ={{ color: "#195FA5" }}></Checkbox>
-                                    <Typography fontFamily="Sora" fontSize="12px">I have read and accept <b>Terms of use</b>, <b>Privacy Policy</b> and <b>Cookie Terms</b>.</Typography>
+                                    <Typography fontFamily="Sora" fontSize="12px"><Trans i18nKey="signupPage.terms" />.</Typography>
                                 </Box>
                                 <Button variant="contained" size="large" sx={{ width: 250, height: 60, fontSize: 24, alignSelf: 'center', borderRadius: 30}}>
                                     <Typography textTransform='none' sx={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
