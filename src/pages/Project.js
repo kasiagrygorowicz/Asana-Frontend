@@ -9,17 +9,16 @@ import Stack from '@mui/material/Stack';
 import VerticalBar from '../component/VerticalBar';
 import {Link, useParams} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { makeStyles } from '@mui/styles';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import GridViewIcon from '@mui/icons-material/GridView';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TaskCard from '../component/TaskCard'
 
-function Project() {
+function Project({t}) {
     let { projectName } = useParams();
     return (
         <Container maxWidth="x1">
-            <VerticalBar/>
+            <VerticalBar t={t}/>
             <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
                 <Link to='/dashboard'>
                     <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>
@@ -27,9 +26,9 @@ function Project() {
             
                 <Box sx={{ width: '95%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
                 {/* <Link to='/addtask'> */}
-                <Button variant="contained" sx={{ width: 200, height: 50, alignSelf: 'end', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: 2}}>
+                <Button variant="contained" sx={{ width: 250, height: 50, alignSelf: 'end', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: 2}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
-                    Add task
+                {t('addtask')}
                 </Typography>
                 <AddCircleOutlineIcon sx={{width: 32, height: 32, marginLeft: 2}}/> 
             </Button>
@@ -43,7 +42,7 @@ function Project() {
             <Grid container alignItems="stretch" justifyContent="center">
                 <Grid item xs={4} >
                     <Box sx={{ width: '100%', height: 80, alignItems: 'center', display: 'flex', float: 'left', borderRight: '1px solid black', borderBottom: '1px solid black'}}>
-                        <Typography variant="h4" fontFamily="Sora" style={{fontWeight: 'bold', textAlign: 'center', width: '80%'}}>Undone</Typography>
+                        <Typography variant="h4" fontFamily="Sora" style={{fontWeight: 'bold', textAlign: 'center', width: '80%'}}>{t('undone')}</Typography>
                     </Box>
                     <Box sx={{ width: '100%', height: 450, display: 'flex', borderRight: '1px solid black'}}>
                         <Stack direction="column" alignItems="center" spacing={3} sx={{ width: '100%'}}>
@@ -55,7 +54,7 @@ function Project() {
                 </Grid>
                 <Grid item xs={4} >
                     <Box sx={{ width: '100%', height: 80, alignItems: 'center', display: 'flex', float: 'left', borderRight: '1px solid black', borderBottom: '1px solid black'}}>
-                        <Typography variant="h4" fontFamily="Sora" style={{fontWeight: 'bold', textAlign: 'center', width: '80%'}}>In progress</Typography>
+                        <Typography variant="h4" fontFamily="Sora" style={{fontWeight: 'bold', textAlign: 'center', width: '80%'}}>{t('inprogress')}</Typography>
                     </Box>
                     <Box sx={{ width: '100%', height: 450, display: 'flex', borderLeft: '1px solid black'}}>
                         <Stack direction="column" alignItems="center" spacing={3} sx={{ width: '100%'}}>
@@ -65,7 +64,7 @@ function Project() {
                 </Grid>
                 <Grid item xs={4} >
                     <Box sx={{ width: '100%', height: 80, alignItems: 'center', display: 'flex', float: 'left', borderBottom: '1px solid black'}}>
-                        <Typography variant="h4" fontFamily="Sora" style={{fontWeight: 'bold', textAlign: 'center', width: '80%'}}>Done</Typography>
+                        <Typography variant="h4" fontFamily="Sora" style={{fontWeight: 'bold', textAlign: 'center', width: '80%'}}>{t('done')}</Typography>
                     </Box>
                     <Box sx={{ width: '100%', height: 450, display: 'flex', borderLeft: '1px solid black'}}>
                         {/* <Box sx={{width: '20%', height: 450}}></Box> */}

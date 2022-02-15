@@ -1,4 +1,5 @@
 import React from "react";
+import {useTranslation} from "react-i18next";
 import {
   Typography,
   Box
@@ -10,6 +11,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import LoopIcon from '@mui/icons-material/Loop';
 
 function TaskCard(props) {
+    const t = useTranslation()[0]
     return (
         <Box sx={{width: '55%', height: 75, background: props.cardColor, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 30, marginTop: 20}}>
         <Box sx={{width: '95%', height: 75, color: '#FFFFFF'}}>
@@ -22,7 +24,7 @@ function TaskCard(props) {
             </Stack>
             <Stack direction="row">
                 <Box sx={{paddingLeft: 30, height: 25, paddingTop: 3, width: '90%'}}>
-                <Typography variant="h7" fontFamily="Sora">Due date: {props.date}</Typography>
+                <Typography variant="h7" fontFamily="Sora">{t('dueDate')}: {props.date}</Typography>
                 {props.taskType != "done" && props.taskType != "inprogress" &&
                     <CloseRoundedIcon sx={{display: "flex", float: "right", marginRight: 0.5, color: "#FF4153"}}/>
                 }

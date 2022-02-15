@@ -25,10 +25,10 @@ function App() {
         <Route path="/features" element={<Features t={t}/>} />
         <Route path="/pricing" element={<Pricing t={t} />} />
         <Route path="/about" element={<About t={t}/>} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/addproject" element={<AddProject /> } />
-        <Route path="/addteam" element={<AddTeam /> } />
-        <Route path="/project/:projectName" element={<Project />} />
+        <Route path="/dashboard" element={<Dashboard t={t}/>} />
+        <Route path="/addproject" element={<AddProject t={t}/> } />
+        <Route path="/addteam" element={<AddTeam t={t}/> } />
+        <Route path="/project/:projectName" element={<Project t={t}/>} />
         <Route path="/signup" element={<Signup t={t}/>} />
         <Route path="/login" element={<Login t={t}/>} />
       </Routes>

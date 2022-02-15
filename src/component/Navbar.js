@@ -48,9 +48,7 @@ function Navbar() {
                 </div>
                 <div className="navbar-right">
                   <FormControl>
-
-                                <LanguageIcon className='language ' sx={{alignSelf: 'center'}}/>
-
+                    <LanguageIcon className='language ' sx={{alignSelf: 'center'}}/>
                     <Select onChange={selectLanguageHandler}>
                         <MenuItem value={'pl'}>Polski</MenuItem>
                         <MenuItem value={'en'}>English</MenuItem>

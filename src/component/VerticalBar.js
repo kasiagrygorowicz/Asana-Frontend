@@ -6,7 +6,7 @@ import {
 import {Link} from "react-router-dom";
 import ProjectCardSmall from "./ProjectCardSmall";
 
-function VerticalBar() {
+function VerticalBar({t}) {
   return (
       <Box
         sx={{
@@ -19,7 +19,7 @@ function VerticalBar() {
         }}
       >
         <Box sx={{margin: 15, height: 20}}>
-          <Typography variant="h5" fontFamily="Sora">Teams</Typography>
+          <Typography variant="h5" fontFamily="Sora">{t('teams')}</Typography>
         </Box>
         <Box sx={{ width: '90%', height: 0, borderBottom: '2px solid white', marginLeft: '5%'}}></Box>
         <Box sx={{ width: '70%', margin: '10%', marginLeft: '15%'}}>
@@ -27,13 +27,13 @@ function VerticalBar() {
           <ProjectCardSmall title="Team B"/>
           <ProjectCardSmall title="Team C"/>
           <Link to="/addteam" style={{textDecoration: 'none'}}>
-            <ProjectCardSmall title="Add team" type="add"/>
+            <ProjectCardSmall title={t('addteam')} type="add"/>
           </Link>
         </Box>
 
 
         <Box sx={{margin: 15, height: 20}}>
-          <Typography variant="h5" fontFamily="Sora">Recent projects</Typography>
+          <Typography variant="h5" fontFamily="Sora">{t('recent')}</Typography>
         </Box>
         <Box sx={{ width: '90%', height: 0, borderBottom: '2px solid white', marginLeft: '5%'}}></Box>
         <Box sx={{ width: '70%', margin: '10%', marginLeft: '15%'}}>
@@ -47,7 +47,7 @@ function VerticalBar() {
           <ProjectCardSmall title="Project C"/>
           </Link>
           <Link to="/addproject" style={{textDecoration: 'none'}}>
-            <ProjectCardSmall title="Add project" type="add"/>
+            <ProjectCardSmall title={t('addproject')} type="add"/>
           </Link>
         </Box>
       </Box>

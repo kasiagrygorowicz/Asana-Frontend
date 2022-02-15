@@ -12,6 +12,28 @@ const polish = {
     terms : 'Warunki i polityka prywatność',
     language: 'Polski',
 
+    dashboardtitle: 'Twoje projekty',
+    addtask: 'Dodaj zadanie',
+    addproject: 'Dodaj projekt',
+    addteam: 'Dodaj zespół',
+    addmember: 'Dodaj członka',
+    submit: 'Zatwierdź',
+    description: 'Opis',
+    descriptionInput: 'Wpisz wasz opis tutaj',
+    teamName: 'Nazwa zespołu',
+    teamNameInput: 'Wprowadź nazwę zespołu',
+    members: 'Członkowie zespołu',
+    projectName: 'Nazwa projektu',
+    projectNameInput: 'Wprowadź nazwę projektu',
+    team: 'Zespół',
+    teams: 'Zespoły',
+    private: 'Prywatny',
+    recent: 'Ostatnie projekty',
+    done: 'Zrobione',
+    undone: 'Nie zrobione',
+    inprogress: 'W trakcie',
+    dueDate: 'Termin',
+
     signupPage : {
         username : 'Nazwa użytkownika',
         password : 'Hasło',
@@ -19,7 +41,6 @@ const polish = {
         email : 'Email'
 
     },
-
 
     homePage: {
         title: 'Przebuduj tworzenie swojego projektu',
@@ -32,8 +53,7 @@ const polish = {
         join :'Dołącz do nas, aby uzyskać nowe możliwości rozwoju',
         joinMsg :'Odkryj nową stronę planowania z Mr. Project i pozwól mu przebudować Twój sposób projektowania'
 
-    }
-
+    },
 
 }
 
