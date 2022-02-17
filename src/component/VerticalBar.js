@@ -5,6 +5,7 @@ import {
 } from "@material-ui/core";
 import {Link} from "react-router-dom";
 import ProjectCardSmall from "./ProjectCardSmall";
+import TeamCardSmall from "./TeamCardSmall";
 
 function VerticalBar({t}) {
   return (
@@ -23,11 +24,11 @@ function VerticalBar({t}) {
         </Box>
         <Box sx={{ width: '90%', height: 0, borderBottom: '2px solid white', marginLeft: '5%'}}></Box>
         <Box sx={{ width: '70%', margin: '10%', marginLeft: '15%'}}>
-          <ProjectCardSmall title="Team A"/>
-          <ProjectCardSmall title="Team B"/>
-          <ProjectCardSmall title="Team C"/>
+          <TeamCardSmall title="Team A"/>
+          <TeamCardSmall title="Team B"/>
+          <TeamCardSmall title="Team C"/>
           <Link to="/addteam" style={{textDecoration: 'none'}}>
-            <ProjectCardSmall title={t('addteam')} type="add"/>
+            <TeamCardSmall title={t('addteam')} type="add"/>
           </Link>
         </Box>
 

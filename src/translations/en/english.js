@@ -16,6 +16,7 @@ const english = {
     addtask: 'Add task',
     addproject: 'Add project',
     addteam: 'Add team',
+    editteam: 'Edit team',
     addmember: 'Add member',
     submit: 'Submit',
     description: 'Description',

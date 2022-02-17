@@ -16,6 +16,7 @@ const polish = {
     addtask: 'Dodaj zadanie',
     addproject: 'Dodaj projekt',
     addteam: 'Dodaj zespół',
+    editteam: 'Edytuj zespół',
     addmember: 'Dodaj członka',
     submit: 'Zatwierdź',
     description: 'Opis',
