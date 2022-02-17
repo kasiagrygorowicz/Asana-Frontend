@@ -5,6 +5,7 @@ import {
 } from "@material-ui/core";
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import {Link} from "react-router-dom";
 
 
 function ProjectCardSmall(props) {
@@ -17,7 +18,9 @@ function ProjectCardSmall(props) {
             <AddCircleOutlineIcon sx={{display: "flex", float: "right"}}/>
         }
         {props.type != "add" &&
-            <SettingsIcon sx={{display: "flex", float: "right"}}/>
+          <Link to={"/editproject/" + props.title} style={{color:'white'}}>
+              <SettingsIcon sx={{display: "flex", float: "right"}}/>
+          </Link>
         }
     </Box>
 

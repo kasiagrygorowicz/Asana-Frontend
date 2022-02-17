@@ -16,6 +16,7 @@ import AddTeam from "./pages/AddTeam";
 import Project from "./pages/Project"
 import AddTask from "./pages/AddTask";
 import EditTeam from "./pages/EditTeam";
+import EditProject from "./pages/EditProject";
 
 function App() {
     const t = useTranslation()[0]
@@ -35,6 +36,7 @@ function App() {
         <Route path="/login" element={<Login t={t}/>} />
         <Route path="/addtask" element={<AddTask t={t}/> } />
         <Route path="/editteam/:teamName" element= {<EditTeam t={t} />} />
+        <Route path="/editproject/:projectName" element= {<EditProject t={t} />} />
       </Routes>
       <Footer t={t} />
     </Router>

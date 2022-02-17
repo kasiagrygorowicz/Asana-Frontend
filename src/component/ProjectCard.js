@@ -4,6 +4,7 @@ import {
   Box
 } from "@material-ui/core";
 import SettingsIcon from '@mui/icons-material/Settings';
+import {Link} from "react-router-dom";
 
 
 function ProjectCard(props) {
@@ -12,7 +13,9 @@ function ProjectCard(props) {
     <Box sx={{width: '100%', height: 30, color: '#FFFFFF'}}>
         <Box sx={{paddingLeft: 20, height: 25, paddingTop: 5}}>
             <Typography variant="h7" fontFamily="Sora"> {props.teamName} </Typography>
-            <SettingsIcon sx={{display: "flex", float: "right", marginRight: 1.5}}/>
+            <Link to={"/editproject/" + props.projectName} style={{color:'white'}}>
+              <SettingsIcon sx={{display: "flex", float: "right", marginRight: 1.5}}/>
+            </Link>
         </Box>
         <Box sx={{ width: '100%', height: 2, borderBottom: '2px solid white'}}></Box>
         <Box sx={{paddingLeft: 20, height: 25, paddingTop: 5}}>

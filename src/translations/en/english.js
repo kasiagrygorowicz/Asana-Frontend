@@ -15,6 +15,7 @@ const english = {
     dashboardtitle: 'Your projects',
     addtask: 'Add task',
     addproject: 'Add project',
+    editproject: 'Edit project',
     addteam: 'Add team',
     editteam: 'Edit team',
     addmember: 'Add member',

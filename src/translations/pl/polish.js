@@ -15,6 +15,7 @@ const polish = {
     dashboardtitle: 'Twoje projekty',
     addtask: 'Dodaj zadanie',
     addproject: 'Dodaj projekt',
+    editproject: 'Edytuj projekt',
     addteam: 'Dodaj zespół',
     editteam: 'Edytuj zespół',
     addmember: 'Dodaj członka',
