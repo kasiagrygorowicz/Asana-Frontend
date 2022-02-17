@@ -40,6 +40,7 @@ const english = {
     taskNameInput: 'Enter task name',
     assigned: 'Assigned members',
     assignedAdd: 'Assign member',
+    remove: 'Remove',
 
     signupPage : {
         username : 'Username',

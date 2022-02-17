@@ -40,6 +40,7 @@ const polish = {
     taskNameInput: 'Wprowadź nazwę zadania',
     assigned: 'Przypisani członkowie',
     assignedAdd: 'Przypisz członka',
+    remove: 'Usuń',
 
     signupPage : {
         username : 'Nazwa użytkownika',
