@@ -11,7 +11,7 @@ function VerticalBar({t}) {
       <Box
         sx={{
           width: '15%',
-          height: 720,
+          height: 770,
           background: '#195FA5',
           color: 'white',
           float: 'left',

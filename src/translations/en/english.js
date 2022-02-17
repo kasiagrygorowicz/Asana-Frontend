@@ -33,6 +33,11 @@ const english = {
     undone: 'Undone',
     inprogress: 'In progress',
     dueDate: 'Due date',
+    project: 'Project',
+    taskName: 'Task name',
+    taskNameInput: 'Enter task name',
+    assigned: 'Assigned members',
+    assignedAdd: 'Assign member',
 
     signupPage : {
         username : 'Username',

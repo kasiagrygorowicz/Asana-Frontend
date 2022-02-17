@@ -85,7 +85,7 @@ function Home({t}) {
                     </Box>
                     <Box sx={{ height: 25}}></Box>
                     <Button variant="contained" size="large" onClick={() => {navigate("/signup");}} 
-                    sx={{ width: 230, height: 60, fontSize: 24, alignSelf: 'center', borderRadius: 30}}>
+                    sx={{ width: 250, height: 60, fontSize: 24, alignSelf: 'center', borderRadius: 30}}>
                         <Typography textTransform='none' sx={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
                         {t('signup')}
                         </Typography>

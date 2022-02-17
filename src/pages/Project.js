@@ -25,14 +25,14 @@ function Project({t}) {
                 </Link>
             
                 <Box sx={{ width: '95%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
-                {/* <Link to='/addtask'> */}
-                <Button variant="contained" sx={{ width: 250, height: 50, alignSelf: 'end', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: 2}}>
+                <Link to='/addtask'>
+                <Button variant="contained" sx={{ width: 270, height: 50, alignSelf: 'end', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: 2}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
                 {t('addtask')}
                 </Typography>
                 <AddCircleOutlineIcon sx={{width: 32, height: 32, marginLeft: 2}}/> 
             </Button>
-            {/* </Link> */}
+                </Link>
                 <Typography variant="h3" fontFamily="Sora">{projectName}</Typography>
             </Box>
             <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>

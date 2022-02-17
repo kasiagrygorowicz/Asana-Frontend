@@ -33,6 +33,11 @@ const polish = {
     undone: 'Nie zrobione',
     inprogress: 'W trakcie',
     dueDate: 'Termin',
+    project: 'Projekt',
+    taskName: 'Nazwa zadania',
+    taskNameInput: 'Wprowadź nazwę zadania',
+    assigned: 'Przypisani członkowie',
+    assignedAdd: 'Przypisz członka',
 
     signupPage : {
         username : 'Nazwa użytkownika',

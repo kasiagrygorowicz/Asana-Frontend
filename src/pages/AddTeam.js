@@ -55,7 +55,7 @@ function AddTeam({t}) {
                     <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, width: 60, textAlign: 'center'}}>KF</Typography>
                 </Box>
             </Box>
-            <Button variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
+            <Button variant="contained" size="large" sx={{ width: 265, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
                 <AddCircleOutlineIcon sx={{width: 32, height: 32, marginRight: 2}}/>
                 <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
                 {t('addmember')}

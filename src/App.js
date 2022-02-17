@@ -14,6 +14,7 @@ import Dashboard from "./pages/Dashboard";
 import AddProject from "./pages/AddProject";
 import AddTeam from "./pages/AddTeam";
 import Project from "./pages/Project"
+import AddTask from "./pages/AddTask";
 
 function App() {
     const t = useTranslation()[0]
@@ -31,6 +32,7 @@ function App() {
         <Route path="/project/:projectName" element={<Project t={t}/>} />
         <Route path="/signup" element={<Signup t={t}/>} />
         <Route path="/login" element={<Login t={t}/>} />
+        <Route path="/addtask" element={<AddTask t={t}/> } />
       </Routes>
       <Footer t={t} />
     </Router>

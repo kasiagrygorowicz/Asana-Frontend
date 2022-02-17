@@ -5,14 +5,19 @@ import {
     Input,
     Select,
     MenuItem,
-    FormControl,
-    Checkbox
+    FormControl
   } from "@material-ui/core";
+  import * as React from 'react';
 import Button from "@mui/material/Button";
 import VerticalBar from '../component/VerticalBar';
 import {Link} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { makeStyles } from '@mui/styles';
+
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
+import DatePicker from '@mui/lab/DatePicker';
 
 const useStyles = makeStyles({
     select: {
@@ -22,30 +27,43 @@ const useStyles = makeStyles({
     },
   });
 
-function AddProject({t}) {
-    const classes = useStyles()
+function AddTask({t}) {
+    const [value, setValue] = React.useState(null);
+    const classes = useStyles();
     return (
         <Container maxWidth="x1">
             <VerticalBar t={t}/>
-            <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
-                <Link to='/dashboard'>
+            <Box sx={{ width: '75%', height: 750, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
+                <Link to='/project/Project A'>
                     <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>
                 </Link>
             
                 <Box sx={{ width: '80%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
-                <Typography variant="h3" fontFamily="Sora">{t('addproject')}</Typography>
+                <Typography variant="h3" fontFamily="Sora">{t('addtask')}</Typography>
             </Box>
             <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
             <Box sx={{margin: 20}}></Box>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('projectName')}:</Typography>
+                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('taskName')}:</Typography>
             </Box>
             <Box sx={{ width: '40%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
-                <Input name="name" type="name" placeholder={t('projectNameInput')} disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}}></Input>
+                <Input name="name" type="name" placeholder={t('taskNameInput')} disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}}></Input>
             </Box>
             <Box sx={{clear: 'both', height: 10}}></Box>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('team')}:</Typography>
+                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('dueDate')}:</Typography>
+            </Box>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker value={value} onChange={(newValue) => { setValue(newValue); }} renderInput={({ inputRef, inputProps, InputProps }) => (
+                <Box sx={{ width: '15%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
+                <Input ref={inputRef} {...inputProps} disableUnderline='true' style={{paddingLeft: '10%', width: '70%'}}/>
+                {InputProps?.endAdornment}
+            </Box>
+            )} />
+            </LocalizationProvider>
+            <Box sx={{clear: 'both', height: 10}}></Box>
+            <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
+                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('project')}:</Typography>
             </Box>
             <Box sx={{background: '#4786C6', borderRadius: 30, width: '20%',height: 60, alignItems: 'center', float: 'left', margin: 10, display: 'flex'}}>
             <FormControl style={{marginLeft: '5%', width: '90%', background: '#4786C6', borderRadius: 30, disableUnderline: 'true'}}>
@@ -55,17 +73,11 @@ function AddProject({t}) {
                     root: classes.root,
                 },
             }}>
-                <MenuItem value={1}>Team A</MenuItem>
-                <MenuItem value={2}>Team B</MenuItem>
-                <MenuItem value={3}>Team C</MenuItem>
+                <MenuItem value={1}>Project A</MenuItem>
+                <MenuItem value={2}>Project B</MenuItem>
+                <MenuItem value={3}>Project C</MenuItem>
             </Select>
             </FormControl>
-            </Box>
-            <Box sx={{ width: '10%', height: 80, marginLeft: '5%', alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600}}>{t('private')}:</Typography>
-            </Box>
-            <Box sx={{ width: '4%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Checkbox style={{transform: "scale(1.25)", color: "#195FA5"}}/>
             </Box>
             <Box sx={{clear: 'both', height: 10}}></Box>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
@@ -74,6 +86,16 @@ function AddProject({t}) {
             <Box sx={{ width: '40%', height: 120, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
                 <Input name="name" type="name" multiline placeholder={t('descriptionInput')} disableUnderline='true' sx={{ align: 'center'}} style={{paddingLeft: '5%', width: '95%'}} rows={4}></Input>
             </Box>
+            <Box sx={{clear: 'both', height: 10}}></Box>
+            <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
+                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('assigned')}:</Typography>
+            </Box>
+            <Button variant="contained" size="large" sx={{ width: 300, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none'}}>
+                <AddCircleOutlineIcon sx={{width: 32, height: 32, marginRight: 2}}/>
+                <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
+                {t('assignedAdd')}
+                </Typography>
+            </Button>
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Button variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
@@ -87,4 +109,4 @@ function AddProject({t}) {
         </Container>
     );
   }
-  export default AddProject;
+  export default AddTask;
