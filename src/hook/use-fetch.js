@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react';
+import REST_PATH from "../api/rest_path";
 
 const useFetch = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -7,8 +8,8 @@ const useFetch = () => {
     const sendRequest = useCallback(async (requestConfig, applyData) => {
         setIsLoading(true);
         setError(null);
-        const uri = "http://localhost:8080";
-        const APIAddress = uri + requestConfig.url;
+        
+        const APIAddress = REST_PATH + requestConfig.url;
         try {
             const response = await fetch(APIAddress, {
                 method: requestConfig.method ? requestConfig.method : 'GET',
