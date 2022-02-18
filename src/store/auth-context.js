@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 const AuthContext = React.createContext({
-    sessionCookie: '',
+    authToken: '',
     isLoggedIn: false,
     login: (authToken) => {},
     logout: () => {}
