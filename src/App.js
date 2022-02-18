@@ -31,16 +31,21 @@ function App() {
         <Route path="/features" element={<Features t={t}/>} />
         <Route path="/pricing" element={<Pricing t={t} />} />
         <Route path="/about" element={<About t={t}/>} />
-        {/*{authCtx.isLoggedIn && ()}*/}
-        <Route path="/dashboard" element={<Dashboard t={t}/>} />
-        <Route path="/addproject" element={<AddProject t={t}/> } />
-        <Route path="/addteam" element={<AddTeam t={t}/> } />
-        <Route path="/project/:projectName" element={<Project t={t}/>} />
-        <Route path="/signup" element={<Signup t={t}/>} />
-        <Route path="/login" element={<Login t={t}/>} />
-        <Route path="/addtask" element={<AddTask t={t}/> } />
-        <Route path="/editteam/:teamName" element= {<EditTeam t={t} />} />
-        <Route path="/editproject/:projectName" element= {<EditProject t={t} />} />
+        <Route path="/signup" element={<Signup t={t}/>}/>
+        {!authCtx.isLoggedIn &&
+            <Route path="/login" element={<Login t={t}/>}/>
+        }
+        {authCtx.isLoggedIn && (
+            <>
+            <Route path="/dashboard" element={<Dashboard t={t}/>} />
+            <Route path="/addproject" element={<AddProject t={t}/> } />
+            <Route path="/addteam" element={<AddTeam t={t}/> } />
+            <Route path="/project/:projectName" element={<Project t={t}/>} />
+            <Route path="/addtask" element={<AddTask t={t}/> } />
+            <Route path="/editteam/:teamName" element= {<EditTeam t={t} />} />
+            <Route path="/editproject/:projectName" element= {<EditProject t={t} />} />
+            </>
+        )}
       </Routes>
       <Footer t={t} />
     </Router>
