@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {BrowserRouter as Router, Routes, Route, Redirect, Navigate} from "react-router-dom";
 import {useContext} from "react";
 import Navbar from "./component/Navbar";
 import Home from "./pages/Home";
@@ -46,6 +46,8 @@ function App() {
             <Route path="/editproject/:projectName" element= {<EditProject t={t} />} />
             </>
         )}
+        <Route path='*' element={<Navigate to="/" />} />
+
       </Routes>
       <Footer t={t} />
     </Router>
