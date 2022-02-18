@@ -44,6 +44,15 @@ function Login({t}) {
         loginRequest(loginRequestContent, handleLogin);
     }
 
+    let errorMessage;
+    if (error) {
+        if (error === 'Something went wrong.') {
+            errorMessage = <p>{"Incorrect login or password, try again."}</p>
+        } else {
+            errorMessage = <p>{error}</p>
+        }
+    }
+
     return (
         <Container maxWidth='x1'>
             <Box sx={{ height: 20}}></Box>
@@ -97,6 +106,7 @@ function Login({t}) {
                                         <Box sx={{ width: '100%', height: 60, alignItems: 'center', display: 'flex', background: '#DEE2E6', borderRadius: '30px' }}>
                                             <Input inputRef={passwordInputRef} name="password" type="password" placeholder="*********" disableUnderline='true' sx={{width: 350, align: 'center', marginLeft: '20px'}} />
                                         </Box>
+                                        {error && <Box>{errorMessage}</Box>}
                                         <Box sx={{ height: 40}}></Box>
                                         <Button type="submit" variant="contained" size="large" sx={{ width: 200, height: 60, fontSize: 24, alignSelf: 'center', borderRadius: 30}}>
                                             <Typography textTransform='none' sx={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>

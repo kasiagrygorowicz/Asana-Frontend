@@ -17,7 +17,7 @@ const useFetch = () => {
                 body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
             });
             if (!response.ok) {
-                throw new Error('Request failed.');
+                throw new Error(response.statusText);
             }
             let data = response.json();
             applyData(data);
