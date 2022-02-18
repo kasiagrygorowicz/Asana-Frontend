@@ -1,6 +1,6 @@
 import './Navbar.css'
 
-import React from "react";
+import React, {useContext} from "react";
 import {
     AppBar,
     Toolbar,
@@ -12,13 +12,20 @@ import {Link} from "react-router-dom";
 
 
 import {useTranslation} from "react-i18next";
+import AuthContext from "../store/auth-context";
 
 function Navbar() {
+    const authCtx = useContext(AuthContext);
+    const isLoggedIn = authCtx.isLoggedIn;
 
     const [t, i18n] = useTranslation();
 
     const selectLanguageHandler =(e)=>{
         i18n.changeLanguage(e.target.value)
+    }
+
+    const logoutHandler = () => {
+        authCtx.logout();
     }
 
     return (
@@ -61,9 +68,18 @@ function Navbar() {
                         borderLeft: '2px solid white',
                         borderRadius: '0px'
                     }}>
+                        {!isLoggedIn &&
                         <Link to="/login" className='login'>
                             {t('login')}
                         </Link>
+                        }
+                        {isLoggedIn &&
+                        <Button onClick={logoutHandler}>
+                            Logout
+                            {/*TODO*/}
+                        </Button>
+                        }
+
                     </Button>
                     <Button color="primary" variant="contained"
                             style={{color: 'white', borderRadius: '20px', backgroundColor: '#195FA5'}}>
