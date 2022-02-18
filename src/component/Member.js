@@ -5,11 +5,13 @@ import {
   Typography,
   Box
 } from "@material-ui/core";
+import {Link} from "react-router-dom";
 import ChangeHistoryTwoToneIcon from '@mui/icons-material/ChangeHistoryTwoTone';
 
 
 function Member(props) {
 const t = useTranslation()[0]
+const l = "/userprofile/" + props.fullname;
 const [isHovering, setHovering] = useState(false);
 
 const HoverInfo = () => {
@@ -33,7 +35,9 @@ const HoverInfo = () => {
   return (
       <div onMouseOver={() => setHovering(true)} onMouseLeave={() => setHovering(false)}>
         <Box sx={{ width: 60, height: 60, alignItems: 'center', display: 'flex', float: 'left', background: props.color, border: '3px solid black', margin: 15}} >
+            <Link to={l} style={{textDecoration: 'none', color: 'black'}}>
             <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, width: 60, textAlign: 'center'}}> { props.initials } </Typography>
+            </Link>
         </Box>
         {isHovering && <HoverInfo/>}
       </div>

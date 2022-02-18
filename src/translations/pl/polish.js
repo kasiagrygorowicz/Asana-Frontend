@@ -36,6 +36,7 @@ const polish = {
     inprogress: 'W trakcie',
     dueDate: 'Termin',
     project: 'Projekt',
+    projects: 'Projekty',
     taskName: 'Nazwa zadania',
     taskNameInput: 'Wprowadź nazwę zadania',
     assigned: 'Przypisani członkowie',

@@ -36,6 +36,7 @@ const english = {
     inprogress: 'In progress',
     dueDate: 'Due date',
     project: 'Project',
+    projects: 'Projects',
     taskName: 'Task name',
     taskNameInput: 'Enter task name',
     assigned: 'Assigned members',
