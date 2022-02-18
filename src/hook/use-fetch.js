@@ -19,7 +19,7 @@ const useFetch = () => {
             if (!response.ok) {
                 throw new Error(response.statusText);
             }
-            let data = response.json();
+            let data = await response.json();
             applyData(data);
         } catch (error) {
             setError(error.message || 'Something went wrong.');

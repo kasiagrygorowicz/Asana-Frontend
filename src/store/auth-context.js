@@ -3,25 +3,25 @@ import React, {useState} from 'react';
 const AuthContext = React.createContext({
     sessionCookie: '',
     isLoggedIn: false,
-    login: (sessionCookie) => {},
+    login: (authToken) => {},
     logout: () => {}
 });
 
 export const AuthContextProvider = (props) => {
-    const [sessionCookie, setSessionCookie] = useState(null);
+    const [authToken, setAuthToken] = useState(null);
 
-    const userIsLoggedIn = !!sessionCookie;
+    const userIsLoggedIn = !!authToken;
 
-    const loginHandler = (sessionCookie) => {
-        setSessionCookie(sessionCookie);
+    const loginHandler = (authToken) => {
+        setAuthToken(authToken);
     }
 
     const logoutHandler = () => {
-        setSessionCookie(null);
+        setAuthToken(null);
     }
 
     const contextValue = {
-        sessionCookie: sessionCookie,
+        authToken: authToken,
         isLoggedIn: userIsLoggedIn,
         login: loginHandler,
         logout: logoutHandler

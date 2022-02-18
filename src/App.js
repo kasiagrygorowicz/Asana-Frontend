@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {useContext} from "react";
 import Navbar from "./component/Navbar";
 import Home from "./pages/Home";
 import Features from "./pages/Features";
@@ -17,8 +18,10 @@ import Project from "./pages/Project"
 import AddTask from "./pages/AddTask";
 import EditTeam from "./pages/EditTeam";
 import EditProject from "./pages/EditProject";
+import AuthContext from "./store/auth-context";
 
 function App() {
+    const authCtx = useContext(AuthContext)
     const t = useTranslation()[0]
   return (
     <Router>
@@ -28,6 +31,7 @@ function App() {
         <Route path="/features" element={<Features t={t}/>} />
         <Route path="/pricing" element={<Pricing t={t} />} />
         <Route path="/about" element={<About t={t}/>} />
+        {/*{authCtx.isLoggedIn && ()}*/}
         <Route path="/dashboard" element={<Dashboard t={t}/>} />
         <Route path="/addproject" element={<AddProject t={t}/> } />
         <Route path="/addteam" element={<AddTeam t={t}/> } />
