@@ -1,10 +1,11 @@
 import {Box, Checkbox, FormControl, Input, MenuItem, Select, Typography} from "@material-ui/core";
 import Button from "@mui/material/Button";
 import {makeStyles} from "@mui/styles";
-import {useContext, useEffect, useRef} from "react";
+import {useContext, useEffect, useRef, useState} from "react";
 import useFetch from "../hook/use-fetch";
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../store/auth-context";
+import jwt_decode from "jwt-decode"
 
 const useStyles = makeStyles({
     select: {
@@ -19,33 +20,40 @@ const AddProjectForm = ({t}) => {
     const descriptionInput = useRef();
     const { isLoading, error, sendRequest: addProjectRequest } = useFetch();
     const { areTeamsLoading, teamsError, sendRequest: getUserTeams } = useFetch();
+    const { userTeams, setUserTeams } = useState([]);
     const navigate = useNavigate();
     const authCtx = useContext(AuthContext);
+    const JWTToken = 'Bearer ' + authCtx.authToken;
 
     useEffect(() => {
+        const handleGetUserTeams = (userTeams) => {
+            const loadedUserTeams = [];
+            for (const team in userTeams) {
+                loadedUserTeams.push({ id: team.id, name: team.name });
+            }
+            setUserTeams(loadedUserTeams);
+        }
+
+        const userId = jwt_decode(authCtx.authToken).id;
+        const urlRequest = `/team/user/${userId}/teams`;
+
         const getUserTeamsRequest = {
-            url: "/project",
-            method: "POST",
-            body: {
-                'name': enteredProjectName,
-                'category': category,
-                'description': enteredProjectDescription
-            },
+            url: urlRequest,
             headers: {
                 'Authorization': JWTToken,
                 'Content-Type': 'application/json'
             }
         };
 
-        getUserTeams()
-    }, []);
+        getUserTeams(getUserTeamsRequest, handleGetUserTeams);
+    }, [getUserTeams]);
 
     const submitHandler = (event) => {
         event.preventDefault();
         const enteredProjectName = projectNameInput.current.value;
         const enteredProjectDescription = descriptionInput.current.value;
         const category = "IT";
-        const JWTToken = 'Bearer ' + authCtx.authToken;
+
 
         const handleAddProject = (response) => {
             const projectId = response['id'];
