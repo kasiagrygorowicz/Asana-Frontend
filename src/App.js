@@ -41,7 +41,7 @@ function App() {
                         <Route path="/dashboard" element={<Dashboard t={t}/>} />
                         <Route path="/addproject" element={<AddProject t={t}/> } />
                         <Route path="/addteam" element={<AddTeam t={t}/> } />
-                        <Route path="/project/:projectName" element={<Project t={t}/>} />
+                        <Route path="/project/:projectId" element={<Project t={t}/>} />
                         <Route path="/addtask" element={<AddTask t={t}/> } />
                         <Route path="/editteam/:teamName" element= {<EditTeam t={t} />} />
                         <Route path="/editproject/:projectName" element= {<EditProject t={t} />} />

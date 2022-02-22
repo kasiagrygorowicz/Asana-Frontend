@@ -15,7 +15,7 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TaskCard from '../component/TaskCard'
 
 function Project({t}) {
-    let { projectName } = useParams();
+    let { projectId } = useParams();
     return (
         <Container maxWidth="x1">
             <VerticalBar t={t}/>
@@ -33,7 +33,7 @@ function Project({t}) {
                 <AddCircleOutlineIcon sx={{width: 32, height: 32, marginLeft: 2}}/> 
             </Button>
                 </Link>
-                <Typography variant="h3" fontFamily="Sora">{projectName}</Typography>
+                <Typography variant="h3" fontFamily="Sora">{projectId}</Typography>
             </Box>
             <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
             <Box sx={{ margin: 5}}></Box>
