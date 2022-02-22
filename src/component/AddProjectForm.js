@@ -19,41 +19,39 @@ const AddProjectForm = ({t}) => {
     const projectNameInput = useRef();
     const descriptionInput = useRef();
     const { isLoading, error, sendRequest: addProjectRequest } = useFetch();
-    const { areTeamsLoading, teamsError, sendRequest: getUserTeams } = useFetch();
-    const { userTeams, setUserTeams } = useState([]);
+    const { areTeamsLoading, teamsError, sendRequest: fetchUserTeams } = useFetch();
+    const [ userTeams, setUserTeams ] = useState([]);
     const navigate = useNavigate();
     const authCtx = useContext(AuthContext);
-    const JWTToken = 'Bearer ' + authCtx.authToken;
+    const requestToken = authCtx.requestToken;
 
     useEffect(() => {
-        const handleGetUserTeams = (userTeams) => {
+        const handleGetUserTeams = (teamsObj) => {
             const loadedUserTeams = [];
-            for (const team in userTeams) {
-                loadedUserTeams.push({ id: team.id, name: team.name });
+            for (const teamKey in teamsObj) {
+                loadedUserTeams.push({ id: teamsObj[teamKey].id, name: teamsObj[teamKey].name });
             }
             setUserTeams(loadedUserTeams);
         }
 
         const userId = jwt_decode(authCtx.authToken).id;
         const urlRequest = `/team/user/${userId}/teams`;
-
-        const getUserTeamsRequest = {
+        const fetchUserTeamsRequest = {
             url: urlRequest,
             headers: {
-                'Authorization': JWTToken,
+                'Authorization': requestToken,
                 'Content-Type': 'application/json'
             }
         };
 
-        getUserTeams(getUserTeamsRequest, handleGetUserTeams);
-    }, [getUserTeams]);
+        fetchUserTeams(fetchUserTeamsRequest, handleGetUserTeams);
+    }, [fetchUserTeams]);
 
     const submitHandler = (event) => {
         event.preventDefault();
         const enteredProjectName = projectNameInput.current.value;
         const enteredProjectDescription = descriptionInput.current.value;
         const category = "IT";
-
 
         const handleAddProject = (response) => {
             const projectId = response['id'];
@@ -70,13 +68,17 @@ const AddProjectForm = ({t}) => {
                 'description': enteredProjectDescription
             },
             headers: {
-                'Authorization': JWTToken,
+                'Authorization': requestToken,
                 'Content-Type': 'application/json'
             }
         };
 
         addProjectRequest(addProjectRequestContent, handleAddProject);
     }
+
+    let teamsToDisplay = userTeams.map((team) => (
+        <MenuItem value={team.id}>{team.name}</MenuItem>
+    ));
 
     const classes = useStyles();
     return (
@@ -93,15 +95,13 @@ const AddProjectForm = ({t}) => {
     </Box>
     <Box sx={{background: '#4786C6', borderRadius: 30, width: '20%',height: 60, alignItems: 'center', float: 'left', margin: 10, display: 'flex'}}>
         <FormControl style={{marginLeft: '5%', width: '90%', background: '#4786C6', borderRadius: 30, disableUnderline: 'true'}}>
-            <Select disableUnderline={true} defaultValue={1} style={{color: 'white'}} className={classes.select} inputProps={{
+            <Select disableUnderline={true} isLoading={isLoading} defaultValue={1} style={{color: 'white'}} className={classes.select} inputProps={{
                 classes: {
                     icon: classes.icon,
                     root: classes.root,
                 },
             }}>
-                <MenuItem value={1}>Team A</MenuItem>
-                <MenuItem value={2}>Team B</MenuItem>
-                <MenuItem value={3}>Team C</MenuItem>
+            {teamsToDisplay}
             </Select>
         </FormControl>
     </Box>
