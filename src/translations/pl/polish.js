@@ -1,5 +1,5 @@
 const polish = {
-
+    lang : 'pl',
     home : 'Strona główna',
     features : 'Możliwości',
     pricing : 'Oferta',

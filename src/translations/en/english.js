@@ -1,5 +1,5 @@
 const english = {
-
+    lang: 'en',
     home : 'Home',
     features : 'Features',
     pricing : 'Pricing',
