@@ -4,11 +4,18 @@ import {
     Typography,
     Grid
   } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import ProjectCard from "../component/ProjectCard";
 import VerticalBar from '../component/VerticalBar';
+import UserProjects from "../component/UserProjects";
+import useFetch from "../hook/use-fetch";
+import {useContext, useEffect, useState} from "react";
+import AuthContext from "../store/auth-context";
+import jwt_decode from "jwt-decode";
 
 function Dashboard({t}) {
+
+
     return (
         <Container maxWidth="x1">
             <VerticalBar t={t}/>
@@ -18,38 +25,7 @@ function Dashboard({t}) {
             </Box>
             <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
             <Box sx={{margin: 30}}>
-                <Grid container spacing={10}>
-                    <Grid item xs={3}>
-                    <Link to="/project/Project A" style={{textDecoration: 'none'}}>
-                        <ProjectCard cardColor="#4F6C89" teamName="Team A" projectName="Project A" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Link>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <Link to="/project/Project B" style={{textDecoration: 'none'}}>
-                        <ProjectCard cardColor="#467AAE" teamName="Team B" projectName="Project B" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Link>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <Link to="/project/Project C" style={{textDecoration: 'none'}}>
-                        <ProjectCard cardColor="#6396C8" teamName="Team A" projectName="Project C" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Link>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <Link to="/project/Project D" style={{textDecoration: 'none'}}>
-                        <ProjectCard cardColor="#4F6C89" teamName="Team B" projectName="Project D" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Link>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <Link to="/project/Project E" style={{textDecoration: 'none'}}>
-                        <ProjectCard cardColor="#467AAE" teamName="Team A" projectName="Project E" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Link>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <Link to="/project/Project F" style={{textDecoration: 'none'}}>
-                        <ProjectCard cardColor="#6396C8" teamName="Team B" projectName="Project F" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Link>
-                    </Grid>
-                </Grid>
+               <UserProjects t={t}/>
             </Box>
             </Box>  
             <Box sx={{clear:'both'}}></Box>
