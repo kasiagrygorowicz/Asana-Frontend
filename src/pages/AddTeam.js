@@ -6,12 +6,53 @@ import {
   } from "@material-ui/core";
 import Button from "@mui/material/Button";
 import VerticalBar from '../component/VerticalBar';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Member from '../component/Member'
+import {useContext, useRef} from "react";
+import AuthContext from "../store/auth-context";
+import useFetch from "../hook/use-fetch";
 
 function AddTeam({t}) {
+
+    const teamNameRef = useRef();
+    const descriptionRef = useRef();
+    const navigate = useNavigate();
+    const { isLoading, error, sendRequest: addTeamRequest } = useFetch();
+    const authCtx = useContext(AuthContext);
+    const JWTToken = 'Bearer ' + authCtx.authToken;
+    const requestToken = authCtx.requestToken;
+
+
+    const submitHandler =(event)=>{
+        event.preventDefault();
+        let name = teamNameRef.current.value
+        let description = descriptionRef.value
+
+        const addTeamHandler = (response) => {
+            const teamId = response['id']
+            const teamURL = `/team/$teamId`
+            navigate(teamURL,{replace:true})
+        }
+
+        const addTeamRequestContent = {
+            url: "/team/add",
+            method: "POST",
+            body: {
+                'name': name,
+
+            },
+            headers: {
+                'Authorization': requestToken,
+                'Content-Type': 'application/json'
+            }
+        }
+
+        addTeamRequest(addTeamRequestContent, addTeamHandler);
+    }
+
+
     return (
         <Container maxWidth="x1">
             <VerticalBar t={t}/>
@@ -25,18 +66,20 @@ function AddTeam({t}) {
             </Box>
             <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
             <Box sx={{margin: 20}}></Box>
+
+                <form onSubmit={submitHandler}>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('teamName')}:</Typography>
             </Box>
             <Box sx={{ width: '40%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
-                <Input name="name" type="name" placeholder={t('teamNameInput')} disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}}></Input>
+                <Input inputRef={teamNameRef} name="name" type="name" placeholder={t('teamNameInput')} disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}}></Input>
             </Box>
             <Box sx={{clear: 'both', height: 10}}></Box>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('description')}:</Typography>
             </Box>
             <Box sx={{ width: '40%', height: 120, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
-                <Input name="name" type="name" multiline placeholder={t('descriptionInput')} disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}} rows={4}></Input>
+                <Input inputRef={descriptionRef} name="name" type="name" multiline placeholder={t('descriptionInput')} disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}} rows={4}></Input>
             </Box>
             <Box sx={{clear: 'both', height: 10}}></Box>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
@@ -48,22 +91,24 @@ function AddTeam({t}) {
                 <Member color="#FEB272" initials='MW' fullname="Michał Wójcik" email="example@mail.com"></Member>
                 <Member color='#6EA8FE' initials='KF' fullname="Kamil Frączek" email="example@mail.com"></Member>
             </Box>
-            <Button variant="contained" size="large" sx={{ width: 265, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
+            <Button  variant="contained" size="large" sx={{ width: 265, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
                 <AddCircleOutlineIcon sx={{width: 32, height: 32, marginRight: 2}}/>
                 <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
                 {t('addmember')}
                 </Typography>
             </Button>
             <Box sx={{clear: 'both', height: 20}}></Box>
-            <Button variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
+            <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
                 {t('submit')}
                 </Typography>
             </Button>
             <Box sx={{margin: 30}}>
             </Box>
+                </form >
             </Box>  
             <Box sx={{clear:'both'}}></Box>
+
         </Container>
     );
   }

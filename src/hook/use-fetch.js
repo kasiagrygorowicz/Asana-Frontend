@@ -16,9 +16,11 @@ const useFetch = () => {
                 headers: requestConfig.headers ? requestConfig.headers : {},
                 body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
             });
+
             if (!response.ok) {
                 throw new Error(response.statusText);
             }
+
             let data = await response.json();
             applyData(data);
         } catch (error) {
@@ -26,6 +28,8 @@ const useFetch = () => {
         }
         setIsLoading(false);
     }, []);
+
+
 
     return {
         isLoading,
