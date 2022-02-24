@@ -29,8 +29,7 @@ const UserProjects = ({t}) => {
         const fetchUserProjectsRequest = {
             url: urlRequest,
             headers: {
-                'Authorization': authCtx.requestToken,
-                'Content-Type': 'application/json'
+                'Authorization': authCtx.requestToken
             }
         };
 

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useContext, useEffect, useReducer, useState} from 'react'
 import {
     Container,
     Grid,
@@ -19,10 +19,79 @@ import {
     Droppable,
     Draggable
   } from 'react-beautiful-dnd';
+import useFetch from "../hook/use-fetch";
+import AuthContext from "../store/auth-context";
+
 
 
 function Project({t}) {
-    const [initialState, setinitialState] = useState({
+    const { areTasksLoading, tasksError, sendRequest: fetchTasks } = useFetch();
+    const { isProjectLoading, projectError, sendRequest: fetchProject } = useFetch();
+
+    const [ projectInfo, setProjectInfo ] = useState(null);
+    const [ undoneTasks, setUndoneTasks ] = useState([]);
+    const [ inProgressTasks, setInProgressTasks ] = useState([]);
+    const [ doneTasks, setDoneTasks ] = useState([]);
+
+    let { projectId } = useParams();
+    const authCtx = useContext(AuthContext);
+
+    useEffect(() => {
+        const handleProjectTasks = (tasksObj) => {
+            const loadedTasks = [];
+            for (const taskKey in tasksObj) {
+                loadedTasks.push({
+                    id: tasksObj[taskKey].id,
+                    name: tasksObj[taskKey].name,
+                    deadLine: tasksObj[taskKey].deadLine,
+                    status: tasksObj[taskKey].status
+                });
+            }
+            loadTasks(loadedTasks);
+        }
+
+        const loadTasks = (tasks) => {
+            const loadedUndoneTasks = [];
+            const loadedInProgressTasks = [];
+            const loadedDoneTasks = [];
+            tasks.map((task) => {
+                if (task.status === 'UNDONE') {
+                    loadedUndoneTasks.push(task);
+                } else if (task.status === 'DOING') {
+                    loadedInProgressTasks.push(task);
+                } else if (task.status === 'DONE') {
+                    loadedDoneTasks.push(task);
+                }
+            });
+            setUndoneTasks(loadedUndoneTasks);
+            setInProgressTasks(loadedInProgressTasks);
+            setDoneTasks(loadedDoneTasks);
+        }
+
+        const handleProject = (response) => {
+            const projectName = response['name'];
+            setProjectInfo(projectName);
+        }
+
+        const fetchTasksRequest = {
+            url: `project/task/all/${projectId}/details`,
+            headers: {
+                'Authorization': authCtx.requestToken
+            }
+        }
+        const fetchProjectRequest = {
+            url: `/project/${projectId}`,
+            headers: {
+                'Authorization': authCtx.requestToken
+            }
+        }
+
+        fetchProject(fetchProjectRequest, handleProject);
+        fetchTasks(fetchTasksRequest, handleProjectTasks);
+
+    }, [fetchTasks, fetchProject]);
+
+    const [initialState, setInitialState] = useState({
         // Przy pobieraniu danych załadować tutaj taski
         cards: {
             card1: {
@@ -118,7 +187,7 @@ function Project({t}) {
                     [newColumn.id]: newColumn
                 }
             };
-            setinitialState(newState);
+            setInitialState(newState);
             return;
         }
         const startCardIds = Array.from(start.cardIds);
@@ -142,10 +211,10 @@ function Project({t}) {
                 [newFinish.id]: newFinish
             }
         };
-        setinitialState(newState);
+        setInitialState(newState);
         // Stan taska możemy zmienić tutaj, nowy stan taska to destination.droppableId, a stary source.droppableId
     };
-    let { projectId } = useParams();
+
     return (
         <Container maxWidth="x1">
             <VerticalBar t={t}/>

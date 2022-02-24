@@ -23,7 +23,6 @@ const AddProjectForm = ({t}) => {
     const [ userTeams, setUserTeams ] = useState([]);
     const navigate = useNavigate();
     const authCtx = useContext(AuthContext);
-    const requestToken = authCtx.requestToken;
 
     useEffect(() => {
         const handleGetUserTeams = (teamsObj) => {
@@ -39,8 +38,7 @@ const AddProjectForm = ({t}) => {
         const fetchUserTeamsRequest = {
             url: urlRequest,
             headers: {
-                'Authorization': requestToken,
-                'Content-Type': 'application/json'
+                'Authorization': authCtx.requestToken
             }
         };
 
@@ -68,7 +66,7 @@ const AddProjectForm = ({t}) => {
                 'description': enteredProjectDescription
             },
             headers: {
-                'Authorization': requestToken,
+                'Authorization': authCtx.requestToken,
                 'Content-Type': 'application/json'
             }
         };
