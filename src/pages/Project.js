@@ -32,6 +32,7 @@ function Project({t}) {
     const [ undoneTasks, setUndoneTasks ] = useState([]);
     const [ inProgressTasks, setInProgressTasks ] = useState([]);
     const [ doneTasks, setDoneTasks ] = useState([]);
+    const [ tasks, setTasks ] = useState({ cards: {}, columns: {} });
 
     let { projectId } = useParams();
     const authCtx = useContext(AuthContext);
@@ -43,30 +44,62 @@ function Project({t}) {
                 loadedTasks.push({
                     id: tasksObj[taskKey].id,
                     name: tasksObj[taskKey].name,
+                    description: tasksObj[taskKey].description,
                     deadLine: tasksObj[taskKey].deadLine,
                     status: tasksObj[taskKey].status
                 });
             }
-            loadTasks(loadedTasks);
+            // loadTasks(loadedTasks);
+            // setTasks(loadedTasks);
+            let tasksContent = {};
+            for (let i = 0; i < loadedTasks.length; i++) {
+              tasksContent[loadedTasks[i].id.toString()] = {
+                  id: loadedTasks[i].id.toString(),
+                  name: loadedTasks[i].name,
+                  content: <TaskCard cardColor="#4F6C89" taskName={loadedTasks[i].name} date="18.04.2022"/>,
+                  show: true
+              }
+            }
+            const columnsContent =
+            {
+                'undone': {
+                    id: 'undone',
+                    cardIds: loadedTasks.filter(task => task.status === 'UNDONE').map(task => task.id.toString())
+                },
+                'inProgress': {
+                    id: 'inProgress',
+                    cardIds: loadedTasks.filter(task => task.status === 'DOING').map(task => task.id.toString())
+                },
+                'done': {
+                    id: 'done',
+                    cardIds: loadedTasks.filter(task => task.status === 'DONE').map(task => task.id.toString())
+                }
+            }
+
+            setTasks({
+                cards: tasksContent,
+                columns: columnsContent
+            });
+            console.log(tasks)
         }
 
-        const loadTasks = (tasks) => {
-            const loadedUndoneTasks = [];
-            const loadedInProgressTasks = [];
-            const loadedDoneTasks = [];
-            tasks.map((task) => {
-                if (task.status === 'UNDONE') {
-                    loadedUndoneTasks.push(task);
-                } else if (task.status === 'DOING') {
-                    loadedInProgressTasks.push(task);
-                } else if (task.status === 'DONE') {
-                    loadedDoneTasks.push(task);
-                }
-            });
-            setUndoneTasks(loadedUndoneTasks);
-            setInProgressTasks(loadedInProgressTasks);
-            setDoneTasks(loadedDoneTasks);
-        }
+        // const loadTasks = (tasks) => {
+        //     const loadedUndoneTasks = [];
+        //     const loadedInProgressTasks = [];
+        //     const loadedDoneTasks = [];
+        //     tasks.map((task) => {
+        //         if (task.status === 'UNDONE') {
+        //             loadedUndoneTasks.push(task);
+        //         } else if (task.status === 'DOING') {
+        //             loadedInProgressTasks.push(task);
+        //         } else if (task.status === 'DONE') {
+        //             loadedDoneTasks.push(task);
+        //         }
+        //     });
+        //     setUndoneTasks(loadedUndoneTasks);
+        //     setInProgressTasks(loadedInProgressTasks);
+        //     setDoneTasks(loadedDoneTasks);
+        // }
 
         const handleProject = (response) => {
             const projectName = response['name'];
@@ -74,7 +107,7 @@ function Project({t}) {
         }
 
         const fetchTasksRequest = {
-            url: `project/task/all/${projectId}/details`,
+            url: `/project/task/all/${projectId}/details`,
             headers: {
                 'Authorization': authCtx.requestToken
             }
@@ -91,74 +124,93 @@ function Project({t}) {
 
     }, [fetchTasks, fetchProject]);
 
-    const [initialState, setInitialState] = useState({
-        // Przy pobieraniu danych załadować tutaj taski
-        cards: {
-            card1: {
-                id: 'card1',
-                title: 'A',
-                content: <TaskCard cardColor="#4F6C89" taskName="Task A" date="18.04.2022"/>,
-                show: true
-            },
-            card2: {
-                id: 'card2',
-                title: 'B',
-                content: <TaskCard cardColor="#467AAE" taskName="Task B" taskType="inprogress" date="28.03.2022"/>,
-                show: true
-            },
-            card3:  {
-                id: 'card3',
-                title: 'C',
-                content: <TaskCard cardColor="#4F6C89" taskName="Task C" taskType="done" date="28.03.2022"/>,
-                show: true
-            },
-            card4:  {
-                id: 'card4',
-                title: 'D',
-                content: <TaskCard cardColor="#4F6C89" taskName="Task D" date="01.03.2022"/>,
-                show: true
-            },
-            card5: {
-                id: 'card5',
-                title: 'E',
-                content: <TaskCard cardColor="#4F6C89" taskName="Task E" taskType="done" date="14.03.2022"/>,
-                show: true
-            },
-            card6: {
-                id: 'card6',
-                title: 'F',
-                content: <TaskCard cardColor="#4F6C89" taskName="Task F" taskType="done" date="17.02.2022"/>,
-                show: true
-            },
-            card7: {
-                id: 'card7',
-                title: 'G',
-                content: <TaskCard cardColor="#4F6C89" taskName="Task G" date="11.05.2022"/>,
-                show: true
-            },
-            card8: {
-                id: 'card8',
-                title: 'H',
-                content: <TaskCard cardColor="#4F6C89" taskName="Task H" taskType="done" date="05.04.2022"/>,
-                show: true
-            }
-        },
-        // Wpisać do cardIds karty w zależności od ich stanu
-        columns: {
-            'undone': {
-                id: 'undone',
-                cardIds: ['card1', 'card4', 'card7']
-            },
-            'inprogress': {
-                id: 'inprogress',
-                cardIds: ['card2']
-            },
-            'done': {
-                id: 'done',
-                cardIds: ['card3', 'card5', 'card6', 'card8']
-            }
-        },
-    })
+    // let tasksContent = tasks.map((task) => ({
+    //     id: task.id,
+    //     content: <TaskCard cardColor="#4F6C89" taskName={task.title} date="18.04.2022"/>,
+    // }));
+    // let columns = {
+    //     'undone': {
+    //         id: 'undone',
+    //         cardIds: tasks.filter(task => task.status === 'UNDONE').map(task => task.id)
+    //     },
+    //     'inProgress': {
+    //         id: 'inProgress',
+    //         cardIds: tasks.filter(task => task.status === 'DOING').map(task => task.id)
+    //     },
+    //     'done': {
+    //         id: 'done',
+    //         cardIds: tasks.filter(task => task.status === 'DONE').map(task => task.id)
+    //     }
+    // };
+
+    // const [initialState, setInitialState] = useState({
+    //     // Przy pobieraniu danych załadować tutaj taski
+    //     cards: {
+    //         card1: {
+    //             id: 'card1',
+    //             title: 'A',
+    //             content: <TaskCard cardColor="#4F6C89" taskName="Task A" date="18.04.2022"/>,
+    //             show: true
+    //         },
+    //         card2: {
+    //             id: 'card2',
+    //             title: 'B',
+    //             content: <TaskCard cardColor="#467AAE" taskName="Task B" taskType="inProgress" date="28.03.2022"/>,
+    //             show: true
+    //         },
+    //         card3:  {
+    //             id: 'card3',
+    //             title: 'C',
+    //             content: <TaskCard cardColor="#4F6C89" taskName="Task C" taskType="done" date="28.03.2022"/>,
+    //             show: true
+    //         },
+    //         card4:  {
+    //             id: 'card4',
+    //             title: 'D',
+    //             content: <TaskCard cardColor="#4F6C89" taskName="Task D" date="01.03.2022"/>,
+    //             show: true
+    //         },
+    //         card5: {
+    //             id: 'card5',
+    //             title: 'E',
+    //             content: <TaskCard cardColor="#4F6C89" taskName="Task E" taskType="done" date="14.03.2022"/>,
+    //             show: true
+    //         },
+    //         card6: {
+    //             id: 'card6',
+    //             title: 'F',
+    //             content: <TaskCard cardColor="#4F6C89" taskName="Task F" taskType="done" date="17.02.2022"/>,
+    //             show: true
+    //         },
+    //         card7: {
+    //             id: 'card7',
+    //             title: 'G',
+    //             content: <TaskCard cardColor="#4F6C89" taskName="Task G" date="11.05.2022"/>,
+    //             show: true
+    //         },
+    //         card8: {
+    //             id: 'card8',
+    //             title: 'H',
+    //             content: <TaskCard cardColor="#4F6C89" taskName="Task H" taskType="done" date="05.04.2022"/>,
+    //             show: true
+    //         }
+    //     },
+    //     // Wpisać do cardIds karty w zależności od ich stanu
+    //     columns: {
+    //         'undone': {
+    //             id: 'undone',
+    //             cardIds: ['card1', 'card4', 'card7']
+    //         },
+    //         'inProgress': {
+    //             id: 'inProgress',
+    //             cardIds: ['card2']
+    //         },
+    //         'done': {
+    //             id: 'done',
+    //             cardIds: ['card3', 'card5', 'card6', 'card8']
+    //         }
+    //     },
+    // });
     
     const onDragEnd = result => {
         const {destination, source, draggableId, type} = result;
@@ -169,9 +221,9 @@ function Project({t}) {
         {
             return;
         }
-        const start = initialState.columns[source.droppableId];
-        const finish = initialState.columns[destination.droppableId];
-    
+        const start = tasks.columns[source.droppableId];
+        const finish = tasks.columns[destination.droppableId];
+
         if(start === finish){
             const newCardIds = Array.from(start.cardIds);
             newCardIds.splice(source.index, 1);
@@ -181,18 +233,18 @@ function Project({t}) {
                 cardIds: newCardIds
             };
             const newState = {
-                ...initialState,
+                ...tasks,
                 columns: {
-                    ...initialState.columns,
+                    ...tasks.columns,
                     [newColumn.id]: newColumn
                 }
             };
-            setInitialState(newState);
+            setTasks(newState);
             return;
         }
         const startCardIds = Array.from(start.cardIds);
         startCardIds.splice(source.index, 1);
-    
+
         const newStart = {
             ...start,
             cardIds: startCardIds
@@ -204,14 +256,14 @@ function Project({t}) {
             cardIds: finishCardIds
         };
         const newState = {
-            ...initialState,
+            ...tasks,
             columns: {
-                ...initialState.columns,
+                ...tasks.columns,
                 [newStart.id]: newStart,
                 [newFinish.id]: newFinish
             }
         };
-        setInitialState(newState);
+        setTasks(newState);
         // Stan taska możemy zmienić tutaj, nowy stan taska to destination.droppableId, a stary source.droppableId
     };
 
@@ -249,7 +301,7 @@ function Project({t}) {
                                 {provided => (
                                     <div {...provided.droppableProps} ref={provided.innerRef} style={{width: '100%', height: '100%'}}>
                                         <Stack direction="column" alignItems="center" spacing={1} sx={{ width: '140%'}}>
-                                        {initialState.columns['undone'].cardIds.map((card, sequence) => (
+                                        {tasks.columns['undone']?.cardIds.map((card, sequence) => (
                                             <Draggable draggableId={card} index={sequence} key={card}>
                                                 {(provided, snapshot) => (
                                                     <div
@@ -257,7 +309,7 @@ function Project({t}) {
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
                                                     >
-                                                        {initialState.cards[card].show&&<div style={{width: 450}}>{initialState.cards[card].content}</div>}
+                                                        {tasks.cards[card]?.show&&<div style={{width: 450}}>{tasks.cards[card]?.content}</div>}
                                                     </div>
                                                 )}
                                             </Draggable>
@@ -275,11 +327,11 @@ function Project({t}) {
                         <Typography variant="h4" fontFamily="Sora" style={{fontWeight: 'bold', textAlign: 'center', width: '80%'}}>{t('inprogress')}</Typography>
                     </Box>
                     <Box sx={{ width: '100%', height: 450, display: 'flex', borderLeft: '1px solid black'}}>
-                    <Droppable droppableId="inprogress" direction="vertical" type="cards">
+                    <Droppable droppableId="inProgress" direction="vertical" type="cards">
                                 {provided => (
                                     <div {...provided.droppableProps} ref={provided.innerRef} style={{width: '100%', height: '100%'}}>
                                         <Stack direction="column" alignItems="center" spacing={1} sx={{ width: '140%'}}>
-                                        {initialState.columns['inprogress'].cardIds.map((card, sequence) => (
+                                        {tasks.columns['inProgress']?.cardIds.map((card, sequence) => (
                                             <Draggable draggableId={card} index={sequence} key={card}>
                                                 {(provided, snapshot) => (
                                                     <div style={{}}
@@ -287,7 +339,7 @@ function Project({t}) {
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
                                                     >
-                                                        {initialState.cards[card].show&&<div style={{width: 450}}>{initialState.cards[card].content}</div>}
+                                                        {tasks.cards[card]?.show&&<div style={{width: 450}}>{tasks.cards[card].content}</div>}
                                                     </div>
                                                 )}
                                             </Draggable>
@@ -308,7 +360,7 @@ function Project({t}) {
                                 {provided => (
                                     <div {...provided.droppableProps} ref={provided.innerRef} style={{width: '100%', height: '100%'}}>
                                         <Stack direction="column" alignItems="center" spacing={1} sx={{ width: '140%'}}>
-                                        {initialState.columns['done'].cardIds.map((card, sequence) => (
+                                        {tasks.columns['done']?.cardIds.map((card, sequence) => (
                                             <Draggable draggableId={card} index={sequence} key={card}>
                                                 {(provided, snapshot) => (
                                                     <div style={{}}
@@ -316,7 +368,7 @@ function Project({t}) {
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
                                                     >
-                                                        {initialState.cards[card].show&&<div style={{width: 450}}>{initialState.cards[card].content}</div>}
+                                                        {tasks.cards[card]?.show&&<div style={{width: 450}}>{tasks.cards[card].content}</div>}
                                                     </div>
                                                 )}
                                             </Draggable>
