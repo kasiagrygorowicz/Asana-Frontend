@@ -11,24 +11,23 @@ const useFetch = () => {
         
         const APIAddress = REST_PATH + requestConfig.url;
         try {
-            const response = await fetch(APIAddress, {
+            const responseJson = await fetch(APIAddress, {
                 method: requestConfig.method ? requestConfig.method : 'GET',
                 headers: requestConfig.headers ? requestConfig.headers : { 'Content-Type': 'application/json' },
                 body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
             });
 
-            if (!response.ok) {
-                throw new Error(response.statusText);
+            if (!responseJson.ok) {
+              throw new Error(await responseJson.text())
             }
 
-            let data = await response.json();
+            let data = await responseJson.text();
             applyData(data);
         } catch (error) {
             setError(error.message || 'Something went wrong.');
         }
         setIsLoading(false);
     }, []);
-
 
 
     return {
