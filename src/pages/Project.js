@@ -23,15 +23,13 @@ import useFetch from "../hook/use-fetch";
 import AuthContext from "../store/auth-context";
 
 
-
+// TODO: dodać zapamiętywanie kolejności tasków
 function Project({t}) {
     const { areTasksLoading, tasksError, sendRequest: fetchTasks } = useFetch();
     const { isProjectLoading, projectError, sendRequest: fetchProject } = useFetch();
+    const { isChangeTaskStatusLoading, changeTaskStatusError, sendRequest: fetchChangeTaskStatus } = useFetch();
 
     const [ projectInfo, setProjectInfo ] = useState(null);
-    const [ undoneTasks, setUndoneTasks ] = useState([]);
-    const [ inProgressTasks, setInProgressTasks ] = useState([]);
-    const [ doneTasks, setDoneTasks ] = useState([]);
     const [ tasks, setTasks ] = useState({ cards: {}, columns: {} });
 
     let { projectId } = useParams();
@@ -49,8 +47,7 @@ function Project({t}) {
                     status: tasksObj[taskKey].status
                 });
             }
-            // loadTasks(loadedTasks);
-            // setTasks(loadedTasks);
+
             let tasksContent = {};
             for (let i = 0; i < loadedTasks.length; i++) {
               tasksContent[loadedTasks[i].id.toString()] = {
@@ -80,26 +77,7 @@ function Project({t}) {
                 cards: tasksContent,
                 columns: columnsContent
             });
-            console.log(tasks)
         }
-
-        // const loadTasks = (tasks) => {
-        //     const loadedUndoneTasks = [];
-        //     const loadedInProgressTasks = [];
-        //     const loadedDoneTasks = [];
-        //     tasks.map((task) => {
-        //         if (task.status === 'UNDONE') {
-        //             loadedUndoneTasks.push(task);
-        //         } else if (task.status === 'DOING') {
-        //             loadedInProgressTasks.push(task);
-        //         } else if (task.status === 'DONE') {
-        //             loadedDoneTasks.push(task);
-        //         }
-        //     });
-        //     setUndoneTasks(loadedUndoneTasks);
-        //     setInProgressTasks(loadedInProgressTasks);
-        //     setDoneTasks(loadedDoneTasks);
-        // }
 
         const handleProject = (response) => {
             const projectName = response['name'];
@@ -124,94 +102,6 @@ function Project({t}) {
 
     }, [fetchTasks, fetchProject]);
 
-    // let tasksContent = tasks.map((task) => ({
-    //     id: task.id,
-    //     content: <TaskCard cardColor="#4F6C89" taskName={task.title} date="18.04.2022"/>,
-    // }));
-    // let columns = {
-    //     'undone': {
-    //         id: 'undone',
-    //         cardIds: tasks.filter(task => task.status === 'UNDONE').map(task => task.id)
-    //     },
-    //     'inProgress': {
-    //         id: 'inProgress',
-    //         cardIds: tasks.filter(task => task.status === 'DOING').map(task => task.id)
-    //     },
-    //     'done': {
-    //         id: 'done',
-    //         cardIds: tasks.filter(task => task.status === 'DONE').map(task => task.id)
-    //     }
-    // };
-
-    // const [initialState, setInitialState] = useState({
-    //     // Przy pobieraniu danych załadować tutaj taski
-    //     cards: {
-    //         card1: {
-    //             id: 'card1',
-    //             title: 'A',
-    //             content: <TaskCard cardColor="#4F6C89" taskName="Task A" date="18.04.2022"/>,
-    //             show: true
-    //         },
-    //         card2: {
-    //             id: 'card2',
-    //             title: 'B',
-    //             content: <TaskCard cardColor="#467AAE" taskName="Task B" taskType="inProgress" date="28.03.2022"/>,
-    //             show: true
-    //         },
-    //         card3:  {
-    //             id: 'card3',
-    //             title: 'C',
-    //             content: <TaskCard cardColor="#4F6C89" taskName="Task C" taskType="done" date="28.03.2022"/>,
-    //             show: true
-    //         },
-    //         card4:  {
-    //             id: 'card4',
-    //             title: 'D',
-    //             content: <TaskCard cardColor="#4F6C89" taskName="Task D" date="01.03.2022"/>,
-    //             show: true
-    //         },
-    //         card5: {
-    //             id: 'card5',
-    //             title: 'E',
-    //             content: <TaskCard cardColor="#4F6C89" taskName="Task E" taskType="done" date="14.03.2022"/>,
-    //             show: true
-    //         },
-    //         card6: {
-    //             id: 'card6',
-    //             title: 'F',
-    //             content: <TaskCard cardColor="#4F6C89" taskName="Task F" taskType="done" date="17.02.2022"/>,
-    //             show: true
-    //         },
-    //         card7: {
-    //             id: 'card7',
-    //             title: 'G',
-    //             content: <TaskCard cardColor="#4F6C89" taskName="Task G" date="11.05.2022"/>,
-    //             show: true
-    //         },
-    //         card8: {
-    //             id: 'card8',
-    //             title: 'H',
-    //             content: <TaskCard cardColor="#4F6C89" taskName="Task H" taskType="done" date="05.04.2022"/>,
-    //             show: true
-    //         }
-    //     },
-    //     // Wpisać do cardIds karty w zależności od ich stanu
-    //     columns: {
-    //         'undone': {
-    //             id: 'undone',
-    //             cardIds: ['card1', 'card4', 'card7']
-    //         },
-    //         'inProgress': {
-    //             id: 'inProgress',
-    //             cardIds: ['card2']
-    //         },
-    //         'done': {
-    //             id: 'done',
-    //             cardIds: ['card3', 'card5', 'card6', 'card8']
-    //         }
-    //     },
-    // });
-    
     const onDragEnd = result => {
         const {destination, source, draggableId, type} = result;
         if(!destination) {
@@ -263,9 +153,35 @@ function Project({t}) {
                 [newFinish.id]: newFinish
             }
         };
-        setTasks(newState);
+        const taskUpdatedStatus = mapTaskStatus(destination.droppableId);
+        changeTaskStatus(draggableId, taskUpdatedStatus, newState);
         // Stan taska możemy zmienić tutaj, nowy stan taska to destination.droppableId, a stary source.droppableId
     };
+
+    const mapTaskStatus = (taskStatus) => {
+        if (taskStatus === 'inProgress') {
+            return 'DOING';
+        }
+        return taskStatus;
+    }
+
+    const changeTaskStatus = (taskId, taskUpdatedStatus, updatedTasksState) => {
+        const changeTaskStatusRequest = {
+            url: `/project/task/edit/status/${taskId}`,
+            method: 'PUT',
+            body: {
+                'updatedTask': taskUpdatedStatus
+            },
+            headers: {
+                'Authorization': authCtx.requestToken,
+                'Content-Type': 'application/json'
+            }
+        }
+        fetchChangeTaskStatus(changeTaskStatusRequest);
+        if (!changeTaskStatusError) {
+            setTasks(updatedTasksState);
+        }
+    }
 
     return (
         <Container maxWidth="x1">

@@ -18,7 +18,7 @@ const useFetch = () => {
             });
 
             if (!response.ok) {
-              throw new Error(await response.text())
+                throw new Error(await response.text())
             }
 
             let data = await response.json();
