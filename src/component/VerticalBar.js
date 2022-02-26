@@ -6,6 +6,7 @@ import {
 import {Link} from "react-router-dom";
 import ProjectCardSmall from "./ProjectCardSmall";
 import TeamCardSmall from "./TeamCardSmall";
+import UserTeams from "./UserTeams";
 
 function VerticalBar({t}) {
   return (
@@ -24,9 +25,7 @@ function VerticalBar({t}) {
         </Box>
         <Box sx={{ width: '90%', height: 0, borderBottom: '2px solid white', marginLeft: '5%'}}></Box>
         <Box sx={{ width: '70%', margin: '10%', marginLeft: '15%'}}>
-          <TeamCardSmall title="Team A"/>
-          <TeamCardSmall title="Team B"/>
-          <TeamCardSmall title="Team C"/>
+         <UserTeams/>
           <Link to="/addteam" style={{textDecoration: 'none'}}>
             <TeamCardSmall title={t('addteam')} type="add"/>
           </Link>

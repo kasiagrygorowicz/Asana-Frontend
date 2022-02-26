@@ -12,6 +12,7 @@ import useFetch from "../hook/use-fetch";
 import {useContext, useEffect, useState} from "react";
 import AuthContext from "../store/auth-context";
 import jwt_decode from "jwt-decode";
+import UserTeams from "../component/UserTeams";
 
 function Dashboard({t}) {
 
@@ -27,6 +28,7 @@ function Dashboard({t}) {
             <Box sx={{margin: 30}}>
                <UserProjects t={t}/>
             </Box>
+
             </Box>  
             <Box sx={{clear:'both'}}></Box>
         </Container>
