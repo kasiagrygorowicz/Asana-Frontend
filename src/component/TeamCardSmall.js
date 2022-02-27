@@ -5,7 +5,7 @@ import {
 } from "@material-ui/core";
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import AuthContext from "../store/auth-context";
 import useFetch from "../hook/use-fetch";
 
@@ -14,6 +14,7 @@ function TeamCardSmall(props) {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+    const navigate = useNavigate();
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
@@ -26,11 +27,7 @@ function TeamCardSmall(props) {
     const authCtx = useContext(AuthContext);
     const { isLoading, error, sendRequest: deleteTeamRequest } = useFetch();
 
-    const handleDeleteTeam = (response) => {
 
-
-
-    }
 
 
     const deleteTeamHandler=()=>{
@@ -45,6 +42,13 @@ function TeamCardSmall(props) {
                 'Content-Type': 'application/json'
 
             }
+        }
+
+        const handleDeleteTeam = (response) => {
+            alert("!")
+            navigate('/dashboard', { replace: true })
+
+
         }
 
         deleteTeamRequest(deleteTeamRequestContent, handleDeleteTeam);
@@ -88,13 +92,13 @@ function TeamCardSmall(props) {
                         transformOrigin={{horizontal: 'left', vertical: 'top'}}
                         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                     >
-                            <MenuItem component={Link} to={"/editproject/" + props.title}>
+                            <MenuItem component={Link} to={"/editteam/" + props.title}>
                             Edit
                             </MenuItem>
-                            <MenuItem component={Link} to={"/editproject/" + props.title}>
+                            <MenuItem component={Link} to={"/editteam/" + props.title}>
                                 Add new member
                             </MenuItem>
-                            <MenuItem component={Link} to={"/editproject/" + props.title} onClick={deleteTeamHandler}>
+                            <MenuItem onClick={deleteTeamHandler}>
                                 Delete
                             </MenuItem>
                     </Menu>

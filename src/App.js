@@ -20,6 +20,7 @@ import EditTeam from "./pages/EditTeam";
 import EditProject from "./pages/EditProject";
 import AuthContext from "./store/auth-context";
 import UserProfile from "./pages/UserProfile";
+import Team from "./pages/Team";
 
 function App() {
     const authCtx = useContext(AuthContext)
@@ -46,6 +47,8 @@ function App() {
                         <Route path="/editteam/:teamName" element= {<EditTeam t={t} />} />
                         <Route path="/editproject/:projectName" element= {<EditProject t={t} />} />
                         <Route path="/userprofile/:userName" element= {<UserProfile t={t} />} />
+
+                        <Route path="/team/:teamName" element= {<Team t={t} />} />
                     </>
                 )}
                 <Route path='*' element={<Navigate to="/" />} />

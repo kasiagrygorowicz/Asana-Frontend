@@ -27,11 +27,12 @@ function AddTeam({t}) {
 
     const submitHandler =(event)=>{
         event.preventDefault();
+        alert('elo')
         let name = teamNameRef.current.value
         let description = descriptionRef.value
 
         const addTeamHandler = (response) => {
-            const teamId = response['id']
+            const teamId = response['name']
             const teamURL = `/team/$teamId`
             navigate(teamURL,{replace:true})
         }
