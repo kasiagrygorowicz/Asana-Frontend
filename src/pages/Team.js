@@ -1,6 +1,9 @@
-const Team =()=>{
+import {useParams} from "react-router-dom";
+
+const Team =(props)=>{
+    let { teamName } = useParams();
 return <div>
-    elo
+    team -> {teamName}
 </div>
 
 }

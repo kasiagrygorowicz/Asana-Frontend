@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import {
     Typography,
-    Box, Menu, MenuItem
+    Box, Menu, MenuItem, ListItemIcon
 } from "@material-ui/core";
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -23,20 +23,17 @@ function TeamCardSmall(props) {
     };
 
 
-
     const authCtx = useContext(AuthContext);
-    const { isLoading, error, sendRequest: deleteTeamRequest } = useFetch();
+    const {isLoading, error, sendRequest: deleteTeamRequest} = useFetch();
 
 
-
-
-    const deleteTeamHandler=()=>{
+    const deleteTeamHandler = () => {
 
 
         const deleteTeamRequestContent = {
             url: `/team/delete/${props.id}`,
             method: "DELETE",
-            body :null,
+            body: null,
             headers: {
                 'Authorization': authCtx.requestToken,
                 'Content-Type': 'application/json'
@@ -46,7 +43,7 @@ function TeamCardSmall(props) {
 
         const handleDeleteTeam = (response) => {
             alert("!")
-            navigate('/dashboard', { replace: true })
+            navigate('/dashboard', {replace: true})
 
 
         }
@@ -65,8 +62,13 @@ function TeamCardSmall(props) {
             marginTop: 10
         }}>
             <Box sx={{width: '95%', height: 20, color: '#FFFFFF'}}>
-                <Box sx={{paddingLeft: 20, height: 25, paddingTop: 5}}>
-                    <Typography variant="h7" fontFamily="Sora"> {props.title} </Typography>
+                <Box
+                    sx={{paddingLeft: 20, height: 25, paddingTop: 5, display: 'flex', justifyContent: 'space-between'}}>
+
+                    <Box component={Link} to={"/team/" + props.title}
+                         sx={{textDecoration: 'none', outline: "none", color: "white", width: "100%"}}>
+                        <Typography variant="h7" fontFamily="Sora"> {props.title} </Typography>
+                    </Box>
                     {props.type == "add" &&
                         <AddCircleOutlineIcon sx={{display: "flex", float: "right"}}/>
 
@@ -92,15 +94,15 @@ function TeamCardSmall(props) {
                         transformOrigin={{horizontal: 'left', vertical: 'top'}}
                         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                     >
-                            <MenuItem component={Link} to={"/editteam/" + props.title}>
+                        <MenuItem component={Link} to={"/editteam/" + props.title}>
                             Edit
-                            </MenuItem>
-                            <MenuItem component={Link} to={"/editteam/" + props.title}>
-                                Add new member
-                            </MenuItem>
-                            <MenuItem onClick={deleteTeamHandler}>
-                                Delete
-                            </MenuItem>
+                        </MenuItem>
+                        <MenuItem component={Link} to={"/editteam/" + props.title}>
+                            Add new member
+                        </MenuItem>
+                        <MenuItem onClick={deleteTeamHandler}>
+                            Delete
+                        </MenuItem>
                     </Menu>
 
 
@@ -108,6 +110,7 @@ function TeamCardSmall(props) {
 
             </Box>
         </Box>
-);
+    );
 }
+
 export default TeamCardSmall;
