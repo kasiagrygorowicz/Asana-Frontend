@@ -34,10 +34,13 @@ const ProjectTasks = ({t, projectInfo}) => {
 
             let tasksContent = {};
             for (let i = 0; i < loadedTasks.length; i++) {
+                const taskStatus = loadedTasks[i].status;
+                const taskColor = getTaskColor(taskStatus);
+
                 tasksContent[loadedTasks[i].id.toString()] = {
                     id: loadedTasks[i].id.toString(),
                     name: loadedTasks[i].name,
-                    content: <TaskCard cardColor="#4F6C89" taskName={loadedTasks[i].name} date="18.04.2022"/>,
+                    content: <TaskCard cardColor={taskColor} taskName={loadedTasks[i].name} date="18.04.2022"/>,
                     show: true
                 }
             }
@@ -74,6 +77,14 @@ const ProjectTasks = ({t, projectInfo}) => {
 
     }, [fetchTasks]);
 
+    const getTaskColor = (taskStatus) => {
+        if (taskStatus === 'UNDONE' || taskStatus === 'DONE') {
+            return '#4F6C89';
+        } else {
+            return '#467AAE';
+        }
+    }
+
     const onDragEnd = result => {
         const {destination, source, draggableId, type} = result;
         if(!destination) {
@@ -85,6 +96,7 @@ const ProjectTasks = ({t, projectInfo}) => {
         }
         const start = tasks.columns[source.droppableId];
         const finish = tasks.columns[destination.droppableId];
+        const taskUpdatedStatus = mapTaskStatus(destination.droppableId);
 
         if(start === finish){
             const newCardIds = Array.from(start.cardIds);
@@ -117,6 +129,11 @@ const ProjectTasks = ({t, projectInfo}) => {
             ...finish,
             cardIds: finishCardIds
         };
+
+        const draggedTask = tasks.cards[draggableId];
+        const newTaskStatus = finish.id.toUpperCase();
+        draggedTask.content = <TaskCard cardColor={getTaskColor(newTaskStatus)} taskName={draggedTask.name} date="18.04.2022"/>;
+
         const newState = {
             ...tasks,
             columns: {
@@ -125,7 +142,7 @@ const ProjectTasks = ({t, projectInfo}) => {
                 [newFinish.id]: newFinish
             }
         };
-        const taskUpdatedStatus = mapTaskStatus(destination.droppableId);
+
         changeTaskStatus(draggableId, taskUpdatedStatus, newState);
         // Stan taska możemy zmienić tutaj, nowy stan taska to destination.droppableId, a stary source.droppableId
     };
