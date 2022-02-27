@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {
     Typography,
     Box, Menu, MenuItem
@@ -6,6 +6,8 @@ import {
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {Link} from "react-router-dom";
+import AuthContext from "../store/auth-context";
+import useFetch from "../hook/use-fetch";
 
 
 function TeamCardSmall(props) {
@@ -18,6 +20,37 @@ function TeamCardSmall(props) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+
+
+    const authCtx = useContext(AuthContext);
+    const { isLoading, error, sendRequest: deleteTeamRequest } = useFetch();
+
+    const handleDeleteTeam = (response) => {
+
+
+
+    }
+
+
+    const deleteTeamHandler=()=>{
+
+
+        const deleteTeamRequestContent = {
+            url: `/team/delete/${props.id}`,
+            method: "DELETE",
+            body :null,
+            headers: {
+                'Authorization': authCtx.requestToken,
+                'Content-Type': 'application/json'
+
+            }
+        }
+
+        deleteTeamRequest(deleteTeamRequestContent, handleDeleteTeam);
+
+    }
+
     return (
         <Box sx={{
             width: '100%',
@@ -61,7 +94,7 @@ function TeamCardSmall(props) {
                             <MenuItem component={Link} to={"/editproject/" + props.title}>
                                 Add new member
                             </MenuItem>
-                            <MenuItem component={Link} to={"/editproject/" + props.title}>
+                            <MenuItem component={Link} to={"/editproject/" + props.title} onClick={deleteTeamHandler}>
                                 Delete
                             </MenuItem>
                     </Menu>

@@ -43,7 +43,7 @@ const UserTeams =()=>{
 
         {
             userTeams.map((team)=>(
-                <TeamCardSmall title={team.name}/>
+                <TeamCardSmall title={team.name} id={team.id}/>
             ))
         }
 
