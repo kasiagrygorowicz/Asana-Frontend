@@ -33,7 +33,7 @@ const polish = {
     recent: 'Ostatnie projekty',
     done: 'Zrobione',
     undone: 'Nie zrobione',
-    inprogress: 'W trakcie',
+    inProgress: 'W trakcie',
     dueDate: 'Termin',
     project: 'Projekt',
     projects: 'Projekty',

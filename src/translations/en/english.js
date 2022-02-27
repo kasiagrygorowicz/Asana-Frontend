@@ -33,7 +33,7 @@ const english = {
     recent: 'Recent projects',
     done: 'Done',
     undone: 'Undone',
-    inprogress: 'In progress',
+    inProgress: 'In progress',
     dueDate: 'Due date',
     project: 'Project',
     projects: 'Projects',
