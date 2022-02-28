@@ -21,6 +21,7 @@ import EditProject from "./pages/EditProject";
 import AuthContext from "./store/auth-context";
 import UserProfile from "./pages/UserProfile";
 import Team from "./pages/Team";
+import AccountConfirmationPage from "./pages/AccountConfirmationPage";
 
 function App() {
     const authCtx = useContext(AuthContext)
@@ -34,8 +35,11 @@ function App() {
                 <Route path="/pricing" element={<Pricing t={t} />} />
                 <Route path="/about" element={<About t={t}/>} />
                 <Route path="/signup" element={<Signup t={t}/>}/>
+
+                <Route path="/confirm" element= {<AccountConfirmationPage t={t} />} />
                 {!authCtx.isLoggedIn &&
                     <Route path="/login" element={<Login t={t}/>}/>
+
                 }
                 {authCtx.isLoggedIn && (
                     <>
