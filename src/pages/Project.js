@@ -1,24 +1,14 @@
-import React, {useContext, useEffect, useReducer, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {
     Container,
-    Grid,
     Box,
     Typography
   } from "@material-ui/core";
 import Button from "@mui/material/Button";
-import Stack from '@mui/material/Stack';
 import VerticalBar from '../component/VerticalBar';
 import {Link, useParams} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import GridViewIcon from '@mui/icons-material/GridView';
-import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import TaskCard from '../component/TaskCard'
-import {
-    DragDropContext,
-    Droppable,
-    Draggable
-  } from 'react-beautiful-dnd';
 import useFetch from "../hook/use-fetch";
 import AuthContext from "../store/auth-context";
 import ProjectTasks from "../component/ProjectTasks";
