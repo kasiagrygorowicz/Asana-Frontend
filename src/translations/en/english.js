@@ -42,6 +42,7 @@ const english = {
     assigned: 'Assigned members',
     assignedAdd: 'Assign member',
     remove: 'Remove',
+    enterEmail: 'Enter email',
 
     signupPage : {
         username : 'Username',

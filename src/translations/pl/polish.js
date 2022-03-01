@@ -42,6 +42,8 @@ const polish = {
     assigned: 'Przypisani członkowie',
     assignedAdd: 'Przypisz członka',
     remove: 'Usuń',
+    enterEmail: 'Podaj email',
+
 
     signupPage : {
         username : 'Nazwa użytkownika',

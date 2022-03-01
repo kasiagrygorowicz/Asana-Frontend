@@ -6,6 +6,7 @@ import {
   } from "@material-ui/core";
 import Button from "@mui/material/Button";
 import VerticalBar from '../component/VerticalBar';
+import AddMemeber from "../component/AddMember";
 import {Link, useNavigate} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -92,12 +93,7 @@ function AddTeam({t}) {
                 <Member color="#FEB272" initials='MW' fullname="Michał Wójcik" email="example@mail.com"></Member>
                 <Member color='#6EA8FE' initials='KF' fullname="Kamil Frączek" email="example@mail.com"></Member>
             </Box>
-            <Button  variant="contained" size="large" sx={{ width: 265, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
-                <AddCircleOutlineIcon sx={{width: 32, height: 32, marginRight: 2}}/>
-                <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
-                {t('addmember')}
-                </Typography>
-            </Button>
+            <AddMemeber t={t}/>
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
