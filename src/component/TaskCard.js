@@ -25,13 +25,13 @@ function TaskCard(props) {
             <Stack direction="row">
                 <Box sx={{paddingLeft: 30, height: 25, paddingTop: 3, width: '90%'}}>
                 <Typography variant="h7" fontFamily="Sora">{t('dueDate')}: {props.date}</Typography>
-                {props.taskType != "done" && props.taskType != "inprogress" &&
+                {props.taskType != "DONE" && props.taskType != "DOING" &&
                     <CloseRoundedIcon sx={{display: "flex", float: "right", marginRight: 0.5, color: "#FF4153"}}/>
                 }
-                {props.taskType == "inprogress" &&
+                {props.taskType == "DOING" &&
                     <LoopIcon sx={{display: "flex", float: "right", marginRight: 0.5, color: "#FFD350"}}/>
                 }
-                {props.taskType == "done" &&
+                {props.taskType == "DONE" &&
                     <CheckCircleOutlineIcon sx={{display: "flex", float: "right", marginRight: 0.5, color: "#1ADC46"}}/>
                 }
                 </Box>

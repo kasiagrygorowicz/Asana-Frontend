@@ -33,7 +33,7 @@ const polish = {
     recent: 'Ostatnie projekty',
     done: 'Zrobione',
     undone: 'Nie zrobione',
-    inProgress: 'W trakcie',
+    doing: 'W trakcie',
     dueDate: 'Termin',
     project: 'Projekt',
     projects: 'Projekty',
@@ -42,6 +42,8 @@ const polish = {
     assigned: 'Przypisani członkowie',
     assignedAdd: 'Przypisz członka',
     remove: 'Usuń',
+    enterEmail: 'Podaj email',
+
 
     signupPage : {
         username : 'Nazwa użytkownika',

@@ -33,7 +33,7 @@ const english = {
     recent: 'Recent projects',
     done: 'Done',
     undone: 'Undone',
-    inProgress: 'In progress',
+    doing: 'In progress',
     dueDate: 'Due date',
     project: 'Project',
     projects: 'Projects',
@@ -42,6 +42,7 @@ const english = {
     assigned: 'Assigned members',
     assignedAdd: 'Assign member',
     remove: 'Remove',
+    enterEmail: 'Enter email',
 
     signupPage : {
         username : 'Username',

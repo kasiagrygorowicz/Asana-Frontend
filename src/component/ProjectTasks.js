@@ -1,8 +1,7 @@
 import GridViewIcon from "@mui/icons-material/GridView";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import {Box, Grid, Typography} from "@material-ui/core";
-import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
-import Stack from "@mui/material/Stack";
+import {Grid} from "@material-ui/core";
+import {DragDropContext} from "react-beautiful-dnd";
 import React, {useContext, useEffect, useState} from "react";
 import useFetch from "../hook/use-fetch";
 import {useParams} from "react-router-dom";
@@ -40,22 +39,22 @@ const ProjectTasks = ({t, projectInfo}) => {
                 tasksContent[loadedTasks[i].id.toString()] = {
                     id: loadedTasks[i].id.toString(),
                     name: loadedTasks[i].name,
-                    content: <TaskCard cardColor={taskColor} taskName={loadedTasks[i].name} date="18.04.2022"/>,
+                    content: <TaskCard cardColor={taskColor} taskName={loadedTasks[i].name} taskType={taskStatus} date="18.04.2022"/>,
                     show: true
                 }
             }
             const columnsContent =
                 {
-                    'undone': {
-                        id: 'undone',
+                    'UNDONE': {
+                        id: 'UNDONE',
                         cardIds: loadedTasks.filter(task => task.status === 'UNDONE').map(task => task.id.toString())
                     },
-                    'inProgress': {
-                        id: 'inProgress',
+                    'DOING': {
+                        id: 'DOING',
                         cardIds: loadedTasks.filter(task => task.status === 'DOING').map(task => task.id.toString())
                     },
-                    'done': {
-                        id: 'done',
+                    'DONE': {
+                        id: 'DONE',
                         cardIds: loadedTasks.filter(task => task.status === 'DONE').map(task => task.id.toString())
                     }
                 }
@@ -96,7 +95,7 @@ const ProjectTasks = ({t, projectInfo}) => {
         }
         const start = tasks.columns[source.droppableId];
         const finish = tasks.columns[destination.droppableId];
-        const taskUpdatedStatus = mapTaskStatus(destination.droppableId);
+        const taskUpdatedStatus = destination.droppableId;
 
         if(start === finish){
             const newCardIds = Array.from(start.cardIds);
@@ -130,10 +129,13 @@ const ProjectTasks = ({t, projectInfo}) => {
             cardIds: finishCardIds
         };
 
-        const draggedTask = tasks.cards[draggableId];
-        const newTaskStatus = finish.id.toUpperCase();
-        draggedTask.content = <TaskCard cardColor={getTaskColor(newTaskStatus)} taskName={draggedTask.name} date="18.04.2022"/>;
 
+        // Zmiana wyglądu taska
+        const draggedTask = tasks.cards[draggableId];
+        const newTaskStatus = finish.id;
+        draggedTask.content = <TaskCard cardColor={getTaskColor(newTaskStatus)} taskName={draggedTask.name} taskType={newTaskStatus} date="18.04.2022"/>;
+
+        // Aktualizacja stanu tasków
         const newState = {
             ...tasks,
             columns: {
@@ -144,15 +146,7 @@ const ProjectTasks = ({t, projectInfo}) => {
         };
 
         changeTaskStatus(draggableId, taskUpdatedStatus, newState);
-        // Stan taska możemy zmienić tutaj, nowy stan taska to destination.droppableId, a stary source.droppableId
     };
-
-    const mapTaskStatus = (taskStatus) => {
-        if (taskStatus === 'inProgress') {
-            return 'DOING';
-        }
-        return taskStatus;
-    }
 
     const changeTaskStatus = (taskId, taskUpdatedStatus, updatedTasksState) => {
         const changeTaskStatusRequest = {
@@ -178,9 +172,9 @@ const ProjectTasks = ({t, projectInfo}) => {
             <FormatListBulletedIcon fontSize='medium' sx={{float: 'right'}}/>
             <Grid container alignItems="stretch" justifyContent="center">
                 <DragDropContext onDragEnd={onDragEnd}>
-                    <TasksColumn t={t} tasks={tasks} type='undone'/>
-                    <TasksColumn t={t} tasks={tasks} type='inProgress'/>
-                    <TasksColumn t={t} tasks={tasks} type='done'/>
+                    <TasksColumn t={t} tasks={tasks} type='UNDONE'/>
+                    <TasksColumn t={t} tasks={tasks} type='DOING'/>
+                    <TasksColumn t={t} tasks={tasks} type='DONE'/>
                 </DragDropContext>
             </Grid>
         </>
