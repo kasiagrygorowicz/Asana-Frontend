@@ -50,7 +50,7 @@ function Project({t}) {
         }
 
         fetchProject(fetchProjectRequest, handleProject);
-    }, [fetchProject])
+    }, [fetchProject, projectId])
 
 
     return (

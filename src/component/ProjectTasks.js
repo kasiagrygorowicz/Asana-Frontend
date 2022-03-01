@@ -75,7 +75,7 @@ const ProjectTasks = ({t, projectInfo}) => {
 
         fetchTasks(fetchTasksRequest, handleProjectTasks);
 
-    }, [fetchTasks]);
+    }, [fetchTasks, projectId]);
 
     const getTaskColor = (taskStatus) => {
         if (taskStatus === 'UNDONE' || taskStatus === 'DONE') {

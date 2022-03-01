@@ -5,36 +5,11 @@ import useFetch from "../hook/use-fetch";
 import {useContext, useEffect, useState} from "react";
 import AuthContext from "../store/auth-context";
 import jwt_decode from "jwt-decode";
+import useUserProjects from "../hook/use-projects";
 
 const UserProjects = ({t}) => {
-    const { isLoading, error, sendRequest: fetchUserProjects } = useFetch();
-    const [ userProjects, setUserProjects ] = useState([]);
-    const authCtx = useContext(AuthContext);
 
-    useEffect(() => {
-        const handleGetUserProjects = (projectsObj) => {
-            const loadedUserProjects = [];
-            for (const projectKey in projectsObj) {
-                loadedUserProjects.push({
-                    id: projectsObj[projectKey].id,
-                    name: projectsObj[projectKey].name,
-                    description: projectsObj[projectKey].description
-                });
-            }
-            setUserProjects(loadedUserProjects);
-        }
-
-        const userId = jwt_decode(authCtx.authToken).id;
-        const urlRequest = `/project/user/${userId}`;
-        const fetchUserProjectsRequest = {
-            url: urlRequest,
-            headers: {
-                'Authorization': authCtx.requestToken
-            }
-        };
-
-        fetchUserProjects(fetchUserProjectsRequest, handleGetUserProjects);
-    }, [fetchUserProjects]);
+    const { isLoading, error, userProjects, setUserProjects } = useUserProjects();
 
     let projectsToDisplay = userProjects.map((project) => (
         <Grid item xs={3}>

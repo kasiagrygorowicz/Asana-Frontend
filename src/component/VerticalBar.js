@@ -1,12 +1,18 @@
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
-  Typography,
-  Box,
+    Typography,
+    Box, Grid,
 } from "@material-ui/core";
 import {Link} from "react-router-dom";
 import ProjectCardSmall from "./ProjectCardSmall";
 import TeamCardSmall from "./TeamCardSmall";
 import UserTeams from "./UserTeams";
+import useFetch from "../hook/use-fetch";
+import AuthContext from "../store/auth-context";
+import jwt_decode from "jwt-decode";
+import useUserProjects from "../hook/use-projects";
+import ProjectCard from "./ProjectCard";
+import UserProjectsBar from "./UserProjectsBar";
 
 function VerticalBar({t}) {
   return (
@@ -37,18 +43,10 @@ function VerticalBar({t}) {
         </Box>
         <Box sx={{ width: '90%', height: 0, borderBottom: '2px solid white', marginLeft: '5%'}}></Box>
         <Box sx={{ width: '70%', margin: '10%', marginLeft: '15%'}}>
-          <Link to="/project/Project A" style={{textDecoration: 'none'}}>
-          <ProjectCardSmall title="Project A"/>
-          </Link>
-          <Link to="/project/Project B" style={{textDecoration: 'none'}}>
-          <ProjectCardSmall title="Project B"/>
-          </Link>
-          <Link to="/project/Project C" style={{textDecoration: 'none'}}>
-          <ProjectCardSmall title="Project C"/>
-          </Link>
-          <Link to="/addproject" style={{textDecoration: 'none'}}>
-            <ProjectCardSmall title={t('addproject')} type="add"/>
-          </Link>
+          <UserProjectsBar />
+            <Link to="/addproject" style={{textDecoration: 'none'}}>
+                <ProjectCardSmall title={t('addproject')} type="add"/>
+            </Link>
         </Box>
       </Box>
   );
