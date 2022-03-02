@@ -43,6 +43,8 @@ const polish = {
     assignedAdd: 'Przypisz członka',
     remove: 'Usuń',
     enterEmail: 'Podaj email',
+    delete: 'Usuń',
+    startDate: 'Początkowy termin',
 
 
     signupPage : {

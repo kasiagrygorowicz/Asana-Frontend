@@ -43,6 +43,8 @@ const english = {
     assignedAdd: 'Assign member',
     remove: 'Remove',
     enterEmail: 'Enter email',
+    delete: 'Delete',
+    startDate: 'Start date',
 
     signupPage : {
         username : 'Username',
