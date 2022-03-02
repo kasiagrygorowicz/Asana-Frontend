@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import {
     Typography,
-    Box, Menu, MenuItem, ListItemIcon
+    Box, Menu, MenuItem
 } from "@material-ui/core";
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -65,13 +65,11 @@ function TeamCardSmall(props) {
                 <Box
                     sx={{paddingLeft: 20, height: 25, paddingTop: 5, display: 'flex', justifyContent: 'space-between'}}>
 
-                    <Box component={Link} to={"/team/" + props.title}
-                         sx={{textDecoration: 'none', outline: "none", color: "white", width: "100%"}}>
+                    <Box sx={{textDecoration: 'none', outline: "none", color: "white", width: "100%"}}>
                         <Typography variant="h7" fontFamily="Sora"> {props.title} </Typography>
                     </Box>
                     {props.type == "add" &&
                         <AddCircleOutlineIcon sx={{display: "flex", float: "right"}}/>
-
                     }
 
                     {props.type !== "add" &&

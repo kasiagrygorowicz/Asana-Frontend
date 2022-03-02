@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from "react";
 import AuthContext from "../store/auth-context";
 import TeamCardSmall from "./TeamCardSmall";
 import jwt_decode from "jwt-decode";
-import {Link} from "@material-ui/core";
+import {Link} from "react-router-dom";
 
 const UserTeams =()=>{
     const { isLoading, error, sendRequest: fetchUserTeams } = useFetch();
@@ -40,20 +40,13 @@ const UserTeams =()=>{
 
 
 
-    return <div>
-
-        {
-            userTeams.map((team)=>(
-                // <Link to={"/project/Project B"} style={{textDecoration: 'none'}}>
+    return (
+        userTeams.map((team)=>(
+            <Link to={`/team/${team.id}`} style={{textDecoration: 'none'}}>
                 <TeamCardSmall title={team.name} id={team.id}/>
-                // </Link>
-            ))
-        }
-
-
-    </div>
-
-
+            </Link>
+        ))
+    );
 }
 
 
