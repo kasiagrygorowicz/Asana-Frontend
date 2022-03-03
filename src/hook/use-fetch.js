@@ -18,10 +18,11 @@ const useFetch = () => {
             });
 
             if (!response.ok) {
-                throw new Error(await response.text())
+                throw new Error(await response.text());
             }
 
-            let data = await response.json();
+            const responseText = await response.text();
+            let data = responseText === "" ? {} : JSON.parse(responseText);
             applyData(data);
         } catch (error) {
             setError(error.message || 'Something went wrong.');
