@@ -14,10 +14,15 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 import React from 'react';
 import { color } from "@mui/system";
+import AuthContext from "../store/auth-context";
+import useFetch from "../hook/use-fetch";
+import {useParams} from "react-router-dom";
 
-export default function TaskPopUp() {
+export default function TaskPopUp({taskId}) {
+
     const t = useTranslation()[0]
     const [value, setValue] = React.useState(new Date('2022-03-04T21:11:54'));
+    const task = taskId;
     return (
         <Container maxWidth='xl'>
     <Box sx={{ width: '70%', height: 80, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>

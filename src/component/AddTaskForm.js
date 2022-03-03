@@ -35,6 +35,7 @@ function AddTaskForm({t}) {
     const { isLoading, error, sendRequest: addTaskRequest } = useFetch();
     const { areProjectsLoading, projectsError, sendRequest: fetchUserProjects } = useFetch();
     const [ userProjects, setUserProjects ] = useState([]);
+    const [ projectValue, setProjectValue ] = useState(1);
     const navigate = useNavigate();
     const authCtx = useContext(AuthContext);
 
@@ -59,29 +60,28 @@ function AddTaskForm({t}) {
         fetchUserProjects(fetchUserProjectsRequest, handleGetUserProjects);
     }, [fetchUserProjects]);
 
+    const handleChange = (e) => setProjectValue(e.target.value);
+
     const submitHandler = (event) => {
         event.preventDefault();
         const enteredTaskName = taskNameInput.current.value;
-        const enteredDueDate = dueDateInput.value;
-        // const projectId = project.id;
+        const projectId = projectValue;
+        const enteredDueDate = dueDateInput.current.value;
         const enteredTaskDescription = descriptionInput.current.value;
+        // alert(enteredDueDate)
 
-        // const handleAddTask = (response) => {
-        //     const projectId = response['projectId'];
-        //     const createdProjectAddress = `/project/${projectId}`;
-        //     alert(projectId);
-        //     navigate(createdProjectAddress, { replace: true })
-        // }
+        const idP = projectValue;
+        const createdProjectAddress = `/project/${idP}`;
 
         const addTaskRequestContent = {
             url: "/project/task/add",
             method: "POST",
             body: {
-                'projectId': 1,
+                'projectId': projectId,
                 'name': enteredTaskName,
                 'description': enteredTaskDescription,
                 'startDate': "2012-04-23T18:25:43.511Z",
-                "deadLine" : "2012-08-23T18:25:43.511Z",
+                "deadLine" : "2022-03-24T18:25:43.511Z",
                 "priority" : "MEDIUM",
                 "status": "UNDONE"
             },
@@ -91,7 +91,7 @@ function AddTaskForm({t}) {
             }
         };
 
-        addTaskRequest(addTaskRequestContent, navigate(-1));
+        addTaskRequest(addTaskRequestContent, navigate(createdProjectAddress, { replace: true }));
     }
 
     let projectsToDisplay = userProjects.map((project) => (
@@ -126,7 +126,7 @@ function AddTaskForm({t}) {
             </Box>
             <Box sx={{background: '#4786C6', borderRadius: 30, width: '20%',height: 60, alignItems: 'center', float: 'left', margin: 10, display: 'flex'}}>
             <FormControl style={{marginLeft: '5%', width: '90%', background: '#4786C6', borderRadius: 30, disableUnderline: 'true'}}>
-            <Select disableUnderline={true} defaultValue={1} style={{color: 'white'}} className={classes.select} inputProps={{
+            <Select onChange={handleChange} disableUnderline={true} defaultValue={1} style={{color: 'white'}} className={classes.select} inputProps={{
                 classes: {
                     icon: classes.icon,
                     root: classes.root,

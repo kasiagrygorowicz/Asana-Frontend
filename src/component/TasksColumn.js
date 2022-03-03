@@ -56,6 +56,7 @@ const TasksColumn = ({t, tasks, type}) => {
                             <Stack direction="column" alignItems="center" spacing={1} sx={{width: '100%'}}>
                             <div>
                                 {tasks.columns[type]?.cardIds.map((card, sequence) => (
+                                    <div>
                                     <Draggable draggableId={card} index={sequence} key={card}>
                                         {(provided, snapshot) => (
                                             <div
@@ -69,28 +70,29 @@ const TasksColumn = ({t, tasks, type}) => {
                                             </div>
                                         )}
                                     </Draggable>
+                                    <Modal
+                                    aria-labelledby="transition-modal-title"
+                                    aria-describedby="transition-modal-description"
+                                    className={classes.modal}
+                                    open={open}
+                                    onClose={handleClose}
+                                    closeAfterTransition
+                                    BackdropComponent={Backdrop}
+                                    BackdropProps={{
+                                    timeout: 500,
+                                    }}
+                                    >
+                                    <Fade in={open}>
+                                    <div className={classes.paper}>
+                                    <TaskPopUp taskId={card}/>
+                                    </div>
+                                    </Fade>
+                                    </Modal>
+                                </div>
                                 ))}
                                 {provided.placeholder}
                                 </div>
                             </Stack>
-                            <Modal
-                                aria-labelledby="transition-modal-title"
-                                aria-describedby="transition-modal-description"
-                                className={classes.modal}
-                                open={open}
-                                onClose={handleClose}
-                                closeAfterTransition
-                                BackdropComponent={Backdrop}
-                                BackdropProps={{
-                                timeout: 500,
-                                }}
-                                >
-                                <Fade in={open}>
-                                <div className={classes.paper}>
-                                    <TaskPopUp />
-                                </div>
-                                </Fade>
-                                </Modal>
                         </div>
                     )}
                 </Droppable>
