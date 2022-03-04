@@ -3,13 +3,17 @@ import Typography from "@mui/material/Typography";
 import Input from "@mui/material/Input";
 import Button from "@mui/material/Button";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import {useContext, useEffect, useState, useRef} from "react";
-import jwt_decode from "jwt-decode";
-import { makeStyles } from '@material-ui/core/styles';
-import React from 'react';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import useFetch from "../hook/use-fetch";
+import {useContext, useEffect, useRef, useState} from "react";
+import {useNavigate} from "react-router-dom";
+import AuthContext from "../store/auth-context";
+import jwt_decode from "jwt-decode"
+import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import { Alarm } from "@mui/icons-material";
 
 
 
@@ -28,9 +32,14 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-export default function AddMemeber({t}) {
+function AddMemeber({t, membersRef}) {
 
-    const emailRef = useRef();
+    const emailInput = useRef();
+    const [ users, setUsers ] = useState([]);
+    const [ searchingUsers, setSearchingUsers] = useState([]);
+    const navigate = useNavigate();
+    const authCtx = useContext(AuthContext);
+    const { isMembersLoading, membersError, sendRequest: fetchMembers } = useFetch();
 
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
@@ -41,7 +50,65 @@ export default function AddMemeber({t}) {
         setOpen(false);
     }
 
-    const users = ["kamx9", "kasia@gmail.com", "wow.fwerfe", "rwe/@dgreag.pl", "122345543.e213"];
+    
+    
+    useEffect(() => {
+        const handleGetUsers = (usersObj) => {
+            const loadedUsers = [];
+            for (const usersKey in usersObj) {
+                loadedUsers.push({ 
+                    id: usersObj[usersKey].id, 
+                    name: usersObj[usersKey].name,
+                    email: usersObj[usersKey].email });
+            }
+            setUsers(loadedUsers);
+        }
+
+        const userId = jwt_decode(authCtx.authToken).id;
+        const urlRequest = `/user/all`;
+        const fetchUsersRequest = {
+            url: urlRequest,
+            headers: {
+                'Authorization': authCtx.requestToken
+            }
+        };
+
+        fetchMembers(fetchUsersRequest, handleGetUsers);
+        alert(users.length);
+    }, [fetchMembers]);
+
+    
+    const searchingHandler = () =>{
+        let searchingEmail = emailInput.current.value;
+        let tmp = [];
+        
+        
+
+        for(let i = 0; i < users.length; i++){
+            if(users[i].email.indexOf(searchingEmail) !== -1){
+                tmp.push(users[i])
+            }
+        }
+
+        tmp.sort(function(a, b){
+            if(a.email < b.email) { return -1; }
+            if(a.email > b.email) { return 1; }
+            return 0;
+        })
+
+        let x = 5
+        if(tmp.length <= 5){
+            x = tmp.length
+        }
+
+        setSearchingUsers([])
+        for(let i = 0; i < x; i++){
+            searchingUsers.push(tmp[i]);
+        }
+        alert(searchingUsers.length)
+    };
+
+
 
     return (
         <div>
@@ -66,15 +133,40 @@ export default function AddMemeber({t}) {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                    <Box sx={{ width: '100%', height: 50, alignItems: 'center'}}>
+                    <Box sx={{ width: '100%', height: '50', alignItems: 'center'}}>
                         <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '100%'}}>{t('addmember')}</Typography>
                     </Box>
-                    <Box sx={{ width: 400, height: 60, background: '#ABB5BE', borderRadius: '30px', display: 'flex' }}>
-                        <Input inputRef={emailRef} name="name" type="name" placeholder={t('enterEmail')} disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '100%'}}></Input>
+                    
+                    <Box sx={{ width: 300, height: 60, background: '#ABB5BE', borderRadius: '30px', display: 'flex' , float: 'left'}}>
+                        <Input inputRef={emailInput} name="name" type="name" placeholder={t('enterEmail')} disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '100%'}}></Input>
                     </Box>
-                    <Box sx={{clear: 'both', height: 20}}></Box>
-                    <Box sx={{ width: '100%', height: 300, alignItems: 'center',background: '#CED4DA', borderRadius: '30px', display: 'flex' }}>
+                    
+                    <Box sx={{ width: 5, height: 60, display: 'flex' , float: 'left'}}>
+                    </Box>
 
+                    <Button  onClick={() => searchingHandler()}  variant="contained" size="large" sx={{ width: 140, height: 60, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
+                        <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
+                            {t('search')}
+                        </Typography>
+                    </Button>
+
+                    <Box sx={{clear: 'both', height: 20}}></Box>
+                    <Box sx={{ width: 400, height: '100%', alignItems: 'center',background: '#CED4DA', borderRadius: '30px'}}>
+                    {searchingUsers.map((user) => (
+                        <><Box sx={{ width: '100%', height: 20, borderRadius: '30px', display: 'flex', float: 'left', marginLeft: 1 }}>
+                            <Typography style={{ fontSize: 24, alignSelf: 'top' }}>
+                                {user.email}
+                            </Typography>
+                            <Button onClick={() => membersRef.push(user.id)} variant="contained" size="large" sx={{ width: 40, height: 30, borderRadius: 30, textTransform: 'none', }}>
+                                <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
+                                    +
+                                </Typography>
+                            </Button>
+                        </Box>
+                        <Box sx={{ width: '100%', height: 30, display: 'flex', float: 'left' }}>
+                        </Box></>
+                    ))}
+                        
                     </Box>
                     </div>
                 </Fade>
@@ -83,3 +175,4 @@ export default function AddMemeber({t}) {
     );
 }
 
+export default AddMemeber;

@@ -11,6 +11,7 @@ const english = {
     company : '@2022 Warsaw University of Technology',
     terms : 'Terms and Privacy',
     language: 'English',
+    search: 'Search',
 
     dashboardtitle: 'Your projects',
     addtask: 'Add task',

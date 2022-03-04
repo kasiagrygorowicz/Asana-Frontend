@@ -19,6 +19,7 @@ function AddTeam({t}) {
 
     const teamNameRef = useRef();
     const descriptionRef = useRef();
+    const membersRef = useRef([]);
     const navigate = useNavigate();
     const { isLoading, error, sendRequest: addTeamRequest } = useFetch();
     const authCtx = useContext(AuthContext);
@@ -93,7 +94,7 @@ function AddTeam({t}) {
                 <Member color="#FEB272" initials='MW' fullname="Michał Wójcik" email="example@mail.com"></Member>
                 <Member color='#6EA8FE' initials='KF' fullname="Kamil Frączek" email="example@mail.com"></Member>
             </Box>
-            <AddMemeber t={t}/>
+            <AddMemeber t={t} membersRef={membersRef}/>
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>

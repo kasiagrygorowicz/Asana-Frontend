@@ -11,6 +11,7 @@ const polish = {
     company :'@2022 Politechnika Warszawska',
     terms : 'Warunki i polityka prywatność',
     language: 'Polski',
+    search: 'Szukaj',
 
     dashboardtitle: 'Twoje projekty',
     addtask: 'Dodaj zadanie',
