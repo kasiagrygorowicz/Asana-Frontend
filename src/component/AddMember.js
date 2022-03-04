@@ -101,10 +101,13 @@ function AddMemeber({t, membersRef}) {
             x = tmp.length
         }
 
-        setSearchingUsers([])
+        while(searchingUsers.length > 0) {
+            searchingUsers.pop();
+        }
         for(let i = 0; i < x; i++){
             searchingUsers.push(tmp[i]);
         }
+        setSearchingUsers(searchingUsers);
         alert(searchingUsers.length)
     };
 
@@ -153,7 +156,7 @@ function AddMemeber({t, membersRef}) {
                     <Box sx={{clear: 'both', height: 20}}></Box>
                     <Box sx={{ width: 400, height: '100%', alignItems: 'center',background: '#CED4DA', borderRadius: '30px'}}>
                     {searchingUsers.map((user) => (
-                        <><Box sx={{ width: '100%', height: 20, borderRadius: '30px', display: 'flex', float: 'left', marginLeft: 1 }}>
+                        <><Box sx={{ width: '100%', height: 20, borderRadius: '30px', display: 'block', float: 'left', marginLeft: 1 }}>
                             <Typography style={{ fontSize: 24, alignSelf: 'top' }}>
                                 {user.email}
                             </Typography>
