@@ -37,6 +37,7 @@ function AddMemeber({t, membersRef}) {
     const emailInput = useRef();
     const [ users, setUsers ] = useState([]);
     const [ searchingUsers, setSearchingUsers] = useState([]);
+    const [ updateKey, setUpdateKey] = useState(Math.random());
     const navigate = useNavigate();
     const authCtx = useContext(AuthContext);
     const { isMembersLoading, membersError, sendRequest: fetchMembers } = useFetch();
@@ -74,7 +75,6 @@ function AddMemeber({t, membersRef}) {
         };
 
         fetchMembers(fetchUsersRequest, handleGetUsers);
-        alert(users.length);
     }, [fetchMembers]);
 
     
@@ -108,7 +108,7 @@ function AddMemeber({t, membersRef}) {
             searchingUsers.push(tmp[i]);
         }
         setSearchingUsers(searchingUsers);
-        alert(searchingUsers.length)
+        setUpdateKey(Math.random);
     };
 
 
@@ -154,13 +154,13 @@ function AddMemeber({t, membersRef}) {
                     </Button>
 
                     <Box sx={{clear: 'both', height: 20}}></Box>
-                    <Box sx={{ width: 400, height: '100%', alignItems: 'center',background: '#CED4DA', borderRadius: '30px'}}>
+                    <Box sx={{ width: 400, height: '100%', alignItems: 'center',background: '#CED4DA', borderRadius: '30px'}} key={updateKey}>
                     {searchingUsers.map((user) => (
                         <><Box sx={{ width: '100%', height: 20, borderRadius: '30px', display: 'block', float: 'left', marginLeft: 1 }}>
-                            <Typography style={{ fontSize: 24, alignSelf: 'top' }}>
+                            <Typography style={{ fontSize: 24, alignSelf: 'top', float: 'left'}}>
                                 {user.email}
                             </Typography>
-                            <Button onClick={() => membersRef.push(user.id)} variant="contained" size="large" sx={{ width: 40, height: 30, borderRadius: 30, textTransform: 'none', }}>
+                            <Button onClick={() => membersRef.push(user.id)} variant="contained" size="large" sx={{ width: 40, height: 30, borderRadius: 30, textTransform: 'none', float: 'left', position: 'relative', left: 125 }}>
                                 <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
                                     +
                                 </Typography>
