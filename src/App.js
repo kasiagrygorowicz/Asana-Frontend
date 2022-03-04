@@ -52,7 +52,7 @@ function App() {
                         <Route path="/editproject/:projectName" element= {<EditProject t={t} />} />
                         <Route path="/userprofile/:userName" element= {<UserProfile t={t} />} />
 
-                        <Route path="/team/:teamName" element= {<Team t={t} />} />
+                        <Route path="/team/:teamId" element= {<Team t={t} />} />
                     </>
                 )}
                 <Route path='*' element={<Navigate to="/" />} />

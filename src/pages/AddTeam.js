@@ -29,7 +29,6 @@ function AddTeam({t}) {
 
     const submitHandler =(event)=>{
         event.preventDefault();
-        alert('elo')
         let name = teamNameRef.current.value
         let description = descriptionRef.value
 
@@ -44,6 +43,7 @@ function AddTeam({t}) {
             method: "POST",
             body: {
                 'name': name,
+                // 'description': description
 
             },
             headers: {

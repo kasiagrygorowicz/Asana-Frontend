@@ -1,4 +1,4 @@
-import React, {useContext, useState}  from 'react'
+import React, {useContext, useEffect, useState}  from 'react'
 import {
     Container,
     Box,
@@ -19,22 +19,38 @@ import AuthContext from "../store/auth-context";
 import useFetch from "../hook/use-fetch";
 
 
-const Team = ({t, props})=>{
+function Team({t}) {
+    const { isTeamLoading, isTeamError, sendRequest: fetchTeam } = useFetch();
+    const [ teamInfo, setTeamInfo ] = useState(null);
+    const { teamId } = useParams();
+    const authCtx = useContext(AuthContext);
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const navigate = useNavigate();
+
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = () => {
         setAnchorEl(null);
     };
-    const { teamId } = useParams();
 
-    const authCtx = useContext(AuthContext);
+    useEffect(() => {
+        const handleTeam = (response) => {
+            setTeamInfo(response);
+        }
+        const fetchTeamRequest = {
+            url: `/team/${teamId}`,
+            headers: {
+                'Authorization': authCtx.requestToken
+            }
+        }
+
+        fetchTeam(fetchTeamRequest, handleTeam);
+    }, [fetchTeam, teamId])
+
     const {isLoading, error, sendRequest: deleteTeamRequest} = useFetch();
-
     const deleteTeamHandler = () => {
 
         const deleteTeamRequestContent = {
@@ -49,10 +65,7 @@ const Team = ({t, props})=>{
         }
 
         const handleDeleteTeam = (response) => {
-            alert("!")
             navigate('/dashboard', {replace: true})
-
-
         }
 
         deleteTeamRequest(deleteTeamRequestContent, handleDeleteTeam);
@@ -66,7 +79,7 @@ const Team = ({t, props})=>{
                 <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>
             </Link>
             <Box sx={{ width: '95%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
-                <Typography variant="h3" fontFamily="Sora">Team A</Typography>
+                <Typography variant="h3" fontFamily="Sora">{teamInfo?.name}</Typography>
             </Box>
 
             <Box>
