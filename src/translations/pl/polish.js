@@ -46,6 +46,9 @@ const polish = {
     enterEmail: 'Podaj email',
     delete: 'Usuń',
     startDate: 'Początkowy termin',
+    time: 'Czas',
+    setTime: 'Ustaw czas',
+    reset: 'Resetuj',
 
 
     signupPage : {

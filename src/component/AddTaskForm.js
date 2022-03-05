@@ -67,8 +67,7 @@ function AddTaskForm({t}) {
         const enteredTaskDescription = descriptionInput.current.value;
         // alert(enteredDueDate)
 
-        const idP = projectValue;
-        const createdProjectAddress = `/project/${idP}`;
+        const createdProjectAddress = `/project/${projectId}`;
 
         const addTaskRequestContent = {
             url: "/project/task/add",

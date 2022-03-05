@@ -46,6 +46,9 @@ const english = {
     enterEmail: 'Enter email',
     delete: 'Delete',
     startDate: 'Start date',
+    time: 'Time',
+    setTime: 'Set time',
+    reset: 'Reset',
 
     signupPage : {
         username : 'Username',

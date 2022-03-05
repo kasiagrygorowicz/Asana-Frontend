@@ -12,6 +12,8 @@ import {useContext, useEffect, useState, useRef} from "react";
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
+import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
+import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import React from 'react';
 import { color } from "@mui/system";
 import useFetch from "../hook/use-fetch";
@@ -33,6 +35,33 @@ export default function TaskPopUp({taskId}) {
         {t('delete')}
         </Typography>
     </Button>
+    <Box sx={{clear: 'both', height: 10}}></Box>
+    <Stack
+    direction="row"
+    justifyContent="flex-start"
+    alignItems="flex-start"
+    spacing={0}
+    >
+    <Box sx={{ width: '20%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
+        <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%'}}>{t('time')}:</Typography>
+    </Box>
+    <Box sx={{ width: '25%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
+        <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%', paddingLeft: '10%'}}>00:00:00</Typography>
+        <PlayArrowRoundedIcon fontSize='large' sx={{paddingRight: '5%', alignSelf: 'right'}}/>
+    </Box>
+    <Box sx={{float: 'left', width: 10}}></Box>
+    <Button variant="contained" size="large" sx={{ width: 120, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
+        <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
+        {t('reset')}
+        </Typography>
+    </Button>
+    <Box sx={{float: 'left', width: 20}}></Box>
+    <Button variant="contained" size="large" sx={{ width: 150, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
+        <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
+        {t('setTime')}
+        </Typography>
+    </Button>
+    </Stack>
     <Box sx={{clear: 'both', height: 10}}></Box>
     <Stack
     direction="row"
