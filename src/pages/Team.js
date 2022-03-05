@@ -1,21 +1,13 @@
-import React, {useContext, useEffect, useState}  from 'react'
-import {
-    Container,
-    Box,
-    Typography,
-    Grid,
-    Menu,
-    MenuItem
-  } from "@material-ui/core";
+import React, {useEffect, useState} from 'react'
+import {Box, Container, Grid, Menu, MenuItem, Typography} from "@material-ui/core";
 import Button from "@mui/material/Button";
 import VerticalBar from '../component/VerticalBar';
-import {Link, useParams, useNavigate} from "react-router-dom";
+import {Link, useNavigate, useParams} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Member from '../component/Member';
 import ProjectCard from '../component/ProjectCard';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SettingsIcon from '@mui/icons-material/Settings';
-import AuthContext from "../store/auth-context";
 import useFetch from "../hook/use-fetch";
 
 
@@ -23,7 +15,6 @@ function Team({t}) {
     const { isTeamLoading, isTeamError, sendRequest: fetchTeam } = useFetch();
     const [ teamInfo, setTeamInfo ] = useState(null);
     const { teamId } = useParams();
-    const authCtx = useContext(AuthContext);
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -41,10 +32,7 @@ function Team({t}) {
             setTeamInfo(response);
         }
         const fetchTeamRequest = {
-            url: `/team/${teamId}`,
-            headers: {
-                'Authorization': authCtx.requestToken
-            }
+            url: `/team/${teamId}`
         }
 
         fetchTeam(fetchTeamRequest, handleTeam);
@@ -58,9 +46,7 @@ function Team({t}) {
             method: "DELETE",
             body: null,
             headers: {
-                'Authorization': authCtx.requestToken,
                 'Content-Type': 'application/json'
-
             }
         }
 

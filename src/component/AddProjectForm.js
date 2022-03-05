@@ -36,10 +36,7 @@ const AddProjectForm = ({t}) => {
         const userId = jwt_decode(authCtx.authToken).id;
         const urlRequest = `/team/user/${userId}/teams`;
         const fetchUserTeamsRequest = {
-            url: urlRequest,
-            headers: {
-                'Authorization': authCtx.requestToken
-            }
+            url: urlRequest
         };
 
         fetchUserTeams(fetchUserTeamsRequest, handleGetUserTeams);
@@ -66,7 +63,6 @@ const AddProjectForm = ({t}) => {
                 'description': enteredProjectDescription
             },
             headers: {
-                'Authorization': authCtx.requestToken,
                 'Content-Type': 'application/json'
             }
         };

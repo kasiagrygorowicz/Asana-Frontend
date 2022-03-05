@@ -9,7 +9,6 @@ import Fade from '@material-ui/core/Fade';
 import useFetch from "../hook/use-fetch";
 import {useContext, useEffect, useRef, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import AuthContext from "../store/auth-context";
 import jwt_decode from "jwt-decode"
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
@@ -39,7 +38,6 @@ function AddMemeber({t, membersRef}) {
     const [ searchingUsers, setSearchingUsers] = useState([]);
     const [ updateKey, setUpdateKey] = useState(Math.random());
     const navigate = useNavigate();
-    const authCtx = useContext(AuthContext);
     const { isMembersLoading, membersError, sendRequest: fetchMembers } = useFetch();
 
     const classes = useStyles();
@@ -65,13 +63,9 @@ function AddMemeber({t, membersRef}) {
             setUsers(loadedUsers);
         }
 
-        const userId = jwt_decode(authCtx.authToken).id;
         const urlRequest = `/user/all`;
         const fetchUsersRequest = {
-            url: urlRequest,
-            headers: {
-                'Authorization': authCtx.requestToken
-            }
+            url: urlRequest
         };
 
         fetchMembers(fetchUsersRequest, handleGetUsers);

@@ -25,10 +25,7 @@ const useUserProjects = () => {
         const userId = jwt_decode(authCtx.authToken).id;
         const urlRequest = `/project/user/${userId}`;
         const fetchUserProjectsRequest = {
-            url: urlRequest,
-            headers: {
-                'Authorization': authCtx.requestToken
-            }
+            url: urlRequest
         };
 
         fetchUserProjects(fetchUserProjectsRequest, handleGetUserProjects);

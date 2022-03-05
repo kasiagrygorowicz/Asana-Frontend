@@ -6,7 +6,6 @@ import {
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {Link, useNavigate} from "react-router-dom";
-import AuthContext from "../store/auth-context";
 import useFetch from "../hook/use-fetch";
 
 
@@ -23,7 +22,6 @@ function TeamCardSmall(props) {
     };
 
 
-    const authCtx = useContext(AuthContext);
     const {isLoading, error, sendRequest: deleteTeamRequest} = useFetch();
 
 
@@ -35,7 +33,6 @@ function TeamCardSmall(props) {
             method: "DELETE",
             body: null,
             headers: {
-                'Authorization': authCtx.requestToken,
                 'Content-Type': 'application/json'
 
             }

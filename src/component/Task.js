@@ -3,7 +3,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import TaskPopUp from "./TaskPopUp";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -20,8 +20,31 @@ const useStyles = makeStyles(theme => ({
         borderRadius: 30
     },
 }));
+
 const Task = ({card, sequence, tasks}) => {
+    const SECOND = 1000;
     const [open, setOpen] = useState(false);
+    const [time, setTime] = useState(0);
+    const [timerOn, setTimerOn] = useState(false);
+
+    // useEffect(() => {
+    //     fetch...
+    //     setTime()
+    // }, []);
+
+    useEffect(() => {
+        let interval = null;
+        if (timerOn) {
+            interval = setInterval(() => {
+                setTime(prevTime => prevTime + SECOND);
+            }, SECOND);
+        } else {
+            clearInterval(interval);
+        }
+
+        return () => clearInterval();
+
+    }, [timerOn]);
 
     const handleOpen = () => {
         setOpen(true);

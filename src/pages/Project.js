@@ -10,7 +10,6 @@ import {Link, useParams} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import useFetch from "../hook/use-fetch";
-import AuthContext from "../store/auth-context";
 import ProjectTasks from "../component/ProjectTasks";
 
 
@@ -19,7 +18,6 @@ function Project({t}) {
     const { isProjectLoading, projectError, sendRequest: fetchProject } = useFetch();
     const [ projectInfo, setProjectInfo ] = useState(null);
     const { projectId } = useParams();
-    const authCtx = useContext(AuthContext);
 
     useEffect(() => {
         const handleProject = (response) => {
@@ -33,10 +31,7 @@ function Project({t}) {
         }
 
         const fetchProjectRequest = {
-            url: `/project/${projectId}`,
-            headers: {
-                'Authorization': authCtx.requestToken
-            }
+            url: `/project/${projectId}`
         }
 
         fetchProject(fetchProjectRequest, handleProject);

@@ -28,10 +28,7 @@ const UserTeams =()=>{
         const userId = jwt_decode(authCtx.authToken).id;
         const urlRequest = `/team/user/${userId}/teams`;
         const fetchUserTeamsRequest = {
-            url: urlRequest,
-            headers: {
-                'Authorization': authCtx.requestToken
-            }
+            url: urlRequest
         };
 
         fetchUserTeams(fetchUserTeamsRequest, fetchUserTeamsHandler);

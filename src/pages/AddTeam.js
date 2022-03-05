@@ -12,7 +12,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import Member from '../component/Member'
 import {useContext, useRef} from "react";
-import AuthContext from "../store/auth-context";
 import useFetch from "../hook/use-fetch";
 
 function AddTeam({t}) {
@@ -22,10 +21,6 @@ function AddTeam({t}) {
     const membersRef = useRef([]);
     const navigate = useNavigate();
     const { isLoading, error, sendRequest: addTeamRequest } = useFetch();
-    const authCtx = useContext(AuthContext);
-    const JWTToken = 'Bearer ' + authCtx.authToken;
-    const requestToken = authCtx.requestToken;
-
 
     const submitHandler =(event)=>{
         event.preventDefault();
@@ -47,7 +42,6 @@ function AddTeam({t}) {
 
             },
             headers: {
-                'Authorization': requestToken,
                 'Content-Type': 'application/json'
             }
         }

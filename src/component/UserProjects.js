@@ -3,7 +3,6 @@ import {Link} from "react-router-dom";
 import ProjectCard from "./ProjectCard";
 import useFetch from "../hook/use-fetch";
 import {useContext, useEffect, useState} from "react";
-import AuthContext from "../store/auth-context";
 import jwt_decode from "jwt-decode";
 import useUserProjects from "../hook/use-projects";
 

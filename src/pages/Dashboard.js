@@ -1,18 +1,6 @@
-import {
-    Container,
-    Box,
-    Typography,
-    Grid
-  } from "@material-ui/core";
-import {Link, useNavigate} from "react-router-dom";
-import ProjectCard from "../component/ProjectCard";
+import {Box, Container, Typography} from "@material-ui/core";
 import VerticalBar from '../component/VerticalBar';
 import UserProjects from "../component/UserProjects";
-import useFetch from "../hook/use-fetch";
-import {useContext, useEffect, useState} from "react";
-import AuthContext from "../store/auth-context";
-import jwt_decode from "jwt-decode";
-import UserTeams from "../component/UserTeams";
 
 function Dashboard({t}) {
 

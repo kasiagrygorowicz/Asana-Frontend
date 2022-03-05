@@ -51,10 +51,7 @@ function AddTaskForm({t}) {
         const userId = jwt_decode(authCtx.authToken).id;
         const urlRequest = `/project/user/${userId}`;
         const fetchUserProjectsRequest = {
-            url: urlRequest,
-            headers: {
-                'Authorization': authCtx.requestToken
-            }
+            url: urlRequest
         };
 
         fetchUserProjects(fetchUserProjectsRequest, handleGetUserProjects);
@@ -86,7 +83,6 @@ function AddTaskForm({t}) {
                 "status": "UNDONE"
             },
             headers: {
-                'Authorization': authCtx.requestToken,
                 'Content-Type': 'application/json'
             }
         };

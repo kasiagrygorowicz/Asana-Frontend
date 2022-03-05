@@ -5,7 +5,6 @@ import {DragDropContext} from "react-beautiful-dnd";
 import React, {useContext, useEffect, useState} from "react";
 import useFetch from "../hook/use-fetch";
 import {useParams} from "react-router-dom";
-import AuthContext from "../store/auth-context";
 import TaskCard from "./TaskCard";
 import TasksColumn from "./TasksColumn";
 
@@ -16,7 +15,6 @@ const ProjectTasks = ({t, projectInfo}) => {
     const [ tasks, setTasks ] = useState({ cards: {}, columns: {} });
 
     let { projectId } = useParams();
-    const authCtx = useContext(AuthContext);
 
     useEffect(() => {
         const handleProjectTasks = (tasksObj) => {
@@ -66,10 +64,7 @@ const ProjectTasks = ({t, projectInfo}) => {
         }
 
         const fetchTasksRequest = {
-            url: `/project/task/all/${projectId}/details`,
-            headers: {
-                'Authorization': authCtx.requestToken
-            }
+            url: `/project/task/all/${projectId}/details`
         }
 
         fetchTasks(fetchTasksRequest, handleProjectTasks);
@@ -156,7 +151,6 @@ const ProjectTasks = ({t, projectInfo}) => {
                 'updatedTask': taskUpdatedStatus
             },
             headers: {
-                'Authorization': authCtx.requestToken,
                 'Content-Type': 'application/json'
             }
         }
