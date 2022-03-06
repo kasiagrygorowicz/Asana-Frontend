@@ -5,7 +5,6 @@ import {
   } from "@material-ui/core";
   import * as React from 'react';
 
-import VerticalBar from '../component/VerticalBar';
 import {Link} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
@@ -14,7 +13,6 @@ import AddTaskForm from "../component/AddTaskForm";
 function AddTask({t}) {
     return (
         <Container maxWidth="x1">
-            <VerticalBar t={t}/>
             <Box sx={{ width: '75%', height: 750, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
                 <Link to='/dashboard'>
                     <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>

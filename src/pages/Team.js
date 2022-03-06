@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import {Box, Container, Grid, Menu, MenuItem, Typography} from "@material-ui/core";
 import Button from "@mui/material/Button";
-import VerticalBar from '../component/VerticalBar';
 import {Link, useNavigate, useParams} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Member from '../component/Member';
@@ -59,7 +58,6 @@ function Team({t}) {
     
     return (
         <Container maxWidth="x1">
-        <VerticalBar t={t}/>
         <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
             <Link to='/dashboard'>
                 <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>

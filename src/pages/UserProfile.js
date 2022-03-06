@@ -6,7 +6,6 @@ import {
   } from "@material-ui/core";
 import Button from "@mui/material/Button";
 import Stack from '@mui/material/Stack';
-import VerticalBar from '../component/VerticalBar';
 import {Link, useParams} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -23,7 +22,6 @@ function UserProfile({t}) {
 
     return (
         <Container maxWidth="x1">
-            <VerticalBar t={t}/>
             <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
                 <Link to='/editteam/Team A'>
                     <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>

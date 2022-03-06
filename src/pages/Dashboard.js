@@ -1,5 +1,4 @@
 import {Box, Container, Typography} from "@material-ui/core";
-import VerticalBar from '../component/VerticalBar';
 import UserProjects from "../component/UserProjects";
 
 function Dashboard({t}) {
@@ -7,7 +6,6 @@ function Dashboard({t}) {
 
     return (
         <Container maxWidth="x1">
-            <VerticalBar t={t}/>
             <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
             <Box sx={{ width: '80%', height: 80, alignItems: 'center'}}>
                 <Typography variant="h3" fontFamily="Sora">{t('dashboardtitle')}</Typography>
