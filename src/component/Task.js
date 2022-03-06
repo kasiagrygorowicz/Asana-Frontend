@@ -3,7 +3,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import TaskPopUp from "./TaskPopUp";
-import React, {useEffect, useState} from "react";
+import React, {cloneElement, useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles(theme => ({
@@ -27,6 +27,7 @@ const Task = ({card, sequence, tasks}) => {
     const [time, setTime] = useState(0);
     const [timerOn, setTimerOn] = useState(false);
 
+
     // useEffect(() => {
     //     fetch...
     //     setTime()
@@ -36,13 +37,13 @@ const Task = ({card, sequence, tasks}) => {
         let interval = null;
         if (timerOn) {
             interval = setInterval(() => {
-                setTime(prevTime => prevTime + SECOND);
+                setTime(prevTime => prevTime + SECOND / 1000);
             }, SECOND);
         } else {
             clearInterval(interval);
         }
 
-        return () => clearInterval();
+        return () => clearInterval(interval);
 
     }, [timerOn]);
 
@@ -56,6 +57,16 @@ const Task = ({card, sequence, tasks}) => {
 
     const classes = useStyles();
 
+    const getTaskCard = () => {
+        const TaskCard = addPropToTaskCard();
+        return TaskCard;
+    }
+
+    const addPropToTaskCard = () => {
+        const TaskCard = tasks.cards[card].content;
+        return cloneElement(TaskCard, {time: time, timerOn: timerOn, setTimerOn: setTimerOn});
+    }
+
     return (
         <div>
             <Draggable draggableId={card} index={sequence} key={card}>
@@ -66,9 +77,8 @@ const Task = ({card, sequence, tasks}) => {
                         {...provided.dragHandleProps}
                         onClick={handleOpen}
                     >
-                        {tasks.cards[card]?.show &&
-                            <div style={{width: 450}}>{tasks.cards[card]?.content}</div>
-                        }
+                        {/*<div style={{width: 450}}>{tasks.cards[card].content}</div>*/}
+                        <div style={{width: 450}}>{getTaskCard()}</div>
                     </div>
                 )}
             </Draggable>

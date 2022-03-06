@@ -13,6 +13,19 @@ import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 
 function TaskCard(props) {
     const t = useTranslation()[0]
+
+    const handleClick = (e) => {
+        if (props.timerOn) {
+            props.setTimerOn(false);
+        } else {
+            props.setTimerOn(true);
+        }
+    }
+
+    const seconds = <span>{("0" + Math.floor(props.time % 60)).slice(-2)}</span>;
+    const minutes = <span>{("0" + Math.floor(props.time / 60 % 60)).slice(-2)}</span>;
+    const hours = <span>{("0" + Math.floor(props.time / 3600)).slice(-2)}</span>;
+
     return (
         <Box sx={{width: '60%', height: 130, background: props.cardColor, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 30, marginTop: 20}}>
         <Box sx={{width: '95%', height: 120, color: '#FFFFFF'}}>
@@ -28,9 +41,11 @@ function TaskCard(props) {
                 </Box>
             <Stack direction="row">
                 <Box sx={{paddingLeft: 15}}>
-                <Box sx={{ width: '110%', height: '65%', alignItems: 'center', float: 'left', background: '#17A2B8', borderRadius: '30px', margin: 10, display: 'flex' }}>
-                    <Typography variant="h6" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%', paddingLeft: '10%'}}>00:00:00</Typography>
-                    <PlayArrowRoundedIcon sx={{paddingRight: '5%', alignSelf: 'right'}}/>
+                <Box onClick={handleClick} sx={{ width: '110%', height: '65%', alignItems: 'center', float: 'left', background: '#17A2B8', borderRadius: '30px', margin: 10, display: 'flex' }}>
+                    <Typography variant="h6" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%', paddingLeft: '10%'}}>
+                        {hours}:{minutes}:{seconds}
+                    </Typography>
+                    <PlayArrowRoundedIcon  sx={{paddingRight: '5%', alignSelf: 'right'}}/>
                 </Box>
                 </Box>
                 <Box sx={{paddingLeft: 30, height: 40, width: '90%', marginTop: 15}}>
