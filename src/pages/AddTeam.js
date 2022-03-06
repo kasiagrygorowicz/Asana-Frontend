@@ -8,12 +8,30 @@ import Button from "@mui/material/Button";
 import AddMemeber from "../component/AddMember";
 import {Link, useNavigate} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Member from '../component/Member'
+import Members from '../component/Members'
 import {useContext, useRef} from "react";
 import useFetch from "../hook/use-fetch";
 
 function AddTeam({t}) {
 
+    const membersDummy = [
+        {
+            name: 'Katarzyna Grygorowicz',
+            email: "example@mail.com"
+        },
+        {
+            name: 'Marek Nowakowski',
+            email: "example@mail.com"
+        },
+        {
+            name: 'Michał Wójcik',
+            email: "example@mail.com"
+        },
+        {
+            name: 'Kamil Frączek',
+            email: "example@mail.com"
+        },
+    ];
     const teamNameRef = useRef();
     const descriptionRef = useRef();
     const membersRef = useRef([]);
@@ -79,12 +97,7 @@ function AddTeam({t}) {
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('members')}:</Typography>
             </Box>
-            <Box sx={{ width: '43%', height: 80, alignItems: 'center', display: 'flex', float: 'left', marginLeft: 10}}>
-                <Member color="#79DFC1" initials='KG' fullname="Katarzyna Grygorowicz" email="example@mail.com"></Member>
-                <Member color="#EA868F" initials='MN' fullname="Marek Nowakowski" email="example@mail.com"></Member>
-                <Member color="#FEB272" initials='MW' fullname="Michał Wójcik" email="example@mail.com"></Member>
-                <Member color='#6EA8FE' initials='KF' fullname="Kamil Frączek" email="example@mail.com"></Member>
-            </Box>
+            <Members members={membersDummy} />
             <AddMemeber t={t} membersRef={membersRef}/>
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
