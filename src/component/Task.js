@@ -23,15 +23,10 @@ const useStyles = makeStyles(theme => ({
 
 const Task = ({card, sequence, tasks}) => {
     const SECOND = 1000;
+
     const [open, setOpen] = useState(false);
-    const [time, setTime] = useState(0);
+    const [time, setTime] = useState(tasks.cards[card].content.props.totalTime);
     const [timerOn, setTimerOn] = useState(false);
-
-
-    // useEffect(() => {
-    //     fetch...
-    //     setTime()
-    // }, []);
 
     useEffect(() => {
         let interval = null;
@@ -77,7 +72,6 @@ const Task = ({card, sequence, tasks}) => {
                         {...provided.dragHandleProps}
                         onClick={handleOpen}
                     >
-                        {/*<div style={{width: 450}}>{tasks.cards[card].content}</div>*/}
                         <div style={{width: 450}}>{getTaskCard()}</div>
                     </div>
                 )}

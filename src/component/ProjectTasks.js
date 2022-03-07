@@ -25,7 +25,8 @@ const ProjectTasks = ({t, projectInfo}) => {
                     name: tasksObj[taskKey].name,
                     description: tasksObj[taskKey].description,
                     deadLine: tasksObj[taskKey].deadLine,
-                    status: tasksObj[taskKey].status
+                    status: tasksObj[taskKey].status,
+                    totalTime: tasksObj[taskKey].totalTime
                 });
             }
 
@@ -37,7 +38,12 @@ const ProjectTasks = ({t, projectInfo}) => {
                 tasksContent[loadedTasks[i].id.toString()] = {
                     id: loadedTasks[i].id.toString(),
                     name: loadedTasks[i].name,
-                    content: <TaskCard cardColor={taskColor} taskName={loadedTasks[i].name} taskType={taskStatus} date="18.04.2022"/>,
+                    content: <TaskCard key={loadedTasks[i].id}
+                                       cardColor={taskColor}
+                                       totalTime={loadedTasks[i].totalTime}
+                                       taskName={loadedTasks[i].name}
+                                       taskType={taskStatus}
+                                       date="18.04.2022"/>,
                     show: true
                 }
             }
