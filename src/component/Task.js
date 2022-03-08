@@ -5,6 +5,7 @@ import Fade from "@material-ui/core/Fade";
 import TaskPopUp from "./TaskPopUp";
 import React, {cloneElement, useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
+import useFetch from "../hook/use-fetch";
 
 const useStyles = makeStyles(theme => ({
     modal: {
@@ -27,6 +28,20 @@ const Task = ({card, sequence, tasks}) => {
     const [open, setOpen] = useState(false);
     const [time, setTime] = useState(tasks.cards[card].content.props.totalTime);
     const [timerOn, setTimerOn] = useState(false);
+
+    const { isTaksLoading, isTaskError, sendRequest: fetchTask } = useFetch();
+    const [ taskInfo, setTaskInfo ] = useState(null);
+
+    useEffect(() => {
+        const handleTask = (response) => {
+            setTaskInfo(response);
+        }
+        const fetchTaskRequest = {
+            url: `/project/task/${card}`
+        }
+
+        fetchTask(fetchTaskRequest, handleTask);
+    }, [fetchTask, card])
 
     useEffect(() => {
         let interval = null;
@@ -90,7 +105,7 @@ const Task = ({card, sequence, tasks}) => {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <TaskPopUp taskId={card}/>
+                        <TaskPopUp task={taskInfo}/>
                     </div>
                 </Fade>
             </Modal>

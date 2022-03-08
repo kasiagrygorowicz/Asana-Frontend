@@ -65,7 +65,17 @@ function AddTaskForm({t}) {
         const projectId = projectValue;
         const enteredDueDate = dueDateInput.current.value;
         const enteredTaskDescription = descriptionInput.current.value;
+        const startDate = new Date();
+        const startDateJSON = startDate.toJSON();
+        alert(startDateJSON);
         // alert(enteredDueDate)
+
+        const deadlineDate = enteredDueDate.split("/");
+        const month = deadlineDate[0];
+        const day = deadlineDate[1];
+        const year = deadlineDate[2];
+
+        const jsonDate = year + "-" + month + "-" + day + "T18:25:43.511Z"
 
         const createdProjectAddress = `/project/${projectId}`;
 
@@ -76,8 +86,8 @@ function AddTaskForm({t}) {
                 'projectId': projectId,
                 'name': enteredTaskName,
                 'description': enteredTaskDescription,
-                'startDate': "2012-04-23T18:25:43.511Z",
-                "deadLine" : "2022-03-24T18:25:43.511Z",
+                'startDate': startDateJSON,
+                "deadLine" : jsonDate,
                 "priority" : "MEDIUM",
                 "status": "UNDONE"
             },
