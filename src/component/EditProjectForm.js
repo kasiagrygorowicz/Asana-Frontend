@@ -22,7 +22,7 @@ const AddProjectForm = ({t, projectInfo}) => {
     const descriptionInput = useRef();
     const membersRef = useRef([]);
     const { projectId } = useParams();
-    const { isLoading, error, sendRequest: addProjectRequest } = useFetch();
+    const { isLoading, error, sendRequest: editProjectRequest } = useFetch();
     const { areTeamsLoading, teamsError, sendRequest: fetchUserTeams } = useFetch();
     const [ userTeams, setUserTeams ] = useState([]);
     const navigate = useNavigate();
@@ -52,12 +52,12 @@ const AddProjectForm = ({t, projectInfo}) => {
         const enteredProjectDescription = descriptionInput.current.value;
         const category = "IT";
 
-        const handleAddProject = (response) => {
+        const handleEditProject = (response) => {
             const createdProjectAddress = `/project/${projectId}`;
             navigate(createdProjectAddress, { replace: true })
         }
 
-        const addProjectRequestContent = {
+        const editProjectRequestContent = {
             url: "/project/" + projectId,
             method: "PUT",
             body: {
@@ -70,7 +70,7 @@ const AddProjectForm = ({t, projectInfo}) => {
             }
         };
 
-        addProjectRequest(addProjectRequestContent, handleAddProject);
+        editProjectRequest(editProjectRequestContent, handleEditProject);
     }
 
     let teamsToDisplay = userTeams.map((team) => (

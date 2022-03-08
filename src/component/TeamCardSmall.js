@@ -89,10 +89,10 @@ function TeamCardSmall(props) {
                         transformOrigin={{horizontal: 'left', vertical: 'top'}}
                         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                     >
-                        <MenuItem component={Link} to={"/editteam/" + props.title}>
+                        <MenuItem component={Link} to={"/editteam/" + props.id}>
                             Edit
                         </MenuItem>
-                        <MenuItem component={Link} to={"/editteam/" + props.title}>
+                        <MenuItem component={Link} to={"/editteam/" + props.id}>
                             Add new member
                         </MenuItem>
                         <MenuItem onClick={deleteTeamHandler}>
