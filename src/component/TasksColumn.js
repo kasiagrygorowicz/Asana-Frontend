@@ -37,7 +37,7 @@ const TasksColumn = ({t, tasks, type}) => {
                                 <div>
                                     {tasks.columns[type]?.cardIds.map((card, sequence) => (
                                         <Task
-                                            card={card}
+                                            cardId={card}
                                             tasks={tasks}
                                             sequence={sequence}
                                         />

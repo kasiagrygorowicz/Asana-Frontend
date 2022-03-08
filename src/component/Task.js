@@ -22,14 +22,17 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Task = ({card, sequence, tasks}) => {
+const Task = ({cardId, sequence, tasks}) => {
     const SECOND = 1000;
 
     const [open, setOpen] = useState(false);
-    const [time, setTime] = useState(tasks.cards[card].content.props.totalTime);
+    const [time, setTime] = useState(tasks.cards[cardId].content.props.totalTime);
+    const [lastTimerOffTime, setLastTimerOffTime] = useState(time); // do obliczenia czasu, ktory trzeba dodac do czasu zadania w bazie danych
     const [timerOn, setTimerOn] = useState(false);
 
-    const { isTaksLoading, isTaskError, sendRequest: fetchTask } = useFetch();
+    const { isTaskLoading, taskLoadingError, sendRequest: fetchTask } = useFetch();
+    const { isTimeUpdated, timeUpdateError, sendRequest: fetchAddTime } = useFetch();
+
     const [ taskInfo, setTaskInfo ] = useState(null);
 
     useEffect(() => {
@@ -37,14 +40,17 @@ const Task = ({card, sequence, tasks}) => {
             setTaskInfo(response);
         }
         const fetchTaskRequest = {
-            url: `/project/task/${card}`
+            url: `/project/task/${cardId}`
         }
 
         fetchTask(fetchTaskRequest, handleTask);
-    }, [fetchTask, card])
+    }, [fetchTask, cardId])
+
+    console.log(lastTimerOffTime);
 
     useEffect(() => {
         let interval = null;
+        setLastTimerOffTime(time);
         if (timerOn) {
             interval = setInterval(() => {
                 setTime(prevTime => prevTime + SECOND / 1000);
@@ -72,14 +78,34 @@ const Task = ({card, sequence, tasks}) => {
         return TaskCard;
     }
 
+    const handleTimer = () => {
+        if (timerOn) {
+            setTimerOn(false);
+            const timeToAdd = time - lastTimerOffTime;
+            const fetchAddTimeRequest = {
+                url: `/project/task/${cardId}/time/add`,
+                method: 'PUT',
+                body: {
+                    'timeToAdd': timeToAdd
+                },
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }
+            fetchAddTime(fetchAddTimeRequest);
+        } else {
+            setTimerOn(true);
+        }
+    }
+
     const addPropToTaskCard = () => {
-        const TaskCard = tasks.cards[card].content;
-        return cloneElement(TaskCard, {time: time, timerOn: timerOn, setTimerOn: setTimerOn});
+        const TaskCard = tasks.cards[cardId].content;
+        return cloneElement(TaskCard, {time: time, handleTimer: handleTimer});
     }
 
     return (
         <div>
-            <Draggable draggableId={card} index={sequence} key={card}>
+            <Draggable draggableId={cardId} index={sequence} key={cardId}>
                 {(provided, snapshot) => (
                     <div
                         ref={provided.innerRef}

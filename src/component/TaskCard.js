@@ -15,11 +15,7 @@ function TaskCard(props) {
     const t = useTranslation()[0]
 
     const handleClick = (e) => {
-        if (props.timerOn) {
-            props.setTimerOn(false);
-        } else {
-            props.setTimerOn(true);
-        }
+        props.handleTimer();
     }
 
     const seconds = <span>{("0" + Math.floor(props.time % 60)).slice(-2)}</span>;
