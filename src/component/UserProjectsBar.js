@@ -9,7 +9,7 @@ const UserProjectsBar = () => {
     return (
         userProjects.map((project) => (
             <Link to={`/project/${project.id}`} style={{textDecoration: 'none'}}>
-                <ProjectCardSmall title={project.name}/>
+                <ProjectCardSmall title={project.name} id={project.id}/>
             </Link>
         ))
     );

@@ -13,7 +13,7 @@ function ProjectCard(props) {
     <Box sx={{width: '100%', height: 30, color: '#FFFFFF'}}>
         <Box sx={{paddingLeft: 20, height: 25, paddingTop: 5}}>
             <Typography variant="h7" fontFamily="Sora"> {props.teamName} </Typography>
-            <Link to={"/editproject/" + props.projectName} style={{color:'white'}}>
+            <Link to={"/editproject/" + props.projectId} style={{color:'white'}}>
               <SettingsIcon sx={{display: "flex", float: "right", marginRight: 1.5}}/>
             </Link>
         </Box>

@@ -47,16 +47,16 @@ function ProjectCardSmall(props) {
           transformOrigin={{horizontal: 'left', vertical: 'top'}}
           anchorOrigin={{horizontal: 'right', vertical: 'top'}}
       >
-        <MenuItem component={Link} to={"/editproject/" + props.title}>
+        <MenuItem component={Link} to={"/editproject/" + props.id}>
           Edit
         </MenuItem>
-        <MenuItem component={Link} to={"/editproject/" + props.title}>
+        <MenuItem component={Link} to={"/editproject/" + props.id}>
           Add new member
         </MenuItem>
-        <MenuItem component={Link} to={"/editproject/" + props.title}>
+        <MenuItem component={Link} to={"/editproject/" + props.id}>
           Add new team
         </MenuItem>
-        <MenuItem component={Link} to={"/editproject/" + props.title}>
+        <MenuItem component={Link} to={"/editproject/" + props.id}>
           Delete
         </MenuItem>
       </Menu>
