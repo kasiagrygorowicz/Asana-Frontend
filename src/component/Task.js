@@ -6,6 +6,8 @@ import TaskPopUp from "./TaskPopUp";
 import React, {cloneElement, useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import useFetch from "../hook/use-fetch";
+import { useParams } from "react-router-dom";
+import useUserProjects from "../hook/use-projects";
 
 const useStyles = makeStyles(theme => ({
     modal: {
@@ -103,6 +105,12 @@ const Task = ({cardId, sequence, tasks}) => {
         return cloneElement(TaskCard, {time: time, handleTimer: handleTimer});
     }
 
+    const { isLoading, error, userProjects } = useUserProjects();
+
+    const { projectId } = useParams();
+    const theProject = userProjects.find(project => project.id == projectId);
+    console.log(theProject);
+
     return (
         <div>
             <Draggable draggableId={cardId} index={sequence} key={cardId}>
@@ -131,7 +139,7 @@ const Task = ({cardId, sequence, tasks}) => {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <TaskPopUp task={taskInfo}/>
+                        <TaskPopUp task={taskInfo} project={theProject}/>
                     </div>
                 </Fade>
             </Modal>

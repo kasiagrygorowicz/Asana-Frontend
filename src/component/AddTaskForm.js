@@ -67,8 +67,6 @@ function AddTaskForm({t}) {
         const enteredTaskDescription = descriptionInput.current.value;
         const startDate = new Date();
         const startDateJSON = startDate.toJSON();
-        alert(startDateJSON);
-        // alert(enteredDueDate)
 
         const deadlineDate = enteredDueDate.split("/");
         const month = deadlineDate[0];

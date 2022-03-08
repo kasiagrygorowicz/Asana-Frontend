@@ -21,7 +21,7 @@ import {useParams} from "react-router-dom";
 import useUserProjects from "../hook/use-projects";
 import { useNavigate } from "react-router-dom";
 
-export default function TaskPopUp({task}) {
+export default function TaskPopUp({task, project}) {
 
     const navigate = useNavigate();
     const { isLoadingDelete, errorDelete, sendRequest: deleteTaskRequest} = useFetch();
@@ -38,7 +38,7 @@ export default function TaskPopUp({task}) {
             }
         }
 
-        deleteTaskRequest(deleteTaskRequestContent, navigate('/dashboard', {replace: true}));
+        deleteTaskRequest(deleteTaskRequestContent, navigate(0));
     }
     //TO DO: upewnienie czy chce usunąć taska?
 
@@ -77,7 +77,7 @@ export default function TaskPopUp({task}) {
             }
         };
 
-        editTaskRequest(editTaskRequestContent, navigate('/dashboard', { replace: true }));
+        editTaskRequest(editTaskRequestContent, navigate(0));
     }
 
     const t = useTranslation()[0]
@@ -160,7 +160,7 @@ export default function TaskPopUp({task}) {
         <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%'}}>{t('project')}:</Typography>
     </Box>
     <Box sx={{background: '#4786C6', borderRadius: 30, width: '40%', height: 60, alignItems: 'center', float: 'left', margin: 10, display: 'flex'}}>
-        <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'center', color: 'white', width: '90%', paddingLeft: '5%'}} sx={{ align: 'center' }}>Project A</Typography>
+        <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'center', color: 'white', width: '90%', paddingLeft: '5%'}} sx={{ align: 'center' }}>{project.name}</Typography>
     </Box>
     </Stack>
     <Box sx={{clear: 'both', height: 10}}></Box>
