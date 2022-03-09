@@ -37,7 +37,7 @@ function TaskCard(props) {
                 </Box>
             <Stack direction="row">
                 <Box sx={{paddingLeft: 15}}>
-                <Box onClick={handleClick} sx={{ width: '110%', height: '65%', alignItems: 'center', float: 'left', background: '#17A2B8', borderRadius: '30px', margin: 10, display: 'flex' }}>
+                <Box onClick={(e) => props.handleTimerClick(props)} sx={{ width: '110%', height: '65%', alignItems: 'center', float: 'left', background: '#17A2B8', borderRadius: '30px', margin: 10, display: 'flex' }}>
                     <Typography variant="h6" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%', paddingLeft: '10%'}}>
                         {hours}:{minutes}:{seconds}
                     </Typography>

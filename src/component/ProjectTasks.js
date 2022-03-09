@@ -2,7 +2,7 @@ import GridViewIcon from "@mui/icons-material/GridView";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import {Grid} from "@material-ui/core";
 import {DragDropContext} from "react-beautiful-dnd";
-import React, {useContext, useEffect, useState} from "react";
+import React, {cloneElement, useContext, useEffect, useState} from "react";
 import useFetch from "../hook/use-fetch";
 import {useParams} from "react-router-dom";
 import TaskCard from "./TaskCard";
@@ -13,6 +13,8 @@ const ProjectTasks = ({t, projectInfo}) => {
     const { isChangeTaskStatusLoading, changeTaskStatusError, sendRequest: fetchChangeTaskStatus } = useFetch();
 
     const [ tasks, setTasks ] = useState({ cards: {}, columns: {} });
+    const [ timerOnInfoState, setTimerOnInfoState ] = useState(false);
+    const [ timeInfoState, setTimeInfoState ] = useState(0);
 
     let { projectId } = useParams();
 
@@ -134,7 +136,17 @@ const ProjectTasks = ({t, projectInfo}) => {
         // Zmiana wyglądu taska
         const draggedTask = tasks.cards[draggableId];
         const newTaskStatus = finish.id;
-        draggedTask.content = <TaskCard cardColor={getTaskColor(newTaskStatus)} taskName={draggedTask.name} taskType={newTaskStatus} date="18.04.2022"/>;
+        console.log(tasks.cards[draggableId]);
+        draggedTask.content = <TaskCard
+                                        key={draggableId}
+                                        cardColor={getTaskColor(newTaskStatus)}
+                                        taskName={draggedTask.name}
+                                        taskType={newTaskStatus}
+                                        date="18.04.2022"
+                                        handleTimerClick={handleTimerClick}
+                                        timerOnInfo={timerOnInfoState}
+                                        totalTime={timeInfoState}
+        />;
 
         // Aktualizacja stanu tasków
         const newState = {
@@ -148,6 +160,14 @@ const ProjectTasks = ({t, projectInfo}) => {
 
         changeTaskStatus(draggableId, taskUpdatedStatus, newState);
     };
+
+    const handleTimerClick = (props) => {
+        const TaskCard = props.tasks.cards[props.cardId].content;
+        let propsToAdd = {
+            time: props.time
+        }
+        return cloneElement(TaskCard, propsToAdd);
+    }
 
     const changeTaskStatus = (taskId, taskUpdatedStatus, updatedTasksState) => {
         const changeTaskStatusRequest = {
@@ -166,15 +186,20 @@ const ProjectTasks = ({t, projectInfo}) => {
         }
     }
 
+    const getTimerOnInfo = (timerOn, time) => {
+        setTimerOnInfoState(timerOn);
+        setTimeInfoState(time);
+    }
+
     return (
         <>
             <GridViewIcon fontSize='medium' sx={{float: 'right'}}/>
             <FormatListBulletedIcon fontSize='medium' sx={{float: 'right'}}/>
             <Grid container alignItems="stretch" justifyContent="center">
                 <DragDropContext onDragEnd={onDragEnd}>
-                    <TasksColumn t={t} tasks={tasks} type='UNDONE'/>
-                    <TasksColumn t={t} tasks={tasks} type='DOING'/>
-                    <TasksColumn t={t} tasks={tasks} type='DONE'/>
+                    <TasksColumn t={t} tasks={tasks} informProjectTasks={getTimerOnInfo} type='UNDONE'/>
+                    <TasksColumn t={t} tasks={tasks} informProjectTasks={getTimerOnInfo} type='DOING'/>
+                    <TasksColumn t={t} tasks={tasks} informProjectTasks={getTimerOnInfo} type='DONE'/>
                 </DragDropContext>
             </Grid>
         </>

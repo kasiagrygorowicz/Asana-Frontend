@@ -22,13 +22,13 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Task = ({cardId, sequence, tasks}) => {
+const Task = ({cardId, sequence, tasks, informProjectTasks}) => {
     const SECOND = 1000;
 
     const [open, setOpen] = useState(false);
     const [time, setTime] = useState(tasks.cards[cardId].content.props.totalTime);
     const [lastTimerOffTime, setLastTimerOffTime] = useState(time); // do obliczenia czasu, ktory trzeba dodac do czasu zadania w bazie danych
-    const [timerOn, setTimerOn] = useState(false);
+    const [timerOn, setTimerOn] = useState(tasks.cards[cardId].content.props.timerOnInfo);
 
     const { isTaskLoading, taskLoadingError, sendRequest: fetchTask } = useFetch();
     const { isTimeUpdated, timeUpdateError, sendRequest: fetchAddTime } = useFetch();
@@ -44,9 +44,12 @@ const Task = ({cardId, sequence, tasks}) => {
         }
 
         fetchTask(fetchTaskRequest, handleTask);
+
     }, [fetchTask, cardId])
 
-    console.log(lastTimerOffTime);
+    useEffect(() => {
+        informProjectTasks(timerOn, time);
+    }, [tasks])
 
     useEffect(() => {
         let interval = null;
@@ -100,7 +103,12 @@ const Task = ({cardId, sequence, tasks}) => {
 
     const addPropToTaskCard = () => {
         const TaskCard = tasks.cards[cardId].content;
-        return cloneElement(TaskCard, {time: time, handleTimer: handleTimer});
+        let propsToAdd = {
+            time: time,
+            timerOn: timerOn,
+            handleTimer: handleTimer
+        }
+        return cloneElement(TaskCard, propsToAdd);
     }
 
     return (
