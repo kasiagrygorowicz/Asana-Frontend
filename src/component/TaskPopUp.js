@@ -83,6 +83,10 @@ export default function TaskPopUp({task, project}) {
     const t = useTranslation()[0]
     const [startValue, setStartValue] = React.useState(new Date(task.startDate));
     const [value, setValue] = React.useState(new Date(task.deadLine));
+    const seconds = <span>{("0" + Math.floor(task.totalTime % 60)).slice(-2)}</span>;
+    const minutes = <span>{("0" + Math.floor(task.totalTime / 60 % 60)).slice(-2)}</span>;
+    const hours = <span>{("0" + Math.floor(task.totalTime / 3600)).slice(-2)}</span>;
+
     return (
     <form onSubmit={submitHandler}>
     <Container maxWidth='xl'>
@@ -106,7 +110,7 @@ export default function TaskPopUp({task, project}) {
         <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%'}}>{t('time')}:</Typography>
     </Box>
     <Box sx={{ width: '25%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
-        <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%', paddingLeft: '10%'}}>00:00:00</Typography>
+        <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%', paddingLeft: '10%'}}>{hours}:{minutes}:{seconds}</Typography>
         <PlayArrowRoundedIcon fontSize='large' sx={{paddingRight: '5%', alignSelf: 'right'}}/>
     </Box>
     <Box sx={{float: 'left', width: 10}}></Box>

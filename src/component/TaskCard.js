@@ -10,12 +10,24 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import LoopIcon from '@mui/icons-material/Loop';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
+import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
+import IconButton from '@mui/material/IconButton';
+import { useState } from "react";
+import { FOCUSABLE_SELECTOR } from "@testing-library/user-event/dist/utils";
 
 function TaskCard(props) {
     const t = useTranslation()[0]
+    const [ play, setPlay ] = useState(false);
 
     const handleClick = (e) => {
+        e.stopPropagation();
         props.handleTimer();
+        if (play) {
+            setPlay(false);
+        }
+        else {
+            setPlay(true);
+        }
     }
 
     const seconds = <span>{("0" + Math.floor(props.time % 60)).slice(-2)}</span>;
@@ -41,7 +53,12 @@ function TaskCard(props) {
                     <Typography variant="h6" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%', paddingLeft: '10%'}}>
                         {hours}:{minutes}:{seconds}
                     </Typography>
-                    <PlayArrowRoundedIcon  sx={{paddingRight: '5%', alignSelf: 'right'}}/>
+                    {play == false &&
+                        <PlayArrowRoundedIcon sx={{paddingRight: '5%', alignSelf: 'right'}}/>
+                    }
+                    {play == true &&
+                        <PauseRoundedIcon sx={{paddingRight: '5%', alignSelf: 'right'}}/>
+                    }
                 </Box>
                 </Box>
                 <Box sx={{paddingLeft: 30, height: 40, width: '90%', marginTop: 15}}>

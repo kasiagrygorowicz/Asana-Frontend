@@ -34,6 +34,11 @@ const ProjectTasks = ({t, projectInfo}) => {
             for (let i = 0; i < loadedTasks.length; i++) {
                 const taskStatus = loadedTasks[i].status;
                 const taskColor = getTaskColor(taskStatus);
+                const taskDateJSON = loadedTasks[i].deadLine;
+                const firstSplit = taskDateJSON.split("T");
+                const dateSplit = firstSplit[0].split("-");
+                const taskDate = dateSplit[2] + "." + dateSplit[1] + "." + dateSplit[0];
+
 
                 tasksContent[loadedTasks[i].id.toString()] = {
                     id: loadedTasks[i].id.toString(),
@@ -43,7 +48,7 @@ const ProjectTasks = ({t, projectInfo}) => {
                                        totalTime={loadedTasks[i].totalTime}
                                        taskName={loadedTasks[i].name}
                                        taskType={taskStatus}
-                                       date="18.04.2022"/>,
+                                       date={taskDate} />,
                     show: true
                 }
             }
