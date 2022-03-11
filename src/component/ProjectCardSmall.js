@@ -5,19 +5,53 @@ import {
 } from "@material-ui/core";
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import useFetch from "../hook/use-fetch";
 
 
 function ProjectCardSmall(props) {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
+
+  const {isLoading, error, sendRequest: deleteProjectRequest} = useFetch();
+
+
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const deleteProjectHandler = () => {
+
+
+    const deleteProjectRequestContent = {
+      url: `/project/${props.id}`,
+      method: "DELETE",
+      body: null,
+      headers: {
+        'Content-Type': 'application/json'
+
+      }
+    }
+
+    const handleDeleteProject = (response) => {
+
+      navigate('/dashboard', {replace: true})
+
+
+    }
+
+    deleteProjectRequest(deleteProjectRequestContent, handleDeleteProject);
+
+  }
+
+  if(error){
+    console.log(error)
+  }
 
   return (
     <Box sx={{width: '100%', height: 32, background: '#4399EF', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 30, marginTop: 10}}>
@@ -56,7 +90,7 @@ function ProjectCardSmall(props) {
         <MenuItem component={Link} to={"/editproject/" + props.id}>
           Add new team
         </MenuItem>
-        <MenuItem component={Link} to={"/editproject/" + props.id}>
+        <MenuItem onClick={deleteProjectHandler}>
           Delete
         </MenuItem>
       </Menu>

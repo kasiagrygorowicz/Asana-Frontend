@@ -39,7 +39,6 @@ function TeamCardSmall(props) {
         }
 
         const handleDeleteTeam = (response) => {
-            alert("!")
             navigate('/dashboard', {replace: true})
 
 
