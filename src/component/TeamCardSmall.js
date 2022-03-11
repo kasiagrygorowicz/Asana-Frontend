@@ -94,9 +94,11 @@ function TeamCardSmall(props) {
                         <MenuItem component={Link} to={"/editteam/" + props.id}>
                             Add new member
                         </MenuItem>
-                        <MenuItem onClick={deleteTeamHandler}>
-                            Delete
-                        </MenuItem>
+                        {props.isOwner &&
+                            <MenuItem onClick={deleteTeamHandler}>
+                                Delete
+                            </MenuItem>
+                        }
                     </Menu>
 
 

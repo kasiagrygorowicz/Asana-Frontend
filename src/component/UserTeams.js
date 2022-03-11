@@ -18,6 +18,7 @@ const UserTeams =()=>{
                 teams.push({
                     id: t[team].id,
                     name: t[team].name,
+                    isOwner:t[team].owner
                 })
 
             }
@@ -31,18 +32,25 @@ const UserTeams =()=>{
             url: urlRequest
         };
 
-        fetchUserTeams(fetchUserTeamsRequest, fetchUserTeamsHandler);
+        fetchUserTeams(fetchUserTeamsRequest, fetchUserTeamsHandler)
+
+
+
 
     },[fetchUserTeams])
 
 
 
+
+
     return (
+
         userTeams.map((team)=>(
             <Link to={`/team/${team.id}`} style={{textDecoration: 'none'}}>
-                <TeamCardSmall title={team.name} id={team.id}/>
+                <TeamCardSmall title={team.name} id={team.id} isOwner={team.isOwner}/>
             </Link>
         ))
+
     );
 }
 
