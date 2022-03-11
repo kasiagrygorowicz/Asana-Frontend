@@ -21,8 +21,6 @@ const ProjectTasks = ({t, projectInfo}) => {
 
     let { projectId } = useParams();
 
-    console.log(timers);
-
     useEffect(() => {
         const handleProjectTasks = (tasksObj) => {
             const loadedTasks = [];
@@ -46,10 +44,22 @@ const ProjectTasks = ({t, projectInfo}) => {
                 const dateSplit = firstSplit[0].split("-");
                 const taskDate = dateSplit[2] + "." + dateSplit[1] + "." + dateSplit[0];
 
+                const taskTimer = {
+                    id: loadedTasks[i].id,
+                    timerOn: false,
+                    time: loadedTasks[i].totalTime,
+                    lastTimerOffTime: loadedTasks[i].totalTime
+                }
+
+                dispatch(timerActions.addTimer(taskTimer));
+
                 tasksContent[loadedTasks[i].id.toString()] = {
                     id: loadedTasks[i].id.toString(),
                     name: loadedTasks[i].name,
-                    content: <TaskCard key={loadedTasks[i].id}
+                    content: <TaskCard
+                                       id={loadedTasks[i].id}
+                                       key={loadedTasks[i].id}
+                                       timer={taskTimer}
                                        cardColor={taskColor}
                                        totalTime={loadedTasks[i].totalTime}
                                        taskName={loadedTasks[i].name}
@@ -57,13 +67,6 @@ const ProjectTasks = ({t, projectInfo}) => {
                                        date={taskDate} />,
                     show: true
                 }
-
-                dispatch(timerActions.addTimer({
-                    id: loadedTasks[i].id,
-                    timerOn: false,
-                    time: loadedTasks[i].totalTime,
-                    lastTimerOffTime: loadedTasks[i].totalTime
-                }));
             }
             const columnsContent =
                 {
@@ -94,7 +97,6 @@ const ProjectTasks = ({t, projectInfo}) => {
         fetchTasks(fetchTasksRequest, handleProjectTasks);
 
     }, [fetchTasks, projectId]);
-
 
     const getTaskColor = (taskStatus) => {
         if (taskStatus === 'UNDONE' || taskStatus === 'DONE') {
@@ -154,11 +156,10 @@ const ProjectTasks = ({t, projectInfo}) => {
         const draggedTask = tasks.cards[draggableId];
         const newTaskStatus = finish.id;
 
-        const timer = timers.find(timerObj => timerObj.id === draggableId);
         draggedTask.content = <TaskCard
                                   key={draggableId}
+                                  id={parseInt(draggableId)}
                                   cardColor={getTaskColor(newTaskStatus)}
-                                  totalTime={timer.time}
                                   taskName={draggedTask.name}
                                   taskType={newTaskStatus}
                                   date="18.04.2022"
@@ -200,9 +201,9 @@ const ProjectTasks = ({t, projectInfo}) => {
             <FormatListBulletedIcon fontSize='medium' sx={{float: 'right'}}/>
             <Grid container alignItems="stretch" justifyContent="center">
                 <DragDropContext onDragEnd={onDragEnd}>
-                    <TasksColumn t={t} tasks={tasks} timers={timers} type='UNDONE'/>
-                    <TasksColumn t={t} tasks={tasks} timers={timers} type='DOING'/>
-                    <TasksColumn t={t} tasks={tasks} timers={timers} type='DONE'/>
+                    <TasksColumn t={t} tasks={tasks} type='UNDONE'/>
+                    <TasksColumn t={t} tasks={tasks} type='DOING'/>
+                    <TasksColumn t={t} tasks={tasks} type='DONE'/>
                 </DragDropContext>
             </Grid>
         </>

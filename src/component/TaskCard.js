@@ -14,25 +14,25 @@ import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
 import IconButton from '@mui/material/IconButton';
 import { useState } from "react";
 import { FOCUSABLE_SELECTOR } from "@testing-library/user-event/dist/utils";
+import {useDispatch, useSelector} from "react-redux";
+import {timerActions} from "../store/timer";
 
 function TaskCard(props) {
+    const dispatch = useDispatch();
+
     const t = useTranslation()[0]
-    const [ play, setPlay ] = useState(false);
+    const timer = useSelector((state) => state.timer).find(timer => timer.id === props.id);
+    console.log(timer);
+    // const timer = dispatch(timerActions.setLastTimerOffTime(props.id));
 
     const handleClick = (e) => {
         e.stopPropagation();
         props.handleTimer();
-        if (play) {
-            setPlay(false);
-        }
-        else {
-            setPlay(true);
-        }
     }
 
-    const seconds = <span>{("0" + Math.floor(props.time % 60)).slice(-2)}</span>;
-    const minutes = <span>{("0" + Math.floor(props.time / 60 % 60)).slice(-2)}</span>;
-    const hours = <span>{("0" + Math.floor(props.time / 3600)).slice(-2)}</span>;
+    const seconds = <span>{("0" + Math.floor(timer.time % 60)).slice(-2)}</span>;
+    const minutes = <span>{("0" + Math.floor(timer.time / 60 % 60)).slice(-2)}</span>;
+    const hours = <span>{("0" + Math.floor(timer.time / 3600)).slice(-2)}</span>;
 
     return (
         <Box sx={{width: '60%', height: 130, background: props.cardColor, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 30, marginTop: 20}}>
@@ -53,10 +53,10 @@ function TaskCard(props) {
                     <Typography variant="h6" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%', paddingLeft: '10%'}}>
                         {hours}:{minutes}:{seconds}
                     </Typography>
-                    {play == false &&
+                    {!timer.timerOn &&
                         <PlayArrowRoundedIcon sx={{paddingRight: '5%', alignSelf: 'right'}}/>
                     }
-                    {play == true &&
+                    {timer.timerOn &&
                         <PauseRoundedIcon sx={{paddingRight: '5%', alignSelf: 'right'}}/>
                     }
                 </Box>

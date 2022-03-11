@@ -26,22 +26,18 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const Task = ({cardId, sequence, tasks, timers}) => {
+const Task = ({cardId, sequence, tasks}) => {
     const SECOND = 1000;
     const taskId = parseInt(cardId);
 
     const dispatch = useDispatch();
-    const timer = timers.find(timerObj => timerObj.id === taskId);
+    const timer = useSelector((state) => state.timer).find(timer => timer.id === taskId);
 
     const time = timer.time;
-    const lastTimerOffTime = timer.lastTimerOffTime;
+
     const timerOn = timer.timerOn;
 
     const [open, setOpen] = useState(false);
-    // const [time, setTime] = useState(tasks.cards[cardId].content.props.totalTime);
-    // const [lastTimerOffTime, setLastTimerOffTime] = useState(time); // do obliczenia czasu, ktory trzeba dodac do czasu zadania w bazie danych
-    // const [timerOn, setTimerOn] = useState(false);
-
     const { isTaskLoading, taskLoadingError, sendRequest: fetchTask } = useFetch();
     const { isTimeUpdated, timeUpdateError, sendRequest: fetchAddTime } = useFetch();
 
@@ -58,11 +54,8 @@ const Task = ({cardId, sequence, tasks, timers}) => {
         fetchTask(fetchTaskRequest, handleTask);
     }, [fetchTask, taskId])
 
-    console.log(lastTimerOffTime);
-
     useEffect(() => {
         let interval = null;
-        setLastTimerOffTime();
         if (timerOn) {
             interval = setInterval(() => {
                 incrementTimeBySecond();
@@ -76,7 +69,6 @@ const Task = ({cardId, sequence, tasks, timers}) => {
     }, [timerOn]);
 
     const setLastTimerOffTime = () => {
-        console.log(taskId);
         dispatch(timerActions.setLastTimerOffTime(taskId));
     }
 
@@ -100,8 +92,10 @@ const Task = ({cardId, sequence, tasks, timers}) => {
     }
 
     const handleTimer = () => {
-        toggleTimer();
         if (timerOn) {
+            toggleTimer();
+            setLastTimerOffTime();
+            const lastTimerOffTime = timer.lastTimerOffTime;
             const timeToAdd = time - lastTimerOffTime;
             const fetchAddTimeRequest = {
                 url: `/project/task/${taskId}/time/add`,
@@ -114,6 +108,8 @@ const Task = ({cardId, sequence, tasks, timers}) => {
                 }
             }
             fetchAddTime(fetchAddTimeRequest);
+        } else {
+            toggleTimer();
         }
     }
 
@@ -123,14 +119,13 @@ const Task = ({cardId, sequence, tasks, timers}) => {
 
     const addPropToTaskCard = () => {
         const TaskCard = tasks.cards[taskId].content;
-        return cloneElement(TaskCard, {time: time, handleTimer: handleTimer});
+        return cloneElement(TaskCard, { handleTimer: handleTimer });
     }
 
     const { isLoading, error, userProjects } = useUserProjects();
 
     const { projectId } = useParams();
-    const theProject = userProjects.find(project => project.id == projectId);
-    console.log(theProject);
+    const theProject = userProjects.find(project => project.id.toString() === projectId);
 
     return (
         <div>

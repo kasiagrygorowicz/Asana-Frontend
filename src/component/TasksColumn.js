@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 import React, {useState} from "react";
 import Task from "./Task";
 
-const TasksColumn = ({t, tasks, type, timers}) => {
+const TasksColumn = ({t, tasks, type}) => {
     return (
         <Grid item xs={4}>
             <Box sx={{
@@ -39,7 +39,6 @@ const TasksColumn = ({t, tasks, type, timers}) => {
                                         <Task
                                             cardId={card}
                                             tasks={tasks}
-                                            timers={timers}
                                             sequence={sequence}
                                         />
                                     ))}

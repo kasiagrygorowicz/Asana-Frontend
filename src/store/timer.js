@@ -16,9 +16,10 @@ const timerSlice = createSlice({
             state.find(timer => timer.id === action.payload).time = state.find(timer => timer.id === action.payload).time + 1;
         },
         setLastTimerOffTime: (state, action) => {
-            console.log(state[0].id);
-            console.log(action.payload);
             state.find(timer => timer.id === action.payload).lastTimerOffTime = state.find(timer => timer.id === action.payload).time;
+        },
+        getTimer: (state, action) => {
+            return state.find(timer => timer.id === action.payload);
         }
     }
 });
