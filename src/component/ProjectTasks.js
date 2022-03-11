@@ -7,14 +7,21 @@ import useFetch from "../hook/use-fetch";
 import {useParams} from "react-router-dom";
 import TaskCard from "./TaskCard";
 import TasksColumn from "./TasksColumn";
+import {useDispatch, useSelector} from "react-redux";
+import {timerActions} from "../store/timer";
 
 const ProjectTasks = ({t, projectInfo}) => {
+    const dispatch = useDispatch();
+
     const { areTasksLoading, tasksError, sendRequest: fetchTasks } = useFetch();
     const { isChangeTaskStatusLoading, changeTaskStatusError, sendRequest: fetchChangeTaskStatus } = useFetch();
 
+    const timers = useSelector((state) => state.timer);
     const [ tasks, setTasks ] = useState({ cards: {}, columns: {} });
 
     let { projectId } = useParams();
+
+    console.log(timers);
 
     useEffect(() => {
         const handleProjectTasks = (tasksObj) => {
@@ -39,7 +46,6 @@ const ProjectTasks = ({t, projectInfo}) => {
                 const dateSplit = firstSplit[0].split("-");
                 const taskDate = dateSplit[2] + "." + dateSplit[1] + "." + dateSplit[0];
 
-
                 tasksContent[loadedTasks[i].id.toString()] = {
                     id: loadedTasks[i].id.toString(),
                     name: loadedTasks[i].name,
@@ -51,6 +57,13 @@ const ProjectTasks = ({t, projectInfo}) => {
                                        date={taskDate} />,
                     show: true
                 }
+
+                dispatch(timerActions.addTimer({
+                    id: loadedTasks[i].id,
+                    timerOn: false,
+                    time: loadedTasks[i].totalTime,
+                    lastTimerOffTime: loadedTasks[i].totalTime
+                }));
             }
             const columnsContent =
                 {
@@ -81,6 +94,7 @@ const ProjectTasks = ({t, projectInfo}) => {
         fetchTasks(fetchTasksRequest, handleProjectTasks);
 
     }, [fetchTasks, projectId]);
+
 
     const getTaskColor = (taskStatus) => {
         if (taskStatus === 'UNDONE' || taskStatus === 'DONE') {
@@ -139,7 +153,16 @@ const ProjectTasks = ({t, projectInfo}) => {
         // Zmiana wyglądu taska
         const draggedTask = tasks.cards[draggableId];
         const newTaskStatus = finish.id;
-        draggedTask.content = <TaskCard cardColor={getTaskColor(newTaskStatus)} taskName={draggedTask.name} taskType={newTaskStatus} date="18.04.2022"/>;
+
+        const timer = timers.find(timerObj => timerObj.id === draggableId);
+        draggedTask.content = <TaskCard
+                                  key={draggableId}
+                                  cardColor={getTaskColor(newTaskStatus)}
+                                  totalTime={timer.time}
+                                  taskName={draggedTask.name}
+                                  taskType={newTaskStatus}
+                                  date="18.04.2022"
+        />;
 
         // Aktualizacja stanu tasków
         const newState = {
@@ -177,9 +200,9 @@ const ProjectTasks = ({t, projectInfo}) => {
             <FormatListBulletedIcon fontSize='medium' sx={{float: 'right'}}/>
             <Grid container alignItems="stretch" justifyContent="center">
                 <DragDropContext onDragEnd={onDragEnd}>
-                    <TasksColumn t={t} tasks={tasks} type='UNDONE'/>
-                    <TasksColumn t={t} tasks={tasks} type='DOING'/>
-                    <TasksColumn t={t} tasks={tasks} type='DONE'/>
+                    <TasksColumn t={t} tasks={tasks} timers={timers} type='UNDONE'/>
+                    <TasksColumn t={t} tasks={tasks} timers={timers} type='DOING'/>
+                    <TasksColumn t={t} tasks={tasks} timers={timers} type='DONE'/>
                 </DragDropContext>
             </Grid>
         </>
