@@ -7,11 +7,16 @@ import useFetch from "../hook/use-fetch";
 import {useParams} from "react-router-dom";
 import TaskCard from "./TaskCard";
 import TasksColumn from "./TasksColumn";
+import {useDispatch, useSelector} from "react-redux";
+import {timerActions} from "../store/timer";
 
 const ProjectTasks = ({t, projectInfo}) => {
+    const dispatch = useDispatch();
+
     const { areTasksLoading, tasksError, sendRequest: fetchTasks } = useFetch();
     const { isChangeTaskStatusLoading, changeTaskStatusError, sendRequest: fetchChangeTaskStatus } = useFetch();
 
+    const timers = useSelector((state) => state.timer);
     const [ tasks, setTasks ] = useState({ cards: {}, columns: {} });
 
     let { projectId } = useParams();
@@ -39,11 +44,22 @@ const ProjectTasks = ({t, projectInfo}) => {
                 const dateSplit = firstSplit[0].split("-");
                 const taskDate = dateSplit[2] + "." + dateSplit[1] + "." + dateSplit[0];
 
+                const taskTimer = {
+                    id: loadedTasks[i].id,
+                    timerOn: false,
+                    time: loadedTasks[i].totalTime,
+                    lastTimerOffTime: loadedTasks[i].totalTime
+                }
+
+                dispatch(timerActions.addTimer(taskTimer));
 
                 tasksContent[loadedTasks[i].id.toString()] = {
                     id: loadedTasks[i].id.toString(),
                     name: loadedTasks[i].name,
-                    content: <TaskCard key={loadedTasks[i].id}
+                    content: <TaskCard
+                                       id={loadedTasks[i].id}
+                                       key={loadedTasks[i].id}
+                                       timer={taskTimer}
                                        cardColor={taskColor}
                                        totalTime={loadedTasks[i].totalTime}
                                        taskName={loadedTasks[i].name}
@@ -139,7 +155,15 @@ const ProjectTasks = ({t, projectInfo}) => {
         // Zmiana wyglądu taska
         const draggedTask = tasks.cards[draggableId];
         const newTaskStatus = finish.id;
-        draggedTask.content = <TaskCard cardColor={getTaskColor(newTaskStatus)} taskName={draggedTask.name} taskType={newTaskStatus} date="18.04.2022"/>;
+
+        draggedTask.content = <TaskCard
+                                  key={draggableId}
+                                  id={parseInt(draggableId)}
+                                  cardColor={getTaskColor(newTaskStatus)}
+                                  taskName={draggedTask.name}
+                                  taskType={newTaskStatus}
+                                  date="18.04.2022"
+        />;
 
         // Aktualizacja stanu tasków
         const newState = {
