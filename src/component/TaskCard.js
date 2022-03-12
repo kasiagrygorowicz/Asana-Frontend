@@ -22,7 +22,7 @@ function TaskCard(props) {
 
     const t = useTranslation()[0]
     const timer = useSelector((state) => state.timer).find(timer => timer.id === props.id);
-    console.log(timer);
+    //console.log(timer);
     // const timer = dispatch(timerActions.setLastTimerOffTime(props.id));
 
     const handleClick = (e) => {
@@ -45,7 +45,7 @@ function TaskCard(props) {
                 <SettingsIcon fontSize="large" sx={{display: "flex", float: "right", marginRight: 0.5, marginTop: 1}}/>
             </Stack>
                 <Box sx={{paddingLeft: 30, height: 25, width: '90%'}}>
-                <Typography variant="h7" fontFamily="Sora">{t('dueDate')}: {props.date}</Typography>
+                    <Typography fontFamily="Sora">{t('dueDate')}: {props.date}</Typography>
                 </Box>
             <Stack direction="row">
                 <Box sx={{paddingLeft: 15}}>

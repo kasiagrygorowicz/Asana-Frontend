@@ -9,7 +9,7 @@ import LoginForm from "../component/LoginForm";
 
 function Login({t}) {
     return (
-        <Container maxWidth='x1'>
+        <Container maxWidth='xl'>
             <Box sx={{ height: 20}}></Box>
             <Grid container direction="row" alignItems="left" sx={12} spacing={0}>
                 <Grid item xs={7}>

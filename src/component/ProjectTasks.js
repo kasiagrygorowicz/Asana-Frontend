@@ -201,9 +201,9 @@ const ProjectTasks = ({t, projectInfo}) => {
             <FormatListBulletedIcon fontSize='medium' sx={{float: 'right'}}/>
             <Grid container alignItems="stretch" justifyContent="center">
                 <DragDropContext onDragEnd={onDragEnd}>
-                    <TasksColumn t={t} tasks={tasks} type='UNDONE'/>
-                    <TasksColumn t={t} tasks={tasks} type='DOING'/>
-                    <TasksColumn t={t} tasks={tasks} type='DONE'/>
+                    <TasksColumn t={t} tasks={tasks} type='UNDONE' key='UNDONE'/>
+                    <TasksColumn t={t} tasks={tasks} type='DOING' key='DOING'/>
+                    <TasksColumn t={t} tasks={tasks} type='DONE' key='DONE'/>
                 </DragDropContext>
             </Grid>
         </>

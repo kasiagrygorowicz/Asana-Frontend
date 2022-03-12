@@ -135,7 +135,7 @@ function AddMemeber({t, membersRef}) {
                     </Box>
                     
                     <Box sx={{ width: 300, height: 60, background: '#ABB5BE', borderRadius: '30px', display: 'flex' , float: 'left'}}>
-                        <Input inputRef={emailInput} name="name" type="name" placeholder={t('enterEmail')} disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '100%'}}></Input>
+                        <Input inputRef={emailInput} name="name" type="name" placeholder={t('enterEmail')} disableUnderline={true} sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '100%'}}></Input>
                     </Box>
                     
                     <Box sx={{ width: 5, height: 60, display: 'flex' , float: 'left'}}>

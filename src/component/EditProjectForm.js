@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     },
 });
 
-const AddProjectForm = ({t, projectInfo}) => {
+const EditProjectForm = ({t, projectInfo}) => {
     const projectNameInput = useRef();
     const descriptionInput = useRef();
     const membersRef = useRef([]);
@@ -74,7 +74,7 @@ const AddProjectForm = ({t, projectInfo}) => {
     }
 
     let teamsToDisplay = userTeams.map((team) => (
-        <MenuItem value={team.id}>{team.name}</MenuItem>
+        <MenuItem value={team.id} key={team.id}>{team.name}</MenuItem>
     ));
 
     const classes = useStyles();
@@ -84,14 +84,14 @@ const AddProjectForm = ({t, projectInfo}) => {
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('projectName')}:</Typography>
             </Box>
             <Box sx={{ width: '40%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
-                <Input name="name" inputRef={projectNameInput} defaultValue={projectInfo?.name} key={projectInfo?.name} placeholder={t('projectNameInput')} disableUnderline='true' sx={{ align: 'center'}} style={{paddingLeft: '5%', width: '95%'}}></Input>
+                <Input name="name" inputRef={projectNameInput} defaultValue={projectInfo?.name} key={projectInfo?.name} placeholder={t('projectNameInput')} disableUnderline={true} sx={{ align: 'center'}} style={{paddingLeft: '5%', width: '95%'}}></Input>
             </Box>
             <Box sx={{clear: 'both', height: 10}}></Box>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('team')}:</Typography>
             </Box>
             <Box sx={{background: '#4786C6', borderRadius: 30, width: '20%',height: 60, alignItems: 'center', float: 'left', margin: 10, display: 'flex'}}>
-            <FormControl style={{marginLeft: '5%', width: '90%', background: '#4786C6', borderRadius: 30, disableUnderline: 'true'}}>
+            <FormControl style={{marginLeft: '5%', width: '90%', background: '#4786C6', borderRadius: 30, disableUnderline: true}}>
             <Select disableUnderline={true} defaultValue={1} style={{color: 'white'}} className={classes.select} inputProps={{
                 classes: {
                     icon: classes.icon,
@@ -113,7 +113,7 @@ const AddProjectForm = ({t, projectInfo}) => {
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('description')}:</Typography>
             </Box>
             <Box sx={{ width: '40%', height: 120, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
-                <Input name="description" inputRef={descriptionInput} defaultValue={projectInfo?.description} multiline placeholder={t('descriptionInput')} disableUnderline='true' sx={{ align: 'center'}} style={{paddingLeft: '5%', width: '95%'}} rows={4}></Input>
+                <Input name="description" inputRef={descriptionInput} defaultValue={projectInfo?.description} multiline placeholder={t('descriptionInput')} disableUnderline={true} sx={{ align: 'center'}} style={{paddingLeft: '5%', width: '95%'}} rows={4}></Input>
             </Box>
             <Box sx={{clear: 'both', height: 10}}></Box>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
@@ -134,4 +134,4 @@ const AddProjectForm = ({t, projectInfo}) => {
         );
     }
                 
-export default AddProjectForm;
+export default EditProjectForm;
