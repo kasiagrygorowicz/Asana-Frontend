@@ -9,7 +9,7 @@ const UserProjects = ({t}) => {
 
     let projectsToDisplay = userProjects.map((project) => (
         <Grid item xs={3} key={project.id}>
-            <ProjectCard cardColor="#4F6C89" teamName="Team A" projectName={project.name} description={project.description} projectId={project.id} />
+            <ProjectCard cardColor="#4F6C89" teamName="Team A" projectName={project.name} description={project.description} projectId={project.id}  />
         </Grid>
     ));
 

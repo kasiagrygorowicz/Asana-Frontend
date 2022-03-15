@@ -16,7 +16,8 @@ const useUserProjects = () => {
                 loadedUserProjects.push({
                     id: projectsObj[projectKey].id,
                     name: projectsObj[projectKey].name,
-                    description: projectsObj[projectKey].description
+                    description: projectsObj[projectKey].description,
+                    isOwner : projectsObj[projectKey].owner
                 });
             }
             setUserProjects(loadedUserProjects);
@@ -30,6 +31,7 @@ const useUserProjects = () => {
 
         fetchUserProjects(fetchUserProjectsRequest, handleGetUserProjects);
     }, [fetchUserProjects]);
+
 
 
     return {

@@ -4,44 +4,12 @@ import AuthContext from "../store/auth-context";
 import TeamCardSmall from "./TeamCardSmall";
 import jwt_decode from "jwt-decode";
 import {Link} from "react-router-dom";
+import useUserProjects from "../hook/use-projects";
+import useUserTeams from "../hook/use-teams";
 
 const UserTeams =()=>{
-    const { isLoading, error, sendRequest: fetchUserTeams } = useFetch();
-    const [ userTeams, setUserTeams ] = useState([]);
-    const authCtx = useContext(AuthContext);
 
-
-    useEffect(()=>{
-        const fetchUserTeamsHandler=(t)=>{
-            let teams = []
-            for (let team in t ){
-                teams.push({
-                    id: t[team].id,
-                    name: t[team].name,
-                    isOwner:t[team].owner
-                })
-
-            }
-
-            setUserTeams(teams)
-        }
-
-        const userId = jwt_decode(authCtx.authToken).id;
-        const urlRequest = `/team/user/${userId}/teams`;
-        const fetchUserTeamsRequest = {
-            url: urlRequest
-        };
-
-        fetchUserTeams(fetchUserTeamsRequest, fetchUserTeamsHandler)
-
-
-
-
-    },[fetchUserTeams])
-
-
-
-
+    const { isLoading, error, userTeams, setUserTeams } = useUserTeams();
 
     return (
 

@@ -83,18 +83,21 @@ function ProjectCardSmall(props) {
               transformOrigin={{horizontal: 'left', vertical: 'top'}}
               anchorOrigin={{horizontal: 'right', vertical: 'top'}}
           >
+            {props.isOwner &&
             <MenuItem component={Link} to={"/editproject/" + props.id}>
               Edit
-            </MenuItem>
+            </MenuItem>}
             <MenuItem component={Link} to={"/editproject/" + props.id}>
               Add new member
             </MenuItem>
             <MenuItem component={Link} to={"/editproject/" + props.id}>
               Add new team
             </MenuItem>
-            <MenuItem onClick={deleteProjectHandler}>
-              Delete
-            </MenuItem>
+            {props.isOwner &&
+                <MenuItem onClick={deleteProjectHandler}>
+                  Delete
+                </MenuItem>
+            }
           </Menu>
         </Box>
       </Box>

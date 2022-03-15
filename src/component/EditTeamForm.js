@@ -19,7 +19,7 @@ const useStyles = makeStyles({
 
 const EditProjectForm = ({t, teamInfo}) => {
     const teamNameInput = useRef();
-    const descriptionInput = useRef();
+
     const membersRef = useRef([]);
     const { teamId } = useParams();
     const { isLoading, error, sendRequest: editTeamRequest } = useFetch();
@@ -29,7 +29,7 @@ const EditProjectForm = ({t, teamInfo}) => {
     const submitHandler = (event) => {
         event.preventDefault();
         const enteredTeamName = teamNameInput.current.value;
-        const enteredTeamDescription = descriptionInput.current.value;
+
 
         const handleEditProject = (response) => {
             const createTeamAdress = `/team/${teamId}`;
@@ -41,7 +41,6 @@ const EditProjectForm = ({t, teamInfo}) => {
             method: "PUT",
             body: {
                 'name': enteredTeamName,
-                'description': enteredTeamDescription
             },
             headers: {
                 'Content-Type': 'application/json'
@@ -61,12 +60,7 @@ const EditProjectForm = ({t, teamInfo}) => {
                 <Input name="name" inputRef={teamNameInput} defaultValue={teamInfo?.name} key={teamInfo?.name} placeholder={t('teamNameInput')} disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}}></Input>
             </Box>
             <Box sx={{clear: 'both', height: 10}}></Box>
-            <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('description')}:</Typography>
-            </Box>
-            <Box sx={{ width: '40%', height: 120, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
-                <Input name="description" inputRef={descriptionInput} multiline defaultValue={teamInfo?.description} placeholder={t('descriptionInput')} disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}} rows={4}></Input>
-            </Box>
+
             <Box sx={{clear: 'both', height: 10}}></Box>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('members')}:</Typography>
