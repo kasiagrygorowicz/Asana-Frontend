@@ -21,7 +21,7 @@ function Home({t}) {
         direction="column"
         spacing={15}
         alignItems="left">
-            <Grid item xs={12} spacing={12} direction="row">
+            <Grid item xs={12}>
                 <Stack direction="row" spacing={6}>
                     <Box sx={{ width: 780, height: 350, alignItems: 'center', display: 'flex'}}>
                         <img src={image5} width={780} height={350} alt="Image 7"/>

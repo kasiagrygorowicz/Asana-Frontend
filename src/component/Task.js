@@ -8,6 +8,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import useFetch from "../hook/use-fetch";
 import { useParams } from "react-router-dom";
 import useUserProjects from "../hook/use-projects";
+import {useDispatch, useSelector} from "react-redux";
+import {timerActions} from "../store/timer";
 
 const useStyles = makeStyles(theme => ({
     modal: {
@@ -26,12 +28,16 @@ const useStyles = makeStyles(theme => ({
 
 const Task = ({cardId, sequence, tasks}) => {
     const SECOND = 1000;
+    const taskId = parseInt(cardId);
+
+    const dispatch = useDispatch();
+    const timer = useSelector((state) => state.timer).find(timer => timer.id === taskId);
+
+    const time = timer.time;
+
+    const timerOn = timer.timerOn;
 
     const [open, setOpen] = useState(false);
-    const [time, setTime] = useState(tasks.cards[cardId].content.props.totalTime);
-    const [lastTimerOffTime, setLastTimerOffTime] = useState(time); // do obliczenia czasu, ktory trzeba dodac do czasu zadania w bazie danych
-    const [timerOn, setTimerOn] = useState(false);
-
     const { isTaskLoading, taskLoadingError, sendRequest: fetchTask } = useFetch();
     const { isTimeUpdated, timeUpdateError, sendRequest: fetchAddTime } = useFetch();
 
@@ -42,20 +48,17 @@ const Task = ({cardId, sequence, tasks}) => {
             setTaskInfo(response);
         }
         const fetchTaskRequest = {
-            url: `/project/task/${cardId}`
+            url: `/project/task/${taskId}`
         }
 
         fetchTask(fetchTaskRequest, handleTask);
-    }, [fetchTask, cardId])
-
-    console.log(lastTimerOffTime);
+    }, [fetchTask, taskId])
 
     useEffect(() => {
         let interval = null;
-        setLastTimerOffTime(time);
         if (timerOn) {
             interval = setInterval(() => {
-                setTime(prevTime => prevTime + SECOND / 1000);
+                incrementTimeBySecond();
             }, SECOND);
         } else {
             clearInterval(interval);
@@ -64,6 +67,14 @@ const Task = ({cardId, sequence, tasks}) => {
         return () => clearInterval(interval);
 
     }, [timerOn]);
+
+    const setLastTimerOffTime = () => {
+        dispatch(timerActions.setLastTimerOffTime(taskId));
+    }
+
+    const incrementTimeBySecond = () => {
+        dispatch(timerActions.incrementBySecond(taskId));
+    }
 
     const handleOpen = () => {
         setOpen(true);
@@ -82,10 +93,12 @@ const Task = ({cardId, sequence, tasks}) => {
 
     const handleTimer = () => {
         if (timerOn) {
-            setTimerOn(false);
+            toggleTimer();
+            setLastTimerOffTime();
+            const lastTimerOffTime = timer.lastTimerOffTime;
             const timeToAdd = time - lastTimerOffTime;
             const fetchAddTimeRequest = {
-                url: `/project/task/${cardId}/time/add`,
+                url: `/project/task/${taskId}/time/add`,
                 method: 'PUT',
                 body: {
                     'timeToAdd': timeToAdd
@@ -96,20 +109,23 @@ const Task = ({cardId, sequence, tasks}) => {
             }
             fetchAddTime(fetchAddTimeRequest);
         } else {
-            setTimerOn(true);
+            toggleTimer();
         }
     }
 
+    const toggleTimer = () => {
+        dispatch(timerActions.toggleTimer(taskId));
+    }
+
     const addPropToTaskCard = () => {
-        const TaskCard = tasks.cards[cardId].content;
-        return cloneElement(TaskCard, {time: time, handleTimer: handleTimer});
+        const TaskCard = tasks.cards[taskId].content;
+        return cloneElement(TaskCard, { handleTimer: handleTimer });
     }
 
     const { isLoading, error, userProjects } = useUserProjects();
 
     const { projectId } = useParams();
-    const theProject = userProjects.find(project => project.id == projectId);
-    console.log(theProject);
+    const theProject = userProjects.find(project => project.id.toString() === projectId);
 
     return (
         <div>

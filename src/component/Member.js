@@ -23,7 +23,7 @@ const HoverInfo = () => {
             </Box>
             <Typography fontFamily="Sora" style={{fontWeight: 600, fontSize: 24, lineHeight: 1.2, marginTop: 10, width: '75%'}}>{props.fullname}</Typography>
             <Button style={{textTransform: 'none'}} variant="contained" color="error" size="small" sx={{ borderRadius: 30, position:'absolute', right: '3%', top: '5%'}}>
-                <Typography uppercase={false} textTransform='none' style={{ fontSize: 12, alignSelf: 'center'}}>
+                <Typography style={{ fontSize: 12, alignSelf: 'center'}}>
                     {t('remove')}
                 </Typography>
             </Button>

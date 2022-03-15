@@ -40,6 +40,7 @@ const TasksColumn = ({t, tasks, type}) => {
                                             cardId={card}
                                             tasks={tasks}
                                             sequence={sequence}
+                                            key={card}
                                         />
                                     ))}
                                     {provided.placeholder}

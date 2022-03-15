@@ -57,7 +57,7 @@ function Team({t}) {
     }
     
     return (
-        <Container maxWidth="x1">
+        <Container maxWidth="xl">
         <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
             <Link to='/dashboard'>
                 <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>
@@ -122,19 +122,13 @@ function Team({t}) {
             <Box sx={{marginLeft: 250, width: '100%', height: 90, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Grid container spacing={10}>
                     <Grid item xs={3}>
-                    <Link to="/project/Project A" style={{textDecoration: 'none'}}>
                         <ProjectCard cardColor="#4F6C89" teamName="Team A" projectName="Project A" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Link>
                     </Grid>
                     <Grid item xs={3}>
-                    <Link to="/project/Project B" style={{textDecoration: 'none'}}>
                         <ProjectCard cardColor="#467AAE" teamName="Team B" projectName="Project B" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Link>
                     </Grid>
                     <Grid item xs={3}>
-                    <Link to="/project/Project C" style={{textDecoration: 'none'}}>
                         <ProjectCard cardColor="#6396C8" teamName="Team A" projectName="Project C" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Link>
                     </Grid>
                 </Grid>
             </Box>

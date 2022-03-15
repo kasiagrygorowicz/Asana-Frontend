@@ -38,7 +38,7 @@ function Project({t}) {
 
 
     return (
-        <Container maxWidth="x1">
+        <Container maxWidth="xl">
             <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
                 <Link to='/dashboard'>
                     <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>

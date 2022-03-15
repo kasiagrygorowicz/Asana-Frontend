@@ -58,11 +58,9 @@ function TeamCardSmall(props) {
             marginTop: 10
         }}>
             <Box sx={{width: '95%', height: 20, color: '#FFFFFF'}}>
-                <Box
-                    sx={{paddingLeft: 20, height: 25, paddingTop: 5, display: 'flex', justifyContent: 'space-between'}}>
-
+                <Box sx={{paddingLeft: 20, height: 25, paddingTop: 5, display: 'flex', justifyContent: 'space-between'}}>
                     <Box sx={{textDecoration: 'none', outline: "none", color: "white", width: "100%"}}>
-                        <Typography variant="h7" fontFamily="Sora"> {props.title} </Typography>
+                        <Typography fontFamily="Sora"> {props.title} </Typography>
                     </Box>
                     {props.type == "add" &&
                         <AddCircleOutlineIcon sx={{display: "flex", float: "right"}}/>

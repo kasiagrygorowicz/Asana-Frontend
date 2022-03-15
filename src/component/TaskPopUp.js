@@ -22,7 +22,7 @@ import useUserProjects from "../hook/use-projects";
 import { useNavigate } from "react-router-dom";
 
 export default function TaskPopUp({task, project}) {
-
+    console.log(project);
     const navigate = useNavigate();
     const { isLoadingDelete, errorDelete, sendRequest: deleteTaskRequest} = useFetch();
     const { isLoadingEdit, errorEdit, sendRequest: editTaskRequest } = useFetch();

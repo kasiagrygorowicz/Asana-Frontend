@@ -76,9 +76,9 @@ const LoginForm = ({t}) => {
                         </Button>
                         <Box sx={{ height: 30}}></Box>
                         <Box sx={{ width: '100%', height: 70, alignItems: 'center', textAlign: 'center'}}>
-                            <Typography variant="h7" fontFamily="Sora">{t('noAccountMsg')} </Typography>
+                            <Typography variant="h6" fontFamily="Sora">{t('noAccountMsg')} </Typography>
                             <Link to="/signup">
-                                <Typography variant="h7" fontFamily="Sora" color="#1A84EE" sx={{fontWeight: 'bold'}}> {t('signup')} </Typography>
+                                <Typography fontFamily="Sora" color="#1A84EE" sx={{fontWeight: 'bold'}}> {t('signup')} </Typography>
                             </Link>
                         </Box>
                     </Stack>
