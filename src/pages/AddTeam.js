@@ -9,43 +9,60 @@ import AddMemeber from "../component/AddMember";
 import {Link, useNavigate} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Members from '../component/Members'
-import {useContext, useRef} from "react";
+import {useContext, useRef, useEffect, useState} from "react";
 import useFetch from "../hook/use-fetch";
+import { Alarm } from "@mui/icons-material";
+import React from 'react';
+import Chip from '@mui/material/Chip';
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 function AddTeam({t}) {
 
-    const membersDummy = [
-        {
-            name: 'Katarzyna Grygorowicz',
-            email: "example@mail.com"
-        },
-        {
-            name: 'Marek Nowakowski',
-            email: "example@mail.com"
-        },
-        {
-            name: 'Michał Wójcik',
-            email: "example@mail.com"
-        },
-        {
-            name: 'Kamil Frączek',
-            email: "example@mail.com"
-        },
-    ];
     const teamNameRef = useRef();
     const descriptionRef = useRef();
-    const membersRef = useRef([]);
+    const [ users, setUsers ] = useState([]);
     const navigate = useNavigate();
     const { isLoading, error, sendRequest: addTeamRequest } = useFetch();
+    const { isMembersLoading, membersError, sendRequest: fetchMembers } = useFetch();
+
+    useEffect(() => {
+        const handleGetUsers = (usersObj) => {
+            const loadedUsers = [];
+            for (const usersKey in usersObj) {
+                loadedUsers.push({ 
+                    id: usersObj[usersKey].id, 
+                    name: usersObj[usersKey].name,
+                    email: usersObj[usersKey].email });
+            }
+            setUsers(loadedUsers);
+        }
+
+        const urlRequest = `/user/all`;
+        const fetchUsersRequest = {
+            url: urlRequest
+        };
+        fetchMembers(fetchUsersRequest, handleGetUsers);
+    }, [fetchMembers]);
+
+    const fixedOptions = [];
+    const tmp = [];
+    const [value, setValue] = React.useState(tmp);
 
     const submitHandler =(event)=>{
+        alert('hello')
+        const members = []
+
+        for(let i = 0; i < value.length; i++){
+            members.push(value[i].id)
+        }
+
         event.preventDefault();
-        let name = teamNameRef.current.value
-        let description = descriptionRef.value
+        const name = teamNameRef.current.value
+        
 
         const addTeamHandler = (response) => {
-            const teamId = response['name']
-            const teamURL = `/team/$teamId`
+            const teamURL = `/dashboard`
             navigate(teamURL,{replace:true})
         }
 
@@ -54,8 +71,7 @@ function AddTeam({t}) {
             method: "POST",
             body: {
                 'name': name,
-                // 'description': description
-
+                'members': members
             },
             headers: {
                 'Content-Type': 'application/json'
@@ -97,8 +113,35 @@ function AddTeam({t}) {
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('members')}:</Typography>
             </Box>
-            <Members members={membersDummy} />
-            <AddMemeber t={t} membersRef={membersRef}/>
+            <Box sx={{ width: '40%', float: 'left', borderRadius: '30px', margin: 10, display: 'flex' }}>
+            
+                <Autocomplete
+                    multiple
+                    id="fixed-tags-demo"
+                    value={value}
+                    onChange={(event, newValue) => {
+                        setValue([
+                        ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
+                        ])
+                    }}
+                    options={users}
+                    getOptionLabel={(option) => option.email}
+                    renderTags={(tagValue, getTagProps) =>
+                        tagValue.map((option, index) => (
+                        <Chip
+                            label={option.email}
+                            {...getTagProps({ index })}
+                            disabled={fixedOptions.indexOf(option) !== -1}
+                        />
+                        ))
+                    }
+                    style={{ width: 500 }}
+                    renderInput={(params) => (
+                        <TextField {...params} sx={{ input: { color: 'black' }, width: '112%' }}  placeholder={t('addmember')}/>
+                    )}
+                />
+            </Box>
+
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
