@@ -49,26 +49,28 @@ function TaskCard(props) {
                 </Box>
             <Stack direction="row">
                 <Box sx={{paddingLeft: 15}}>
-                <Box onClick={handleClick} sx={{ width: '110%', height: '65%', alignItems: 'center', float: 'left', background: '#17A2B8', borderRadius: '30px', margin: 10, display: 'flex' }}>
+                <Box sx={{ width: '110%', height: '65%', alignItems: 'center', float: 'left', background: '#17A2B8', borderRadius: '30px', margin: 10, display: 'flex' }}>
                     <Typography variant="h6" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%', paddingLeft: '10%'}}>
                         {hours}:{minutes}:{seconds}
                     </Typography>
-                    {!timer.timerOn &&
-                        <PlayArrowRoundedIcon sx={{paddingRight: '5%', alignSelf: 'right'}}/>
-                    }
-                    {timer.timerOn &&
-                        <PauseRoundedIcon sx={{paddingRight: '5%', alignSelf: 'right'}}/>
-                    }
+                    <IconButton onClick={handleClick} sx={{paddingRight: '5%', alignSelf: 'right', color: 'white'}}>
+                        {!timer.timerOn &&
+                            <PlayArrowRoundedIcon />
+                        }
+                        {timer.timerOn &&
+                            <PauseRoundedIcon />
+                        }
+                    </IconButton>
                 </Box>
                 </Box>
                 <Box sx={{paddingLeft: 30, height: 40, width: '90%', marginTop: 15}}>
-                {props.taskType != "DONE" && props.taskType != "DOING" &&
+                {props.taskType !== "DONE" && props.taskType !== "DOING" &&
                     <CloseRoundedIcon sx={{display: "flex", float: "right", marginRight: 1, color: "#FF4153"}}/>
                 }
-                {props.taskType == "DOING" &&
+                {props.taskType === "DOING" &&
                     <LoopIcon sx={{display: "flex", float: "right", marginRight: 1, color: "#FFD350"}}/>
                 }
-                {props.taskType == "DONE" &&
+                {props.taskType === "DONE" &&
                     <CheckCircleOutlineIcon sx={{display: "flex", float: "right", marginRight: 1, color: "#1ADC46"}}/>
                 }
                 </Box>

@@ -155,7 +155,7 @@ const Task = ({cardId, sequence, tasks}) => {
             >
                 <Fade in={open}>
                     <div className={classes.paper}>
-                        <TaskPopUp task={taskInfo} project={theProject}/>
+                        <TaskPopUp task={taskInfo} project={theProject} handleTimer={handleTimer}/>
                     </div>
                 </Fade>
             </Modal>
