@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useContext} from 'react'
 import {Box, Container, Grid, Menu, MenuItem, Typography} from "@material-ui/core";
 import Button from "@mui/material/Button";
 import {Link, useNavigate, useParams} from "react-router-dom";
@@ -8,6 +8,7 @@ import ProjectCard from '../component/ProjectCard';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SettingsIcon from '@mui/icons-material/Settings';
 import useFetch from "../hook/use-fetch";
+import VerticalBarContext from '../store/verticalbar-context';
 
 
 function Team({t}) {
@@ -25,6 +26,7 @@ function Team({t}) {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const verticalBarCtx = useContext(VerticalBarContext);
 
     useEffect(() => {
         const handleTeam = (response) => {
@@ -50,6 +52,7 @@ function Team({t}) {
         }
 
         const handleDeleteTeam = (response) => {
+            verticalBarCtx.updateKey++;
             navigate('/dashboard', {replace: true})
         }
 

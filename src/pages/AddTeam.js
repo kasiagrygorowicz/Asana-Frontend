@@ -16,6 +16,7 @@ import React from 'react';
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import VerticalBarContext from "../store/verticalbar-context";
 
 function AddTeam({t}) {
 
@@ -25,6 +26,7 @@ function AddTeam({t}) {
     const navigate = useNavigate();
     const { isLoading, error, sendRequest: addTeamRequest } = useFetch();
     const { isMembersLoading, membersError, sendRequest: fetchMembers } = useFetch();
+    const verticalBarCtx = useContext(VerticalBarContext);
 
     useEffect(() => {
         const handleGetUsers = (usersObj) => {
@@ -50,7 +52,6 @@ function AddTeam({t}) {
     const [value, setValue] = React.useState(tmp);
 
     const submitHandler =(event)=>{
-        alert('hello')
         const members = []
 
         for(let i = 0; i < value.length; i++){
@@ -63,6 +64,7 @@ function AddTeam({t}) {
 
         const addTeamHandler = (response) => {
             const teamURL = `/dashboard`
+            verticalBarCtx.updateKey++;
             navigate(teamURL,{replace:true})
         }
 

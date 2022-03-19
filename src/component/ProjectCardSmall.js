@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useContext} from "react";
 import {
   Typography,
   Box, MenuItem, Menu
@@ -7,6 +7,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {Link, useNavigate} from "react-router-dom";
 import useFetch from "../hook/use-fetch";
+import VerticalBarContext from "../store/verticalbar-context";
 
 
 function ProjectCardSmall(props) {
@@ -20,6 +21,7 @@ function ProjectCardSmall(props) {
 
   const {isLoading, error, sendRequest: deleteProjectRequest} = useFetch();
 
+  const verticalBarCtx = useContext(VerticalBarContext);
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -39,10 +41,8 @@ function ProjectCardSmall(props) {
     }
 
     const handleDeleteProject = (response) => {
-
+      verticalBarCtx.updateKey++;
       navigate('/dashboard', {replace: true})
-
-
     }
 
     deleteProjectRequest(deleteProjectRequestContent, handleDeleteProject);

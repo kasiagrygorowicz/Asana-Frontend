@@ -1,14 +1,18 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Box, Typography,} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import ProjectCardSmall from "./ProjectCardSmall";
 import TeamCardSmall from "./TeamCardSmall";
 import UserTeams from "./UserTeams";
 import UserProjectsBar from "./UserProjectsBar";
+import VerticalBarContext from "../store/verticalbar-context";
 
 function VerticalBar({t}) {
+    const context = useContext(VerticalBarContext)
+
     return (
         <Box
+            key={context.updateKey}
             sx={{
                 width: '15%',
                 height: 770,
@@ -27,7 +31,6 @@ function VerticalBar({t}) {
                     <TeamCardSmall title={t('addteam')} type="add"/>
                 </Link>
             </Box>
-
 
             <Box sx={{margin: 15, height: 20}}>
                 <Typography variant="h5" fontFamily="Sora">{t('recent')}</Typography>

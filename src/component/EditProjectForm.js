@@ -8,6 +8,7 @@ import AuthContext from "../store/auth-context";
 import jwt_decode from "jwt-decode"
 import Members from '../component/Members'
 import AddMemeber from "./AddMember";
+import VerticalBarContext from "../store/verticalbar-context";
 
 const useStyles = makeStyles({
     select: {
@@ -27,6 +28,7 @@ const EditProjectForm = ({t, projectInfo}) => {
     const [ userTeams, setUserTeams ] = useState([]);
     const navigate = useNavigate();
     const authCtx = useContext(AuthContext);
+    const verticalBarCtx = useContext(VerticalBarContext)
 
     useEffect(() => {
         const handleGetUserTeams = (teamsObj) => {
@@ -54,6 +56,7 @@ const EditProjectForm = ({t, projectInfo}) => {
 
         const handleEditProject = (response) => {
             const createdProjectAddress = `/project/${projectId}`;
+            verticalBarCtx.updateKey++;
             navigate(createdProjectAddress, { replace: true })
         }
 

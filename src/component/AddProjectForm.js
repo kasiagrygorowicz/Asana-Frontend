@@ -6,6 +6,7 @@ import useFetch from "../hook/use-fetch";
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../store/auth-context";
 import jwt_decode from "jwt-decode"
+import VerticalBarContext from "../store/verticalbar-context";
 
 const useStyles = makeStyles({
     select: {
@@ -23,6 +24,7 @@ const AddProjectForm = ({t}) => {
     const [ userTeams, setUserTeams ] = useState([]);
     const navigate = useNavigate();
     const authCtx = useContext(AuthContext);
+    const verticalBarCtx = useContext(VerticalBarContext);
 
     useEffect(() => {
         const handleGetUserTeams = (teamsObj) => {
@@ -51,6 +53,7 @@ const AddProjectForm = ({t}) => {
         const handleAddProject = (response) => {
             const projectId = response['id'];
             const createdProjectAddress = `/project/${projectId}`;
+            verticalBarCtx.updateKey++;
             navigate(createdProjectAddress, { replace: true })
         }
 

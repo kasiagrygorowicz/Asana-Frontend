@@ -7,6 +7,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {Link, useNavigate} from "react-router-dom";
 import useFetch from "../hook/use-fetch";
+import VerticalBarContext from "../store/verticalbar-context";
 
 
 function TeamCardSmall(props) {
@@ -20,10 +21,8 @@ function TeamCardSmall(props) {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
-
     const {isLoading, error, sendRequest: deleteTeamRequest} = useFetch();
-
+    const verticalBarCtx = useContext(VerticalBarContext)
 
     const deleteTeamHandler = () => {
 
@@ -39,9 +38,8 @@ function TeamCardSmall(props) {
         }
 
         const handleDeleteTeam = (response) => {
+            verticalBarCtx.updateKey++;
             navigate('/dashboard', {replace: true})
-
-
         }
 
         deleteTeamRequest(deleteTeamRequestContent, handleDeleteTeam);

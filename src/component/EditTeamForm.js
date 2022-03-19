@@ -5,6 +5,7 @@ import {useContext, useEffect, useRef, useState} from "react";
 import useFetch from "../hook/use-fetch";
 import {useNavigate, useParams} from "react-router-dom";
 import AuthContext from "../store/auth-context";
+import VerticalBarContext from "../store/verticalbar-context";
 import jwt_decode from "jwt-decode"
 import Members from '../component/Members'
 import AddMemeber from "./AddMember";
@@ -25,6 +26,7 @@ const EditProjectForm = ({t, teamInfo}) => {
     const { isLoading, error, sendRequest: editTeamRequest } = useFetch();
     const navigate = useNavigate();
     const authCtx = useContext(AuthContext);
+    const verticalBarCtx = useContext(VerticalBarContext);
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -33,6 +35,7 @@ const EditProjectForm = ({t, teamInfo}) => {
 
         const handleEditProject = (response) => {
             const createTeamAdress = `/team/${teamId}`;
+            verticalBarCtx.updateKey++;
             navigate(createTeamAdress, { replace: true })
         }
 
