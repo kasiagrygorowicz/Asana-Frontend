@@ -51,7 +51,7 @@ const LoginForm = ({t}) => {
     }
 
     return (
-        <Grid item xs={5} direction="column" alignItems="left">
+        <Grid item xs={5} alignItems="left">
             <form onSubmit={submitHandler}>
                 <Stack>
                     <Stack direction="column">
@@ -59,13 +59,13 @@ const LoginForm = ({t}) => {
                             <Typography variant="h4" fontFamily="Sora">{t('signupPage.email')}</Typography>
                         </Box>
                         <Box sx={{ width: '100%', height: 60, alignItems: 'center', display: 'flex', background: '#DEE2E6', borderRadius: '30px' }}>
-                            <Input inputRef={emailInputRef} name="email" type="email" placeholder={t('signupPage.email')} disableUnderline='true' sx={{width: 350, align: 'center', marginLeft: '20px'}} />
+                            <Input inputRef={emailInputRef} name="email" type="email" placeholder={t('signupPage.email')} disableUnderline={true} sx={{width: 350, align: 'center', marginLeft: '20px'}} />
                         </Box>
                         <Box sx={{ width: '100%', height: 70, alignItems: 'center', display: 'flex'}}>
                             <Typography variant="h4" fontFamily="Sora">{t('signupPage.password')}</Typography>
                         </Box>
                         <Box sx={{ width: '100%', height: 60, alignItems: 'center', display: 'flex', background: '#DEE2E6', borderRadius: '30px' }}>
-                            <Input inputRef={passwordInputRef} name="password" type="password" placeholder="*********" disableUnderline='true' sx={{width: 350, align: 'center', marginLeft: '20px'}} />
+                            <Input inputRef={passwordInputRef} name="password" type="password" placeholder="*********" disableUnderline={true} sx={{width: 350, align: 'center', marginLeft: '20px'}} />
                         </Box>
                         {error && <Box>{errorMessage}</Box>}
                         <Box sx={{ height: 40}}></Box>

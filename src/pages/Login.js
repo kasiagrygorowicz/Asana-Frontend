@@ -11,25 +11,25 @@ function Login({t}) {
     return (
         <Container maxWidth='xl'>
             <Box sx={{ height: 20}}></Box>
-            <Grid container direction="row" alignItems="left" sx={12} spacing={0}>
+            <Grid container direction="row" alignItems="left" spacing={0}>
                 <Grid item xs={7}>
                     <Grid
                     container
                     direction="column"
                     spacing={0}
                     alignItems="left">
-                        <Grid item direction="row" xs={12}>
+                        <Grid item xs={12}>
                                 <Box sx={{alignItems: 'left', width: '100%', height: 380}}>
                                     <img src={image1} width={'100%'} height={370} style={{objectFit: 'cover'}} alt="Image 1"/>
                                 </Box>
                         </Grid>
                         <Grid container direction="row">
-                            <Grid item direction="row" xs={4}>
+                            <Grid item xs={4}>
                                     <Box sx={{alignItems: 'left', width: '100%', height: 380}}>
                                         <img src={image2} width={'97%'} height={450} style={{objectFit: 'cover'}} alt="Image 2"/>
                                     </Box>
                             </Grid> 
-                            <Grid item direction="row" xs={8}>
+                            <Grid item xs={8}>
                                 <Box sx={{alignItems: 'left', width: '100%', height: 380}}>
                                     <img src={image3} width={'100%'} height={450} style={{objectFit: 'cover'}} alt="Image 3"/>
                                 </Box>
@@ -37,7 +37,7 @@ function Login({t}) {
                         </Grid>
                     </Grid>
                 </Grid>
-                <Grid item xs={5} direction="row" alignItems="center" alignContent="center">
+                <Grid item xs={5} alignItems="center" alignContent="center">
                     <Box height={'15%'}></Box>
                     <Typography variant="h2" fontFamily="Sora" align="center" alignSelf='center' height='100px' fontWeight="bold">{t('login')}</Typography>
                         <Grid

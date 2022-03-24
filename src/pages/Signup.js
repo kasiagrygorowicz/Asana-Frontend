@@ -92,7 +92,7 @@ function Signup({t}) {
                 direction="column"
                 spacing={15}
                 alignItems="center">
-                <Grid item xs={12} spacing={12} direction="row">
+                <Grid item xs={12}>
                     <form onSubmit={submitHandler}>
                         <Stack direction="row" spacing={6}>
                             <Stack direction="column">
@@ -110,7 +110,7 @@ function Signup({t}) {
                                     borderRadius: '30px'
                                 }}>
                                     <Input inputRef={nameRef} name="name" type="text"
-                                           placeholder={t('signupPage.username')} disableUnderline='true'
+                                           placeholder={t('signupPage.username')} disableUnderline={true}
                                            sx={{width: 350, align: 'center', marginLeft: '20px'}}></Input>
                                 </Box>
                                 <Box sx={{width: 400, height: 70, alignItems: 'center', display: 'flex'}}>
@@ -125,7 +125,7 @@ function Signup({t}) {
                                     borderRadius: '30px'
                                 }}>
                                     <Input inputRef={emailRef} name="email" type="email"
-                                           placeholder={t('signupPage.email')} disableUnderline='true'
+                                           placeholder={t('signupPage.email')} disableUnderline={true}
                                            sx={{width: 350, align: 'center', marginLeft: '20px'}}></Input>
                                 </Box>
                                 <Box sx={{width: 400, height: 70, alignItems: 'center', display: 'flex'}}>
@@ -140,7 +140,7 @@ function Signup({t}) {
                                     borderRadius: '30px'
                                 }}>
                                     <Input inputRef={passwordRef} name="password" type="password"
-                                           placeholder="*********" disableUnderline='true'
+                                           placeholder="*********" disableUnderline={true}
                                            sx={{width: 350, align: 'center', marginLeft: '20px'}}></Input>
                                 </Box>
                                 <Box sx={{width: 400, height: 70, alignItems: 'center', display: 'flex'}}>
@@ -156,7 +156,7 @@ function Signup({t}) {
                                     borderRadius: '30px'
                                 }}>
                                     <Input inputRef={confirmPasswordRef} name="confirmPassword" type="password"
-                                           placeholder="*********" disableUnderline='true'
+                                           placeholder="*********" disableUnderline={true}
                                            sx={{width: 350, align: 'center', marginLeft: '20px'}}></Input>
                                 </Box>
 
