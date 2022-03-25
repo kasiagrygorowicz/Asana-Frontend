@@ -39,8 +39,8 @@ function TaskCard(props) {
         <Box sx={{width: '95%', height: 120, color: '#FFFFFF'}}>
         <Stack direction="column">
             <Stack direction="row">
-                <Box sx={{paddingLeft: 30, height: 35, paddingTop: 7.5, width: '80%'}}>
-                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 'bold'}}> {props.taskName} </Typography>
+                <Box sx={{paddingLeft: 30, height: 35, paddingTop: 7.5, width: '75%'}}>
+                <Typography variant="h5" fontFamily="Sora" noWrap="true" style={{fontWeight: 'bold', overflow: 'hidden' }}> {props.taskName} </Typography>
                 </Box>
                 <SettingsIcon fontSize="large" sx={{display: "flex", float: "right", marginRight: 0.5, marginTop: 1}}/>
             </Stack>

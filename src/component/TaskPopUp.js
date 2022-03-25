@@ -92,6 +92,12 @@ export default function TaskPopUp(props) {
         props.handleTimer();
     }
 
+    const handleReset = () => {
+    }
+
+    const handleTimeSetter = () => {
+    }
+
     const seconds = <span>{("0" + Math.floor(timer.time % 60)).slice(-2)}</span>;
     const minutes = <span>{("0" + Math.floor(timer.time / 60 % 60)).slice(-2)}</span>;
     const hours = <span>{("0" + Math.floor(timer.time / 3600)).slice(-2)}</span>;
@@ -130,13 +136,13 @@ export default function TaskPopUp(props) {
         </IconButton>
     </Box>
     <Box sx={{float: 'left', width: 10}}></Box>
-    <Button disabled={timer.timerOn} variant="contained" size="large" sx={{ width: 120, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
+    <Button disabled={timer.timerOn} onClick={handleReset} variant="contained" size="large" sx={{ width: 120, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
         <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
         {t('reset')}
         </Typography>
     </Button>
     <Box sx={{float: 'left', width: 20}}></Box>
-    <Button disabled={timer.timerOn} variant="contained" size="large" sx={{ width: 150, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
+    <Button disabled={timer.timerOn} onClick={handleTimeSetter} variant="contained" size="large" sx={{ width: 150, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
         <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
         {t('setTime')}
         </Typography>
