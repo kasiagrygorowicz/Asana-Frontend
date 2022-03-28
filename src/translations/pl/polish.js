@@ -49,6 +49,7 @@ const polish = {
     time: 'Czas',
     setTime: 'Ustaw czas',
     reset: 'Resetuj',
+    moveDeadlines: 'Przesuń terminy',
 
 
     signupPage : {

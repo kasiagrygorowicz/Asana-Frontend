@@ -49,6 +49,7 @@ const english = {
     time: 'Time',
     setTime: 'Set time',
     reset: 'Reset',
+    moveDeadlines: 'Move deadlines',
 
     signupPage : {
         username : 'Username',

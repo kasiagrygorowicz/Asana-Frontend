@@ -10,7 +10,26 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import useFetch from "../hook/use-fetch";
 import ProjectTasks from "../component/ProjectTasks";
+import {makeStyles} from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
+import MoveDeadlines from '../component/MoveDeadlines';
 
+const useStyles = makeStyles(theme => ({
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    paper: {
+        backgroundColor: '#E9ECEF',
+        border: '4px solid #195FA5',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+        borderRadius: 30
+    },
+}));
 
 // TODO: dodać zapamiętywanie kolejności tasków
 function Project({t}) {
@@ -36,6 +55,17 @@ function Project({t}) {
         fetchProject(fetchProjectRequest, handleProject);
     }, [fetchProject, projectId])
 
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+    }
+
+    const classes = useStyles();
 
     return (
         <Container maxWidth="xl">
@@ -44,15 +74,43 @@ function Project({t}) {
                     <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>
                 </Link>
             
-                <Box sx={{ width: '95%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
+            <Box sx={{ width: '95%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
                 <Link to='/addtask'>
-                <Button variant="contained" sx={{ width: 270, height: 50, alignSelf: 'end', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: 2}}>
+                <Button variant="contained" sx={{ width: 250, height: 50, alignSelf: 'end', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: 2}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
                 {t('addtask')}
                 </Typography>
                 <AddCircleOutlineIcon sx={{width: 32, height: 32, marginLeft: 2}}/> 
             </Button>
-                </Link>
+            </Link>
+
+            <div>
+            <Button onClick={handleOpen} variant="contained" color='secondary'
+             sx={{ width: 215, height: 50, alignSelf: 'end', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: 2, marginRight: 1}}>
+                <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
+                {t('moveDeadlines')}
+                </Typography> 
+            </Button>
+            <Modal
+                aria-labelledby="transition-modal-title"
+                aria-describedby="transition-modal-description"
+                className={classes.modal}
+                open={open}
+                onClose={handleClose}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                    timeout: 500,
+                }}
+            >
+                <Fade in={open}>
+                    <div className={classes.paper}>
+                        <MoveDeadlines projectInfo={projectInfo}/>
+                    </div>
+                </Fade>
+            </Modal>
+            </div>
+
                 <Typography variant="h3" fontFamily="Sora">{projectInfo?.name}</Typography>
             </Box>
             <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
