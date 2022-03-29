@@ -13,8 +13,6 @@ const AccountConfirmationPage =(props,response)=>{
         <Link to="/login" >
             {props.t('login')}
         </Link>
-        
-
 
 
     </div>)

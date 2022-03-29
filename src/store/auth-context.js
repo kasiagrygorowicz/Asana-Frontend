@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import jwt_decode from "jwt-decode";
 
 const AuthContext = React.createContext({
     authToken: '',
@@ -20,14 +21,24 @@ export const AuthContextProvider = (props) => {
     const initialAuthToken = localStorage.getItem("authToken");
     const [authToken, setAuthToken] = useState(initialAuthToken);
 
-    const userIsLoggedIn = !!authToken;
+    function isUserLoggedIn(authToken, setAuthToken) {
+        if(!!authToken){
+            if(jwt_decode(authToken).exp*1000<new Date().getTime()){
+                        localStorage.removeItem("authToken");
+                setAuthToken(null);
+            }else{
+                return true
+            }
+        }
+        return false
+    }
+
+    const userIsLoggedIn = isUserLoggedIn(authToken,setAuthToken);
     const requestToken = 'Bearer ' + authToken;
 
     const loginHandler = (authToken) => {
         setAuthToken(authToken);
         localStorage.setItem("authToken", authToken);
-        // const remainingTime = calculateRemainingTime(expirationTime);
-        // setTimeout(logoutHandler, remainingTime);
     }
 
     const logoutHandler = () => {
