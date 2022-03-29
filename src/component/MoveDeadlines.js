@@ -7,55 +7,70 @@ import {
 import {useTranslation} from "react-i18next";
 import Button from "@mui/material/Button";
 import React from 'react';
+import { Stack } from "@mui/material";
+import useFetch from "../hook/use-fetch";
+import {useContext, useEffect, useState, useRef} from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function MoveDeadlines(props) {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     
-    // const { isLoadingEdit, errorEdit, sendRequest: editTaskRequest } = useFetch();
+    const { isLoadingPostpone, errorPostpone, sendRequest: postponeDeadlinesRequest } = useFetch();
 
-    // const submitHandler = (event) => {
-    //     event.preventDefault();
+    const daysInput = useRef();
 
-    //     const deadlineDate = enteredDueDate.split("/");
-    //     const month = deadlineDate[0];
-    //     const day = deadlineDate[1];
-    //     const year = deadlineDate[2];
+    const submitHandler = (event) => {
+        event.preventDefault();
+        const postponeDays = daysInput.current.value;
+        const postponeSeconds = postponeDays * 24 * 3600;
 
-    //     const jsonDate = year + "-" + month + "-" + day + "T18:25:43.511Z"
-    //     // const createdProjectAddress = `/project/${projectId}`;
+        const postponeDeadlineRequestContent = {
+            url: `/project/task/postponedeadlines/${props.projectInfo.id}`,
+            method: "PUT",
+            body: {
+                time: postponeSeconds
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
 
-    //     const editTaskRequestContent = {
-    //         url: `/project/task/edit/${props.task.id}`,
-    //         method: "PUT",
-    //         body: {
-    //             'name': enteredTaskName,
-    //             'description': enteredTaskDescription,
-    //             "startDate": props.task.startDate,
-    //             "deadLine": jsonDate,
-    //             "priority": props.task.priority,
-    //             "status": props.task.status,
-    //             "totalTime": props.task.totalTime
-    //         },
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         }
-    //     };
-
-    //     editTaskRequest(editTaskRequestContent, navigate(0));
-    // }
+        postponeDeadlinesRequest(postponeDeadlineRequestContent, navigate(0));
+    }
 
     const t = useTranslation()[0]
-    // const [startValue, setStartValue] = React.useState(new Date(props.task.startDate));
-    // const [value, setValue] = React.useState(new Date(props.task.deadLine));
 
     return (
-    // <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler}>
     <Container maxWidth='xl'>
-        <Typography id="modal-modal-title" variant="h4" component="h2">
-        {t('moveDeadlines')}, {props.projectInfo?.name}
+        <Typography id="modal-modal-title" variant="h4" component="h2" style={{fontWeight: 600}}>
+        {props.projectInfo?.name}
         </Typography>
+        <Box sx={{clear: 'both', height: 20}}></Box>
+        <Stack
+        direction="row"
+        justifyContent="flex-start"
+        alignItems="flex-start"
+        spacing={0}
+        >
+            <Box sx={{ width: '65%', height: 60, alignItems: 'center', display: 'flex' }}>
+            <Typography variant="h4" fontFamily="Sora" style={{ textAlign: 'left'}}>{t('moveDeadlines')} {t('by')}: [{t('days')}]</Typography>
+            </Box>
+            <Box sx={{ width: '35%', height: 60, alignItems: 'center', background: '#ABB5BE', borderRadius: '30px', display: 'flex' }}>
+                <Input inputRef={daysInput} name="day" type="number" defaultValue='7' disableUnderline='true' inputProps={{min: 0, max: 9999}}
+                    sx={{ align: 'center'}} style={{paddingLeft: '20%', width: '85%', fontSize: 36, fontFamily: "Sora", textAlign: 'center'}}></Input>
+            </Box>
+        </Stack>
+        
+        <Box sx={{clear: 'both', height: 20}}></Box>
+        <Button type="submit" variant="contained" size="large" 
+        sx={{ width: 150, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
+            <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
+            {t('submit')}
+            </Typography>
+        </Button>
     </Container>
-    // </form>
+    </form>
     );
 }
 

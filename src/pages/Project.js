@@ -86,7 +86,7 @@ function Project({t}) {
 
             <div>
             <Button onClick={handleOpen} variant="contained" color='secondary'
-             sx={{ width: 215, height: 50, alignSelf: 'end', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: 2, marginRight: 1}}>
+             sx={{ width: 250, height: 50, alignSelf: 'end', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: 2, marginRight: 1}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
                 {t('moveDeadlines')}
                 </Typography> 
