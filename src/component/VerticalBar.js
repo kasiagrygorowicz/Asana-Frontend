@@ -6,19 +6,23 @@ import TeamCardSmall from "./TeamCardSmall";
 import UserTeams from "./UserTeams";
 import UserProjectsBar from "./UserProjectsBar";
 import VerticalBarContext from "../store/verticalbar-context";
+import Container from "@mui/material/Container";
 
 function VerticalBar({t}) {
     const context = useContext(VerticalBarContext)
 
     return (
-        <Box
+        <Box fluid
             key={context.updateKey}
             sx={{
                 width: '15%',
-                height: 770,
+                height: '100vh',
                 background: '#195FA5',
                 color: 'white',
-                float: 'left'
+                float: 'left',
+                display:'flex',
+                flexDirection: 'column',
+
             }}
         >
             <Box sx={{margin: 15, height: 20}}>
@@ -43,6 +47,7 @@ function VerticalBar({t}) {
                 </Link>
             </Box>
         </Box>
+
     );
 }
 

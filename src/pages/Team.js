@@ -58,10 +58,11 @@ function Team({t}) {
 
         deleteTeamRequest(deleteTeamRequestContent, handleDeleteTeam);
     }
-    
+
+    let i =0
     return (
-        <Container maxWidth="xl">
-        <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
+        <Container maxWidth="xl" >
+        <Box sx={{ width: '75%', alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
             <Link to='/dashboard'>
                 <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>
             </Link>
@@ -98,15 +99,7 @@ function Team({t}) {
             </Box>
             <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
             <Box sx={{ margin: 5}}></Box>
-            <Box sx={{ width: '12%', height: 80, alignItems: 'center', display: 'flex'}}>
-                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('description')}:</Typography>
-            </Box>
-            <Box sx={{ width: '80%', height: 120, alignItems: 'center', display: 'flex', marginLeft: '5%'}}>
-                <Box sx={{ width: 20, height: 120, borderLeft: '2px solid', borderColor: '#4399EF'}}></Box>
-                <Box sx={{ width: '90%', height: 250, alignItems: 'center', display: 'flex'}}>
-                    <Typography variant="h6" fontFamily="Sora">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod purus dolor, ac ullamcorper massa consectetur et. Cras malesuada tincidunt lorem eget accumsan. Aliquam erat volutpat. Praesent convallis consequat felis, nec ullamcorper justo aliquam non.</Typography>
-                </Box>
-            </Box>
+
             <Box sx={{clear: 'both', height: 50}}></Box>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('members')}:</Typography>
@@ -122,22 +115,27 @@ function Team({t}) {
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('projects')}:</Typography>
             </Box>
-            <Box sx={{marginLeft: 250, width: '100%', height: 90, alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Grid container spacing={10}>
-                    <Grid item xs={3}>
-                        <ProjectCard cardColor="#4F6C89" teamName="Team A" projectName="Project A" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <ProjectCard cardColor="#467AAE" teamName="Team B" projectName="Project B" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Grid>
-                    <Grid item xs={3}>
-                        <ProjectCard cardColor="#6396C8" teamName="Team A" projectName="Project C" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Grid>
+            <Box sx={{marginLeft: 200,marginBottom:20,  alignItems: 'center',bgcolor:'red'}}>
+                <Grid container spacing={5} sx={{marginLeft: 200,marginBottom:20, alignItems: 'center',bgcolor:'red'}}>
+                    {
+
+                        teamInfo?.projects.map(p=>{
+
+                         return(<Grid item xs={4} >
+                                <ProjectCard cardColor="#4F6C89" teamName={teamInfo.name} projectName={p.name} description={p.description}/>
+                             <ProjectCard cardColor="#4F6C89" teamName={teamInfo.name} projectName={p.name} description={p.description}/>
+                            </Grid>)
+
+                        })
+
+                    }
+
+
                 </Grid>
             </Box>
         </Box>
-        <Box sx={{clear:'both'}}></Box>
-        </Container>
+        // <Box sx={{clear:'both'}}></Box>
+         </Container>
     );
 }
 

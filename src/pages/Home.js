@@ -12,7 +12,7 @@ import Box from '@mui/material/Box';
 function Home({t}) {
     const navigate = useNavigate();
     return(
-        <Container maxWidth='xl'>
+        <Container maxWidth='xl' >
             <Box sx={{ width: 568, height: 300, alignItems: 'center', display: 'flex'}}>
                 <Typography variant="h2" fontFamily="Sora">{t('homePage.title')}</Typography>
             </Box>
@@ -20,7 +20,8 @@ function Home({t}) {
         container
         direction="column"
         spacing={15}
-        alignItems="left">
+        alignItems="left"
+            >
             <Grid item xs={12}>
                 <Stack direction="row" spacing={6}>
                     <Box sx={{ width: 780, height: 350, alignItems: 'center', display: 'flex'}}>

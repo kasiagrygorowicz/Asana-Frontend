@@ -13,7 +13,7 @@ import {Link} from "react-router-dom";
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {useTranslation} from "react-i18next";
-import AuthContext from "../store/auth-context";
+import AuthContext from "../../store/auth-context";
 import {makeStyles} from "@mui/styles";
 
 const useStyles = makeStyles({

@@ -1,14 +1,14 @@
 import React from "react";
 import {BrowserRouter as Router, Routes, Route, Redirect, Navigate} from "react-router-dom";
 import {useContext} from "react";
-import Navbar from "./component/Navbar";
+import Navbar from "./component/layout/Navbar";
 import Home from "./pages/Home";
 import Features from "./pages/Features";
 import About from "./pages/About.js";
 import Pricing from "./pages/Pricing";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
-import Footer from "./component/Footer"
+import Footer from "./component/layout/Footer"
 import './translations/i18n';
 import {useTranslation} from "react-i18next";
 import Dashboard from "./pages/Dashboard";
@@ -23,13 +23,15 @@ import UserProfile from "./pages/UserProfile";
 import Team from "./pages/Team";
 import AccountConfirmationPage from "./pages/AccountConfirmationPage";
 import VerticalBar from './component/VerticalBar';
+import Layout from "./component/layout/Layout";
 
 function App() {
     const authCtx = useContext(AuthContext)
     const t = useTranslation()[0]
     return (
         <Router>
-            <Navbar />
+            <Layout t={t}>
+            {/*<Navbar />*/}
             <Routes>
                 <Route path="/" element={<Home t={t} />} />
                 <Route path="/features" element={<Features t={t}/>} />
@@ -53,13 +55,15 @@ function App() {
                         <Route path="/editproject/:projectId" element= {<> <VerticalBar t={t}/><EditProject t={t} /> </>} />
                         <Route path="/userprofile/:userName" element= {<UserProfile t={t} />} />
 
-                        <Route path="/team/:teamId" element= {<> <VerticalBar t={t}/><Team t={t} /> </>} />
+                        <Route path="/team/:teamId" element= {<>
+                            <VerticalBar t={t}/><Team t={t} /> </>} />
                     </>
                 )}
                 <Route path='*' element={<Navigate to="/" />} />
 
             </Routes>
-            <Footer t={t} />
+            </Layout>
+            {/*<Footer t={t} />*/}
         </Router>
     );
 }
