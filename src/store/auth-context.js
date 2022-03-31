@@ -5,35 +5,29 @@ const AuthContext = React.createContext({
     authToken: '',
     requestToken: '',
     isLoggedIn: false,
-    login: (authToken) => {},
-    logout: () => {}
+    login: (authToken) => {
+    },
+    logout: () => {
+    }
 });
-
-const calculateRemainingTime = (expirationTime) => {
-    const currentTime = new Date().getTime();
-    const adjExpirationTime = new Date(expirationTime).getTime();
-
-    const remainingTime = adjExpirationTime - currentTime;
-    return remainingTime;
-}
 
 export const AuthContextProvider = (props) => {
     const initialAuthToken = localStorage.getItem("authToken");
     const [authToken, setAuthToken] = useState(initialAuthToken);
 
     function isUserLoggedIn(authToken, setAuthToken) {
-        if(!!authToken){
-            if(jwt_decode(authToken).exp*1000<new Date().getTime()){
-                        localStorage.removeItem("authToken");
+        if (!!authToken) {
+            if (jwt_decode(authToken).exp * 1000 < new Date().getTime()) {
+                localStorage.removeItem("authToken");
                 setAuthToken(null);
-            }else{
+            } else {
                 return true
             }
         }
         return false
     }
 
-    const userIsLoggedIn = isUserLoggedIn(authToken,setAuthToken);
+    const userIsLoggedIn = isUserLoggedIn(authToken, setAuthToken);
     const requestToken = 'Bearer ' + authToken;
 
     const loginHandler = (authToken) => {

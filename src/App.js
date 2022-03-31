@@ -23,6 +23,7 @@ import UserProfile from "./pages/UserProfile";
 import Team from "./pages/Team";
 import AccountConfirmationPage from "./pages/AccountConfirmationPage";
 import VerticalBar from './component/VerticalBar';
+import TimeManagement from "./pages/TimeManagement";
 
 function App() {
     const authCtx = useContext(AuthContext)
@@ -52,8 +53,8 @@ function App() {
                         <Route path="/editteam/:teamId" element= {<> <VerticalBar t={t}/><EditTeam t={t} /></>} />
                         <Route path="/editproject/:projectId" element= {<> <VerticalBar t={t}/><EditProject t={t} /> </>} />
                         <Route path="/userprofile/:userName" element= {<UserProfile t={t} />} />
-
                         <Route path="/team/:teamId" element= {<> <VerticalBar t={t}/><Team t={t} /> </>} />
+                        <Route path="/management/time" element= {<> <VerticalBar t={t}/><TimeManagement /> </>} />
                     </>
                 )}
                 <Route path='*' element={<Navigate to="/" />} />
