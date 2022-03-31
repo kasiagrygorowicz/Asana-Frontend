@@ -15,7 +15,8 @@ export default function Layout(props){
                 style={{
                     minHeight : '100vh',
                     width:'100%',
-                    justifyContent : 'center'
+                    justifyContent : 'center',
+                    position: 'relative'
                 }}
             >{props.children}</main>
             <Footer t={props.t}/>

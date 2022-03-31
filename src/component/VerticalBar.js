@@ -16,7 +16,8 @@ function VerticalBar({t}) {
             key={context.updateKey}
             sx={{
                 width: '15%',
-                height: '100vh',
+                height: '100%',
+                position: 'absolute',
                 background: '#195FA5',
                 color: 'white',
                 float: 'left',
