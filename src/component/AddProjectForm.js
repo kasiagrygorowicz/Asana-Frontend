@@ -44,6 +44,8 @@ const AddProjectForm = ({t}) => {
         fetchUserTeams(fetchUserTeamsRequest, handleGetUserTeams);
     }, [fetchUserTeams]);
 
+    useEffect(() => {});
+
     const submitHandler = (event) => {
         event.preventDefault();
         const enteredProjectName = projectNameInput.current.value;

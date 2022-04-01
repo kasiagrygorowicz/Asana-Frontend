@@ -20,49 +20,17 @@ import {useNavigate} from "react-router-dom";
 import AuthContext from "../store/auth-context";
 import jwt_decode from "jwt-decode"
 
-const useStyles = makeStyles({
-    select: {
-      "& .MuiSvgIcon-root": {
-        color: "white",
-      },
-    },
-  });
-
-function AddTaskForm({t}) {
+function AddTaskForm({t, projectInfo}) {
     const taskNameInput = useRef();
     const dueDateInput = useRef();
     const descriptionInput = useRef();
     const { isLoading, error, sendRequest: addTaskRequest } = useFetch();
-    const { areProjectsLoading, projectsError, sendRequest: fetchUserProjects } = useFetch();
-    const [ userProjects, setUserProjects ] = useState([]);
-    const [ projectValue, setProjectValue ] = useState(1);
     const navigate = useNavigate();
     const authCtx = useContext(AuthContext);
-
-    useEffect(() => {
-        const handleGetUserProjects = (projectsObj) => {
-            const loadedUserProjects = [];
-            for (const projectKey in projectsObj) {
-                loadedUserProjects.push({ id: projectsObj[projectKey].id, name: projectsObj[projectKey].name });
-            }
-            setUserProjects(loadedUserProjects);
-        }
-
-        const userId = jwt_decode(authCtx.authToken).id;
-        const urlRequest = `/project/user/${userId}`;
-        const fetchUserProjectsRequest = {
-            url: urlRequest
-        };
-
-        fetchUserProjects(fetchUserProjectsRequest, handleGetUserProjects);
-    }, [fetchUserProjects]);
-
-    const handleChange = (e) => setProjectValue(e.target.value);
 
     const submitHandler = (event) => {
         event.preventDefault();
         const enteredTaskName = taskNameInput.current.value;
-        const projectId = projectValue;
         const enteredDueDate = dueDateInput.current.value;
         const enteredTaskDescription = descriptionInput.current.value;
         const startDate = new Date();
@@ -75,13 +43,13 @@ function AddTaskForm({t}) {
 
         const jsonDate = year + "-" + month + "-" + day + "T18:25:43.511Z"
 
-        const createdProjectAddress = `/project/${projectId}`;
+        const createdProjectAddress = `/project/${projectInfo.id}`;
 
         const addTaskRequestContent = {
             url: "/project/task/add",
             method: "POST",
             body: {
-                'projectId': projectId,
+                'projectId': projectInfo.id,
                 'name': enteredTaskName,
                 'description': enteredTaskDescription,
                 'startDate': startDateJSON,
@@ -97,12 +65,7 @@ function AddTaskForm({t}) {
         addTaskRequest(addTaskRequestContent, navigate(createdProjectAddress, { replace: true }));
     }
 
-    let projectsToDisplay = userProjects.map((project) => (
-        <MenuItem value={project.id}>{project.name}</MenuItem>
-    ));
-
     const [value, setValue] = React.useState(null);
-    const classes = useStyles();
     return (
         <form onSubmit={submitHandler}>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
@@ -128,16 +91,7 @@ function AddTaskForm({t}) {
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('project')}:</Typography>
             </Box>
             <Box sx={{background: '#4786C6', borderRadius: 30, width: '20%',height: 60, alignItems: 'center', float: 'left', margin: 10, display: 'flex'}}>
-            <FormControl style={{marginLeft: '5%', width: '90%', background: '#4786C6', borderRadius: 30, disableUnderline: 'true'}}>
-            <Select onChange={handleChange} disableUnderline={true} defaultValue={1} style={{color: 'white'}} className={classes.select} inputProps={{
-                classes: {
-                    icon: classes.icon,
-                    root: classes.root,
-                },
-            }}>
-                {projectsToDisplay}
-            </Select>
-            </FormControl>
+            <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'center', color: 'white', width: '90%', paddingLeft: '5%'}} sx={{ align: 'center' }}>{projectInfo?.name}</Typography>
             </Box>
             <Box sx={{clear: 'both', height: 10}}></Box>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>

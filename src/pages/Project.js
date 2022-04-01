@@ -75,8 +75,9 @@ function Project({t}) {
                 </Link>
             
             <Box sx={{ width: '95%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
-                <Link to='/addtask'>
-                <Button variant="contained" sx={{ width: 250, height: 50, alignSelf: 'end', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: 2}}>
+                <Link to={`/addtask/${projectId}`}>
+                <Button variant="contained"
+                sx={{ width: 250, height: 50, alignSelf: 'end', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: 2}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
                 {t('addtask')}
                 </Typography>
