@@ -5,7 +5,7 @@ function Dashboard({t}) {
 
 
     return (
-        <Container maxWidth="xl">
+        <Container maxWidth="xl"  style={{marginLeft:'15%'}}>
             <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
             <Box sx={{ width: '80%', height: 80, alignItems: 'center'}}>
                 <Typography variant="h3" fontFamily="Sora">{t('dashboardtitle')}</Typography>

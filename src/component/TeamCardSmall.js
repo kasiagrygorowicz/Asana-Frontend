@@ -65,14 +65,7 @@ function TeamCardSmall(props) {
                     }
 
                     {props.type !== "add" &&
-                        <SettingsIcon
-                            sx={{display: "flex", float: "right", marginRight: "5px"}}
-                            onClick={handleClick}
-                            size="small"
-                            aria-controls={open ? 'account-menu' : undefined}
-                            aria-haspopup="true"
-                            aria-expanded={open ? 'true' : undefined}
-                        />
+                       <SettingsIcon/>
                     }
 
                     <Menu
