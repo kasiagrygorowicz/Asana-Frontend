@@ -20,65 +20,39 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 
 
-export default function AddMemeber({t, membersRef}) {
+export default function AddMemeber({t, users, sendSelectedUsers}) {
 
-    const [ users, setUsers ] = useState(membersRef);
-    const { isMembersLoading, membersError, sendRequest: fetchMembers } = useFetch();    
-    
-    useEffect(() => {
-        const handleGetUsers = (usersObj) => {
-            const loadedUsers = [];
-            for (const usersKey in usersObj) {
-                loadedUsers.push({ 
-                    id: usersObj[usersKey].id, 
-                    name: usersObj[usersKey].name,
-                    email: usersObj[usersKey].email });
-            }
-            setUsers(loadedUsers);
-        }
-
-        const urlRequest = `/user/all`;
-        const fetchUsersRequest = {
-            url: urlRequest
-        };
-
-        fetchMembers(fetchUsersRequest, handleGetUsers);
-    }, [fetchMembers]);
-
-    
     const fixedOptions = [];
-    const tmp = [];
-    const [value, setValue] = React.useState(tmp);
-
-
+    const [value, setValue] = React.useState([]);
 
     return (
-            <Autocomplete
-                multiple
-                id="fixed-tags-demo"
-                value={value}
-                onChange={(event, newValue) => {
-                    setValue([
-                    ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
-                    ])
-                    membersRef = value
-                    alert(membersRef.length);
-                }}
-                options={users}
-                getOptionLabel={(option) => option.email}
-                renderTags={(tagValue, getTagProps) =>
-                    tagValue.map((option, index) => (
-                    <Chip
-                        label={option.email}
-                        {...getTagProps({ index })}
-                        disabled={fixedOptions.indexOf(option) !== -1}
-                    />
-                    ))
-                }
-                style={{ width: 500 }}
-                renderInput={(params) => (
-                    <TextField {...params} sx={{ input: { color: 'black' }, width: '112%' }} placeholder="Favorites" />
-                )}
+        <div>
+        <Autocomplete
+        multiple
+        id="fixed-tags-demo"
+        value={value}
+        onChange={(event, newValue) => {
+            setValue([
+            ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
+            ])
+        }}
+        options={users}
+        getOptionLabel={(option) => option.email}
+        renderTags={(tagValue, getTagProps) =>
+            tagValue.map((option, index) => (
+            <Chip
+                label={option.email}
+                {...getTagProps({ index })}
+                disabled={fixedOptions.indexOf(option) !== -1}
             />
+            ))
+        }
+        style={{ width: 500 }}
+        renderInput={(params) => (
+            <TextField {...params} sx={{ input: { color: 'black' }, width: '112%' }}  placeholder={t('addmember')}/>
+        )}
+        />   
+        {sendSelectedUsers(value)}
+        </div>
     );
 }

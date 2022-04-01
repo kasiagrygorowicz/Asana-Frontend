@@ -8,14 +8,9 @@ import Button from "@mui/material/Button";
 import AddMemeber from "../component/AddMember";
 import {Link, useNavigate} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Members from '../component/Members'
 import {useContext, useRef, useEffect, useState} from "react";
 import useFetch from "../hook/use-fetch";
-import { Alarm } from "@mui/icons-material";
 import React from 'react';
-import Chip from '@mui/material/Chip';
-import TextField from '@mui/material/TextField';
-import Autocomplete from '@mui/material/Autocomplete';
 import VerticalBarContext from "../store/verticalbar-context";
 import AuthContext from "../store/auth-context";
 import jwt_decode from "jwt-decode";
@@ -23,9 +18,8 @@ import jwt_decode from "jwt-decode";
 function AddTeam({t}) {
 
     const teamNameRef = useRef();
-    const descriptionRef = useRef();
     const [ users, setUsers ] = useState([]);
-    const [ members, setSelected ] = useState([]); // do przechowywania wybranych członków
+    const [ selectedUsers, setSelectedUsers ] = useState([]);
     const navigate = useNavigate();
     const { isLoading, error, sendRequest: addTeamRequest } = useFetch();
     const { isMembersLoading, membersError, sendRequest: fetchMembers } = useFetch();
@@ -59,15 +53,12 @@ function AddTeam({t}) {
         fetchMembers(fetchUsersRequest, handleGetUsers);
     }, [fetchMembers]);
 
-    const fixedOptions = [];
-    const tmp = [];
-    const [value, setValue] = React.useState(tmp);
 
     const submitHandler =(event)=>{
         const members = []
 
-        for(let i = 0; i < value.length; i++){
-            members.push(value[i].id)
+        for(let i = 0; i < selectedUsers.length; i++){
+            members.push(selectedUsers[i].id)
         }
 
         event.preventDefault();
@@ -75,7 +66,8 @@ function AddTeam({t}) {
         
 
         const addTeamHandler = (response) => {
-            const teamURL = `/dashboard`
+            const id = response['id'] // do reposnse dodać id w backendzie
+            const teamURL = `/dashboard`;
             verticalBarCtx.updateKey++;
             navigate(teamURL,{replace:true})
         }
@@ -95,6 +87,10 @@ function AddTeam({t}) {
         addTeamRequest(addTeamRequestContent, addTeamHandler);
     }
 
+    const sendSelectedUsers = (selected) => {
+        console.log('ilu jest nowych członków: ' + selected.length);
+        setSelectedUsers(selected);
+    };
 
     return (
         <Container maxWidth="xl">
@@ -122,34 +118,8 @@ function AddTeam({t}) {
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('members')}:</Typography>
             </Box>
             <Box sx={{ width: '40%', float: 'left', borderRadius: '30px', margin: 10, display: 'flex' }}>
-            
-                <Autocomplete
-                    multiple
-                    id="fixed-tags-demo"
-                    value={value}
-                    onChange={(event, newValue) => {
-                        setValue([
-                        ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
-                        ])
-                    }}
-                    options={users}
-                    getOptionLabel={(option) => option.email}
-                    renderTags={(tagValue, getTagProps) =>
-                        tagValue.map((option, index) => (
-                        <Chip
-                            label={option.email}
-                            {...getTagProps({ index })}
-                            disabled={fixedOptions.indexOf(option) !== -1}
-                        />
-                        ))
-                    }
-                    style={{ width: 500 }}
-                    renderInput={(params) => (
-                        <TextField {...params} sx={{ input: { color: 'black' }, width: '112%' }}  placeholder={t('addmember')}/>
-                    )}
-                />
+                <AddMemeber t={t} users={users} sendSelectedUsers={sendSelectedUsers}/>
             </Box>
-
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
