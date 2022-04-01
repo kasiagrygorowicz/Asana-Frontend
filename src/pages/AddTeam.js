@@ -17,27 +17,39 @@ import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import VerticalBarContext from "../store/verticalbar-context";
+import AuthContext from "../store/auth-context";
+import jwt_decode from "jwt-decode";
 
 function AddTeam({t}) {
 
     const teamNameRef = useRef();
     const descriptionRef = useRef();
     const [ users, setUsers ] = useState([]);
+    const [ members, setSelected ] = useState([]); // do przechowywania wybranych członków
     const navigate = useNavigate();
     const { isLoading, error, sendRequest: addTeamRequest } = useFetch();
     const { isMembersLoading, membersError, sendRequest: fetchMembers } = useFetch();
     const verticalBarCtx = useContext(VerticalBarContext);
+    const authCtx = useContext(AuthContext);
 
     useEffect(() => {
+        const userId = jwt_decode(authCtx.authToken).id;
+
         const handleGetUsers = (usersObj) => {
             const loadedUsers = [];
+            const loadedUsers_1 = [];
             for (const usersKey in usersObj) {
                 loadedUsers.push({ 
                     id: usersObj[usersKey].id, 
                     name: usersObj[usersKey].name,
                     email: usersObj[usersKey].email });
             }
-            setUsers(loadedUsers);
+            for(let i = 0; i < loadedUsers.length; i++){
+                if(loadedUsers[i].id !== userId){
+                    loadedUsers_1.push(loadedUsers[i]);
+                }
+            }
+            setUsers(loadedUsers_1);
         }
 
         const urlRequest = `/user/all`;
@@ -105,12 +117,6 @@ function AddTeam({t}) {
                 <Input inputRef={teamNameRef} name="name" type="name" placeholder={t('teamNameInput')} disableUnderline={true} sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}}></Input>
             </Box>
             <Box sx={{clear: 'both', height: 10}}></Box>
-            <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('description')}:</Typography>
-            </Box>
-            <Box sx={{ width: '40%', height: 120, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
-                <Input inputRef={descriptionRef} name="name" type="name" multiline placeholder={t('descriptionInput')} disableUnderline={true} sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}} rows={4}></Input>
-            </Box>
             <Box sx={{clear: 'both', height: 10}}></Box>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('members')}:</Typography>
