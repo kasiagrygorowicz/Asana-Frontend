@@ -20,10 +20,16 @@ import Autocomplete from '@mui/material/Autocomplete';
 
 
 
-export default function AddMemeber({t, users, sendSelectedUsers}) {
+export default function EditMembers({t, users, currentMembers, sendSelectedUsers}) {
 
     const fixedOptions = [];
     const [value, setValue] = React.useState([]);
+
+
+    useEffect(() => {
+        setValue(currentMembers);
+    }, []);
+
 
     return (
         <div>

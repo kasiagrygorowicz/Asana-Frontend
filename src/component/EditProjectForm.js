@@ -7,7 +7,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import AuthContext from "../store/auth-context";
 import jwt_decode from "jwt-decode"
 import Members from '../component/Members'
-import AddMemeber from "./AddMember";
+import AddMemebers from "./AddMembers";
 import VerticalBarContext from "../store/verticalbar-context";
 
 const useStyles = makeStyles({
@@ -124,7 +124,7 @@ const EditProjectForm = ({t, projectInfo}) => {
             </Box>
             {console.log(projectInfo)},
             <Members members={projectInfo?.members}/>
-            <AddMemeber t={t} membersRef={membersRef}/>
+            <AddMemebers t={t} membersRef={membersRef}/>
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>

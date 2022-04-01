@@ -5,7 +5,7 @@ import {
     Input
   } from "@material-ui/core";
 import Button from "@mui/material/Button";
-import AddMemeber from "../component/AddMember";
+import AddMemebers from "../component/AddMembers";
 import {Link, useNavigate} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useContext, useRef, useEffect, useState} from "react";
@@ -23,6 +23,7 @@ function AddTeam({t}) {
     const navigate = useNavigate();
     const { isLoading, error, sendRequest: addTeamRequest } = useFetch();
     const { isMembersLoading, membersError, sendRequest: fetchMembers } = useFetch();
+    
     const verticalBarCtx = useContext(VerticalBarContext);
     const authCtx = useContext(AuthContext);
 
@@ -118,7 +119,7 @@ function AddTeam({t}) {
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('members')}:</Typography>
             </Box>
             <Box sx={{ width: '40%', float: 'left', borderRadius: '30px', margin: 10, display: 'flex' }}>
-                <AddMemeber t={t} users={users} sendSelectedUsers={sendSelectedUsers}/>
+                <AddMemebers t={t} users={users} sendSelectedUsers={sendSelectedUsers}/>
             </Box>
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
