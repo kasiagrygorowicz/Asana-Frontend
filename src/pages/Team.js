@@ -112,12 +112,6 @@ function Team({t}) {
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('members')}:</Typography>
             </Box>
             <Members members={teamInfo?.members}/>
-            <Button variant="contained" size="large" sx={{ width: 265, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
-                <AddCircleOutlineIcon sx={{width: 32, height: 32, marginRight: 2}}/>
-                <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
-                {t('addmember')}
-                </Typography>
-            </Button>
             <Box sx={{clear: 'both', height: 35}}></Box>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('projects')}:</Typography>
