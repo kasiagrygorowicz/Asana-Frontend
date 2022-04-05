@@ -11,10 +11,10 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import GridViewIcon from '@mui/icons-material/GridView';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-import TaskCard from '../component/TaskCard'
+import TaskCard from '../component/task/TaskCard'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import ListItemIcon from '@mui/material/ListItemIcon';
-import ProjectCard from "../component/ProjectCard";
+import ProjectCard from "../component/project/ProjectCard";
 
 
 function UserProfile({t}) {

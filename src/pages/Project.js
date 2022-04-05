@@ -9,12 +9,12 @@ import {Link, useParams} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import useFetch from "../hook/use-fetch";
-import ProjectTasks from "../component/ProjectTasks";
+import ProjectTasks from "../component/task/ProjectTasks";
 import {makeStyles} from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import MoveDeadlines from '../component/MoveDeadlines';
+import MoveDeadlines from '../component/task/MoveDeadlines';
 
 const useStyles = makeStyles(theme => ({
     modal: {

@@ -6,9 +6,9 @@ import {
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {Link, useNavigate} from "react-router-dom";
-import useFetch from "../hook/use-fetch";
-import VerticalBarContext from "../store/verticalbar-context";
-import MySettingsIcon from "./SettingsIcon";
+import useFetch from "../../hook/use-fetch";
+import VerticalBarContext from "../../store/verticalbar-context";
+import MySettingsIcon from "../SettingsIcon";
 
 
 function ProjectCardSmall(props) {
@@ -65,9 +65,37 @@ function ProjectCardSmall(props) {
                 <AddCircleOutlineIcon sx={{display: "flex", float: "right"}}/>
             }
             {props.type != "add" &&
+<>
+                <SettingsIcon
+                    sx={{display: "flex", float: "right", marginRight: "5px"}}
+                    onClick={handleClick}
+                    size="small"
+                    aria-controls={open ? 'account-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                />
 
-                <MySettingsIcon deleteTeamHandler={deleteProjectHandler} id={props.projectId} isOwner={props.isOwner} link={"/editproject/"}/>
+              <Menu
+              anchorEl={anchorEl}
+              id="account-menu"
+              open={open}
+              onClose={handleClose}
+              onClick={handleClose}
+              transformOrigin={{horizontal: 'left', vertical: 'top'}}
+              anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+              >
 
+
+              <MenuItem component={Link} to={`/editproject/${props.id}`}>
+              Edit
+              </MenuItem>
+            {props?.isOwner &&
+              <MenuItem onClick={deleteProjectHandler}>
+              Delete
+              </MenuItem>
+            }
+              </Menu>
+</>
             }
 
         </Box>

@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container";
 import {Box, Typography} from "@mui/material";
 import React from "react";
-import ProjectTaskTime from '../component/ProjectTasksTime'
+import ProjectTaskTime from '../component/task/ProjectTasksTime'
 
 const TimeManagement = () => {
     return(

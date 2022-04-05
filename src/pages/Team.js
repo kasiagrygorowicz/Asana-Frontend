@@ -3,8 +3,8 @@ import {Box, Container, Grid, Menu, MenuItem, Typography} from "@material-ui/cor
 import Button from "@mui/material/Button";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import Members from '../component/Members';
-import ProjectCard from '../component/ProjectCard';
+import Members from '../component/members/Members';
+import ProjectCard from '../component/project/ProjectCard';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SettingsIcon from '@mui/icons-material/Settings';
 import useFetch from "../hook/use-fetch";
@@ -16,6 +16,15 @@ function Team({t}) {
     const {isTeamLoading, isTeamError, sendRequest: fetchTeam} = useFetch();
     const [teamInfo, setTeamInfo] = useState(null);
     const {teamId} = useParams();
+    const [anchorEl, setAnchorEl] = useState(null);
+    const open = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
 
 
     const navigate = useNavigate();
@@ -65,7 +74,35 @@ function Team({t}) {
                 </Box>
 
                 <Box>
-                   <MySettingsIcon deleteTeamHandler={deleteTeamHandler} id={teamInfo?.id} isOwner={teamInfo?.isOwner} link={"/editteam/"}/>
+                    <SettingsIcon
+                        sx={{display: "flex", float: "right", marginRight: "5px"}}
+                        onClick={handleClick}
+                        size="small"
+                        aria-controls={open ? 'account-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                    />
+
+                    <Menu
+                        anchorEl={anchorEl}
+                        id="account-menu"
+                        open={open}
+                        onClose={handleClose}
+                        onClick={handleClose}
+                        transformOrigin={{horizontal: 'left', vertical: 'top'}}
+                        anchorOrigin={{horizontal: 'right', vertical: 'top'}}
+                    >
+
+
+                        <MenuItem component={Link} to={`/editteam/${teamId}`}>
+                            Edit
+                        </MenuItem>
+                        {teamInfo?.isOwner &&
+                            <MenuItem onClick={deleteTeamHandler}>
+                                Delete
+                            </MenuItem>
+                        }
+                    </Menu>
                 </Box>
                 <Box sx={{width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
                 <Box sx={{margin: 5}}></Box>
@@ -92,7 +129,7 @@ function Team({t}) {
                             teamInfo?.projects.map(p => {
                                 console.log(teamInfo.isOwner)
                                 return (<Grid item xs={4}>
-                                    <ProjectCard cardColor="#4F6C89" teamName={teamInfo.name} projectName={p.name} isOwner={p.owner}
+                                    <ProjectCard cardColor="#4F6C89" teamName={teamInfo.name} teamId={teamId} projectName={p.name} isOwner={p.owner}
                                                  description={p.description} id={p.id}/>
 
                                 </Grid>)

@@ -5,13 +5,13 @@ import {
   } from "@material-ui/core";
 import {Link} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import AddProjectForm from "../component/AddProjectForm";
+import AddProjectForm from "../component/project/AddProjectForm";
 
 
 
 function AddProject({t}) {
     return (
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" style={{marginLeft:'15%'}}>
             <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
                 <Link to='/dashboard'>
                     <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>

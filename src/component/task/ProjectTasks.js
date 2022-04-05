@@ -3,12 +3,12 @@ import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
 import {Grid} from "@material-ui/core";
 import {DragDropContext} from "react-beautiful-dnd";
 import React, {useContext, useEffect, useState} from "react";
-import useFetch from "../hook/use-fetch";
+import useFetch from "../../hook/use-fetch";
 import {useParams} from "react-router-dom";
 import TaskCard from "./TaskCard";
 import TasksColumn from "./TasksColumn";
 import {useDispatch, useSelector} from "react-redux";
-import {timerActions} from "../store/timer";
+import {timerActions} from "../../store/timer";
 
 const ProjectTasks = ({t, projectInfo}) => {
     const dispatch = useDispatch();

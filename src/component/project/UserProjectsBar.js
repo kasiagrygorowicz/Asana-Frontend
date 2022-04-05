@@ -1,4 +1,4 @@
-import useUserProjects from "../hook/use-projects";
+import useUserProjects from "../../hook/use-projects";
 import {Link} from "react-router-dom";
 import ProjectCardSmall from "./ProjectCardSmall";
 import React from "react";

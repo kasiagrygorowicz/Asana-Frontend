@@ -15,9 +15,9 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
-import useFetch from "../hook/use-fetch";
+import useFetch from "../../hook/use-fetch";
 import {useNavigate} from "react-router-dom";
-import AuthContext from "../store/auth-context";
+import AuthContext from "../../store/auth-context";
 import jwt_decode from "jwt-decode"
 
 function AddTaskForm({t, projectInfo}) {

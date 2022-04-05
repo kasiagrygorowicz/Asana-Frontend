@@ -5,7 +5,7 @@ import {
     Input
   } from "@material-ui/core";
 import Button from "@mui/material/Button";
-import AddMemebers from "../component/AddMembers";
+import AddMemebers from "../component/members/AddMembers";
 import {Link, useNavigate} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useContext, useRef, useEffect, useState} from "react";
@@ -94,7 +94,7 @@ function AddTeam({t}) {
     };
 
     return (
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" style={{marginLeft:'15%'}}>
             <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
                 <Link to='/dashboard'>
                     <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>

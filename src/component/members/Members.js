@@ -2,7 +2,7 @@ import React from "react";
 import {
   Box
 } from "@material-ui/core";
-import Member from '../component/Member';
+import Member from './Member';
 import randomColor from "randomcolor";
 
 

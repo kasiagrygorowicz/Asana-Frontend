@@ -1,5 +1,5 @@
 import {Box, Container, Typography} from "@material-ui/core";
-import UserProjects from "../component/UserProjects";
+import UserProjects from "../component/project/UserProjects";
 
 function Dashboard({t}) {
 

@@ -8,7 +8,7 @@ import useFetch from "../hook/use-fetch";
 import {Link, useParams} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { makeStyles } from '@mui/styles';
-import EditProjectForm from '../component/EditProjectForm'
+import EditProjectForm from '../component/project/EditProjectForm'
 
 const useStyles = makeStyles({
     select: {

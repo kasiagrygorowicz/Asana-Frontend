@@ -6,8 +6,8 @@ import {
 import SettingsIcon from '@mui/icons-material/Settings';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {Link, useNavigate} from "react-router-dom";
-import useFetch from "../hook/use-fetch";
-import VerticalBarContext from "../store/verticalbar-context";
+import useFetch from "../../hook/use-fetch";
+import VerticalBarContext from "../../store/verticalbar-context";
 
 
 function TeamCardSmall(props) {

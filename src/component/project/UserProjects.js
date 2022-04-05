@@ -1,7 +1,7 @@
 import {Grid} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import ProjectCard from "./ProjectCard";
-import useUserProjects from "../hook/use-projects";
+import useUserProjects from "../../hook/use-projects";
 
 const UserProjects = ({t}) => {
 

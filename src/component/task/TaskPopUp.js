@@ -17,12 +17,12 @@ import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import IconButton from '@mui/material/IconButton';
 import React from 'react';
 import { color } from "@mui/system";
-import useFetch from "../hook/use-fetch";
+import useFetch from "../../hook/use-fetch";
 import {useParams} from "react-router-dom";
-import useUserProjects from "../hook/use-projects";
+import useUserProjects from "../../hook/use-projects";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {timerActions} from "../store/timer";
+import {timerActions} from "../../store/timer";
 
 export default function TaskPopUp(props) {
     console.log(props.project);

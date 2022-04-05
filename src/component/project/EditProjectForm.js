@@ -2,13 +2,13 @@ import {Box, Checkbox, FormControl, Input, MenuItem, Select, Typography} from "@
 import Button from "@mui/material/Button";
 import {makeStyles} from "@mui/styles";
 import {useContext, useEffect, useRef, useState} from "react";
-import useFetch from "../hook/use-fetch";
+import useFetch from "../../hook/use-fetch";
 import {useNavigate, useParams} from "react-router-dom";
-import AuthContext from "../store/auth-context";
+import AuthContext from "../../store/auth-context";
 import jwt_decode from "jwt-decode"
-import Members from '../component/Members'
-import AddMemebers from "./AddMembers";
-import VerticalBarContext from "../store/verticalbar-context";
+import Members from '../members/Members'
+import AddMemebers from "../members/AddMembers";
+import VerticalBarContext from "../../store/verticalbar-context";
 
 const useStyles = makeStyles({
     select: {

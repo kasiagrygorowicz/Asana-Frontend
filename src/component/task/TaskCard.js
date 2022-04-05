@@ -15,7 +15,7 @@ import IconButton from '@mui/material/IconButton';
 import { useState } from "react";
 import { FOCUSABLE_SELECTOR } from "@testing-library/user-event/dist/utils";
 import {useDispatch, useSelector} from "react-redux";
-import {timerActions} from "../store/timer";
+import {timerActions} from "../../store/timer";
 
 function TaskCard(props) {
     const dispatch = useDispatch();

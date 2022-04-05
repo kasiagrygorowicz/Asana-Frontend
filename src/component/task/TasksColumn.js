@@ -3,7 +3,7 @@ import {Droppable} from "react-beautiful-dnd";
 import Stack from "@mui/material/Stack";
 import React from "react";
 import Task from "./Task";
-import TimeIconPopover from "./TimeIconPopover"
+import TimeIconPopover from "../TimeIconPopover"
 
 
 const TasksColumn = ({t, tasks, type}) => {

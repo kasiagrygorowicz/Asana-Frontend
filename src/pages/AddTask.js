@@ -10,7 +10,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useParams } from "react-router-dom";
 import useFetch from "../hook/use-fetch";
 import { useState, useEffect } from "react";
-import AddTaskForm from "../component/AddTaskForm";
+import AddTaskForm from "../component/task/AddTaskForm";
 
 function AddTask({t}) {
     const { isProjectLoading, projectError, sendRequest: fetchProject } = useFetch();
@@ -36,7 +36,7 @@ function AddTask({t}) {
     }, [fetchProject, projectId])
 
     return (
-        <Container maxWidth="xl">
+        <Container maxWidth="xl" style={{marginLeft:'15%'}}>
             <Box sx={{ width: '75%', height: 750, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
                 <Link to={`/project/${projectId}`}>
                     <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>

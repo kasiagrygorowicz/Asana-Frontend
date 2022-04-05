@@ -5,11 +5,11 @@ import Fade from "@material-ui/core/Fade";
 import TaskPopUp from "./TaskPopUp";
 import React, {cloneElement, useEffect, useState} from "react";
 import {makeStyles} from "@material-ui/core/styles";
-import useFetch from "../hook/use-fetch";
+import useFetch from "../../hook/use-fetch";
 import { useParams } from "react-router-dom";
-import useUserProjects from "../hook/use-projects";
+import useUserProjects from "../../hook/use-projects";
 import {useDispatch, useSelector} from "react-redux";
-import {timerActions} from "../store/timer";
+import {timerActions} from "../../store/timer";
 
 const useStyles = makeStyles(theme => ({
     modal: {

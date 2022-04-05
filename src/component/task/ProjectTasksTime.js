@@ -3,7 +3,7 @@ import {
   Typography,
   Box
 } from "@material-ui/core";
-import TaskCardTime from '../component/TaskCardTime'
+import TaskCardTime from './TaskCardTime'
 
 
 function ProjectTaskTime(props) {

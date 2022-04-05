@@ -1,10 +1,10 @@
 import React, {useContext} from "react";
 import {Box, Typography,} from "@material-ui/core";
 import {Link} from "react-router-dom";
-import ProjectCardSmall from "./ProjectCardSmall";
-import TeamCardSmall from "./TeamCardSmall";
-import UserTeams from "./UserTeams";
-import UserProjectsBar from "./UserProjectsBar";
+import ProjectCardSmall from "./project/ProjectCardSmall";
+import TeamCardSmall from "./team/TeamCardSmall";
+import UserTeams from "./team/UserTeams";
+import UserProjectsBar from "./project/UserProjectsBar";
 import VerticalBarContext from "../store/verticalbar-context";
 import Container from "@mui/material/Container";
 
