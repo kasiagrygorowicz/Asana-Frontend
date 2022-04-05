@@ -5,7 +5,6 @@ import {
 } from "@material-ui/core";
 import SettingsIcon from '@mui/icons-material/Settings';
 import {Link, useNavigate} from "react-router-dom";
-import MySettingsIcon from "../SettingsIcon";
 import useFetch from "../../hook/use-fetch";
 import VerticalBarContext from "../../store/verticalbar-context";
 

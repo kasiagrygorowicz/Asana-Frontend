@@ -15,8 +15,8 @@ function TaskCardTime(props) {
     const hours = <span>{("0" + Math.floor(props.time / 3600)).slice(-2)}</span>;
 
     return (
-        <Box sx={{width: '20%', height: 100, background: props.cardColor, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 30, marginTop: 20}}>
-        <Box sx={{width: '95%', height: 80, color: '#FFFFFF'}}>
+        <Box sx={{width: '22%', height: 100, background: props.cardColor, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 30}}>
+        <Box sx={{width: '50%', height: 80, color: '#FFFFFF'}}>
         <Stack direction="column">
             <Stack direction="row">
                 <Box sx={{paddingLeft: 30, height: 35, paddingTop: 7.5, width: '75%'}}>

@@ -9,7 +9,6 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SettingsIcon from '@mui/icons-material/Settings';
 import useFetch from "../hook/use-fetch";
 import VerticalBarContext from '../store/verticalbar-context';
-import MySettingsIcon from "../component/SettingsIcon";
 
 
 function Team({t}) {
