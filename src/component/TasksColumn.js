@@ -1,47 +1,9 @@
-import {Box, Grid, Popover, Typography} from "@material-ui/core";
+import {Box, Grid, Typography} from "@material-ui/core";
 import {Droppable} from "react-beautiful-dnd";
 import Stack from "@mui/material/Stack";
-import React, {useState} from "react";
+import React from "react";
 import Task from "./Task";
-import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-import {AccessTime} from "@mui/icons-material";
-
-
-function TimeIconPopover() {
-    const [anchorEl, setAnchorEl] = React.useState(null);
-
-    const handleClick = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
-
-    return (
-        <div >
-            <AccessTime onClick={handleClick}/>
-            <Popover
-                id={id}
-                open={open}
-                anchorEl={anchorEl}
-                onClose={handleClose}
-                anchorOrigin={{
-                    vertical: 'bottom',
-                    horizontal: 'left',
-                }}
-            >
-                <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
-            </Popover>
-        </div>
-    );
-}
-
-
-
+import TimeIconPopover from "./TimeIconPopover"
 
 
 const TasksColumn = ({t, tasks, type}) => {
@@ -70,10 +32,7 @@ const TasksColumn = ({t, tasks, type}) => {
                                 marginRight:'5px'
                             }}>{t(type.toLowerCase())}
                 </Typography>
-                <TimeIconPopover/>
-
-
-
+                <TimeIconPopover tasks={tasks} type={type}/>
             </Box>
             <Box sx={{
                 width: '100%',

@@ -155,14 +155,16 @@ const ProjectTasks = ({t, projectInfo}) => {
         // Zmiana wyglądu taska
         const draggedTask = tasks.cards[draggableId];
         const newTaskStatus = finish.id;
-
         draggedTask.content = <TaskCard
                                   key={draggableId}
                                   id={parseInt(draggableId)}
                                   cardColor={getTaskColor(newTaskStatus)}
                                   taskName={draggedTask.name}
                                   taskType={newTaskStatus}
-                                  date="18.04.2022"
+                                  date={draggedTask.content.props.date}
+                                  totalTime={draggedTask.content.props.totalTime}
+                                  timer={draggedTask.content.props.timer}
+
         />;
 
         // Aktualizacja stanu tasków
