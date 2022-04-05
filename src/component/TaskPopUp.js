@@ -21,13 +21,15 @@ import useFetch from "../hook/use-fetch";
 import {useParams} from "react-router-dom";
 import useUserProjects from "../hook/use-projects";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import {timerActions} from "../store/timer";
 
 export default function TaskPopUp(props) {
     console.log(props.project);
     const navigate = useNavigate();
     const { isLoadingDelete, errorDelete, sendRequest: deleteTaskRequest} = useFetch();
     const { isLoadingEdit, errorEdit, sendRequest: editTaskRequest } = useFetch();
+    const { isLoadingSetTimer, errorSetTimer, sendRequest: setTimerRequest } = useFetch();
 
     const deleteTaskHandler = () => {
 
@@ -43,6 +45,9 @@ export default function TaskPopUp(props) {
         deleteTaskRequest(deleteTaskRequestContent, navigate(0));
     }
     //TO DO: upewnienie czy chce usunąć taska?
+
+    const timer = useSelector((state) => state.timer).find(timer => timer.id === props.task.id);
+    const dispatch = useDispatch();
 
     const taskNameInput = useRef();
     const dueDateInput = useRef();
@@ -86,13 +91,23 @@ export default function TaskPopUp(props) {
     const [startValue, setStartValue] = React.useState(new Date(props.task.startDate));
     const [value, setValue] = React.useState(new Date(props.task.deadLine));
 
-    const timer = useSelector((state) => state.timer).find(timer => timer.id === props.task.id);
-
     const handleClick = () => {
         props.handleTimer();
     }
 
     const handleReset = () => {
+        dispatch(timerActions.resetTime(props.task.id));
+        const setTimerRequestContent = {
+            url: `/project/task/${props.task.id}/settime`,
+            method: "PUT",
+            body: {
+                time: 0
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        setTimerRequest(setTimerRequestContent);
     }
 
     const handleTimeSetter = () => {
