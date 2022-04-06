@@ -8,6 +8,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {Link, useNavigate} from "react-router-dom";
 import useFetch from "../../hook/use-fetch";
 import VerticalBarContext from "../../store/verticalbar-context";
+import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 
 
 function ProjectCardSmall(props) {
@@ -63,10 +64,13 @@ function ProjectCardSmall(props) {
             {props.type == "add" &&
                 <AddCircleOutlineIcon sx={{display: "flex", float: "right"}}/>
             }
-            {props.type != "add" &&
+            {props.type == "time" &&
+                <AccessTimeFilledIcon sx={{display: "flex", float: "right"}}/>
+            }
+            {props.type != "add" && props.type != "time" &&
 <>
                 <SettingsIcon
-                    sx={{display: "flex", float: "right", marginRight: "5px"}}
+                    sx={{display: "flex", float: "right"}}
                     onClick={handleClick}
                     size="small"
                     aria-controls={open ? 'account-menu' : undefined}

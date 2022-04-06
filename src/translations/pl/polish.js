@@ -31,7 +31,6 @@ const polish = {
     team: 'Zespół',
     teams: 'Zespoły',
     private: 'Prywatny',
-    recent: 'Ostatnie projekty',
     done: 'Zrobione',
     undone: 'Nie zrobione',
     doing: 'W trakcie',
@@ -52,7 +51,7 @@ const polish = {
     moveDeadlines: 'Przesuń terminy',
     by: 'o',
     days: 'dni',
-
+    manageTime: 'Zarządzaj czasem',
 
     signupPage : {
         username : 'Nazwa użytkownika',

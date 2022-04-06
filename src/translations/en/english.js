@@ -31,7 +31,6 @@ const english = {
     team: 'Team',
     teams: 'Teams',
     private: 'Private',
-    recent: 'Recent projects',
     done: 'Done',
     undone: 'Undone',
     doing: 'In progress',
@@ -52,6 +51,7 @@ const english = {
     moveDeadlines: 'Postpone deadlines',
     by: 'by',
     days: 'days',
+    manageTime: 'Manage your time',
 
     signupPage : {
         username : 'Username',
