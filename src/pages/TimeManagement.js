@@ -1,9 +1,12 @@
 import Container from "@mui/material/Container";
 import {Box, Typography} from "@mui/material";
 import React, {useEffect, useState} from 'react'
-import TaskCardTime from "../component/task/TaskCardTime";
+import TaskCardTime from "../component/time/TaskCardTime";
 import useUserProjects from "../hook/use-projects";
 import useFetch from "../hook/use-fetch";
+import TimeInfoCard from "../component/time/TimeInfoCard";
+
+
 
 const TimeManagement = () =>{
     const { isProjectLoading, projectError, sendRequest: fetchProject } = useFetch();
@@ -32,7 +35,7 @@ const TimeManagement = () =>{
                 paddingBottom: "10px",
                 paddingTop: "10px",
                 marginTop: "30px",
-                width: "60%"
+                width: "100%"
             }}>
                 <Box sx={{
                     display: "flex",
@@ -93,13 +96,33 @@ const TimeManagement = () =>{
             display: "flex",
             flexDirection: "column",
             padding: "50px",
-            marginLeft: "17%",
-            width: "80%",
+            marginLeft: "25%",
+            width: "60%",
         }}>
             {/*<Box width="100%" height="20px" borderBottom="1px solid black">*/}
-            <Typography color="text.secondary" variant="h3" sx={{
-               alignSelf: "flex-start"
-            }}>My Projects Times</Typography>
+            <Typography color="text.secondary" variant="h2" sx={{
+               alignSelf: "center"
+            }}>Time Management</Typography>
+            <Typography color="text.secondary" variant="h5" sx={{
+                alignSelf: "center",
+                margin: "40px 10px 0",
+                letterSpacing: "0.1em"
+            }}>Summary</Typography>
+            <Box sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                marginTop: "50px"
+            }}>
+                <TimeInfoCard header={"Total time"} content={"24h:32m:48s"}/>
+                <TimeInfoCard header={"Week average"} content={"5h:12m:16s"}/>
+                <TimeInfoCard header={"Done tasks"} content={"8h:21m:32s"}/>
+            </Box>
+            <Typography color="text.secondary" variant="h5" sx={{
+                alignSelf: "center",
+                margin: "80px",
+                marginBottom: "15px",
+                letterSpacing: "0.1em"
+            }}>Your projects</Typography>
             {/*</Box>*/}
             {projectsToDisplay}
             
