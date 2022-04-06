@@ -5,6 +5,7 @@ import TaskCardTime from "../component/time/TaskCardTime";
 import useUserProjects from "../hook/use-projects";
 import useFetch from "../hook/use-fetch";
 import TimeInfoCard from "../component/time/TimeInfoCard";
+import Divider from '@mui/material/Divider';
 
 
 
@@ -100,14 +101,18 @@ const TimeManagement = () =>{
             width: "60%",
         }}>
             {/*<Box width="100%" height="20px" borderBottom="1px solid black">*/}
-            <Typography color="text.secondary" variant="h2" sx={{
-               alignSelf: "center"
-            }}>Time Management</Typography>
+            <Typography color="text.secondary" variant="h2" sx={{ alignSelf: "center" }}>
+                Time Management
+            </Typography>
             <Typography color="text.secondary" variant="h5" sx={{
                 alignSelf: "center",
                 margin: "40px 10px 0",
                 letterSpacing: "0.1em"
-            }}>Summary</Typography>
+            }}>
+                Summary
+            </Typography>
+            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '22.5%', marginTop: -2}}></Box>
+            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '57.5%', marginTop: -0.25}}></Box>
             <Box sx={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -122,8 +127,11 @@ const TimeManagement = () =>{
                 margin: "80px",
                 marginBottom: "15px",
                 letterSpacing: "0.1em"
-            }}>Your projects</Typography>
-            {/*</Box>*/}
+            }}>
+                Your projects
+            </Typography>
+            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '20%', marginTop: -4, marginBottom: 4}}></Box>
+            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '60%', marginTop: -4.25}}></Box>
             {projectsToDisplay}
             
         </Container>
