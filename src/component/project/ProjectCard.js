@@ -85,7 +85,7 @@ function ProjectCard(props) {
 
               <Box sx={{ width: '100%', height: 2, borderBottom: '2px solid white'}}></Box>
               <Link to={'/project/'+props?.id} style={{textDecoration: 'none'}}>
-              <Box sx={{paddingLeft: 20, height: 25, paddingTop: 5,color:'white'}}>
+              <Box sx={{paddingLeft: 20, height: '100%', paddingTop: 5,color:'white'}}>
                 <Typography variant="h5" fontFamily="Sora"> {props.projectName}</Typography>
                 <Typography fontFamily="Sora">{props.description}</Typography>
               </Box>

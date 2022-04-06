@@ -54,7 +54,7 @@ function App() {
                         <Route path="/addtask" element={<> <VerticalBar t={t}/><AddTask t={t}/> </>} />
                         <Route path="/editteam/:teamId" element= {<> <VerticalBar t={t}/><EditTeam t={t} /></>} />
                         <Route path="/editproject/:projectId" element= {<> <VerticalBar t={t}/><EditProject t={t} /> </>} />
-                        <Route path="/userprofile/:userName" element= {<UserProfile t={t} />} />
+                        <Route path="/userprofile/:userId" element= {<> <VerticalBar  t={t}/> <UserProfile t={t} /> </>} />
                         <Route path="/management/time" element= {<><VerticalBar t={t}/><TimeManagement t={t} /> </>}/>
                         <Route path="/team/:teamId" element= {<>
                             <VerticalBar t={t}/><Team t={t} /> </>} />

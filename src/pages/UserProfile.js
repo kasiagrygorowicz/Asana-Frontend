@@ -3,7 +3,7 @@ import {
     Grid,
     Box,
     Typography
-  } from "@material-ui/core";
+} from "@material-ui/core";
 import Button from "@mui/material/Button";
 import Stack from '@mui/material/Stack';
 import {Link, useParams} from "react-router-dom";
@@ -16,76 +16,155 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ProjectCard from "../component/project/ProjectCard";
 
+import useFetch from "../hook/use-fetch";
+import React, {useContext, useEffect, useState} from "react";
+import AuthContext from "../store/auth-context";
+import {Alert} from "@mui/lab";
+
 
 function UserProfile({t}) {
-    let {userName} = useParams();
+    let {userId} = useParams();
+    const {isLoading, error, sendRequest: fetchUserDetails} = useFetch();
+    const [userDetails, setUserDetails] = useState([]);
+    const [projects, setProjects] = useState([]);
+    const [teams, setTeams] = useState([]);
+    const authCtx = useContext(AuthContext);
+
+    useEffect(() => {
+        const handleGetUserDetails = (detailsObj) => {
+            const details = [];
+            details.push(detailsObj.id)
+            details.push( detailsObj.email)
+            details.push( detailsObj.name)
+            const teams = []
+            const projects = []
+            for (const t in detailsObj.teams) {
+                teams.push({
+                    id: detailsObj.teams[t].id,
+                    name: detailsObj.teams[t].name,
+                    isOwner: detailsObj.teams[t].owner
+
+                })
+            }
+            for (const p in detailsObj.projects) {
+                projects.push({
+                    id: detailsObj.projects[p].id,
+                    name: detailsObj.projects[p].name,
+                    description: detailsObj.projects[p].description,
+                    isOwner: detailsObj.projects[p].owner
+                })
+            }
+
+            setUserDetails(details)
+            setProjects(projects)
+            setTeams(teams)
+        }
+
+
+        const urlRequest = `/user/all/${userId}`;
+        const fetchUserDetailsRequest = {
+            url: urlRequest
+        };
+
+        fetchUserDetails(fetchUserDetailsRequest, handleGetUserDetails)
+
+
+    }, [fetchUserDetails, userId])
+
 
     return (
-        <Container maxWidth="xl">
-            <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
-                <Link to='/editteam/Team A'>
-                    <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>
+        //todo poprawic cofanie
+        <Box maxWidth="xl"
+
+             sx={{
+                 marginLeft:'15%',
+                 marginRight:'5%',
+                 display: 'flex',
+                 flexDirection: 'column',
+                 height:'100vh',
+                 gap:20
+
+
+             }}>
+
+            <Box sx={{width: '100%', alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50,marginRight:'0%'}}>
+                {/*todo naprawic strzalki cofania*/}
+                <Link to='/dashboard'>
+                    <ArrowBackIcon sx={{width: 40, height: 40,  color: 'black'}}/>
                 </Link>
-                <Box sx={{ width: '80%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
-                <Typography variant="h3" fontFamily="Sora">{userName}</Typography>
+                <Box sx={{width: '100%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
+                    <Typography variant="h3" fontFamily="Sora">{userDetails[2]}</Typography>
+                    <Box sx={{width: '100%',  height: 2, borderBottom: '2px solid black'}}></Box>
+                </Box>
+
             </Box>
 
-            <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
-            <Box sx={{margin: 20}}></Box>
+            <Box sx={{display: 'flex', flexDirection: 'row',gap:30,marginLeft:'10%'}}>
+                <Typography  variant="h4" fontFamily="Sora" style={{fontWeight: 600,fontSize:35}}>
+                    Email:
+                </Typography>
+                <Box fontFamily="Sora" style={{fontWeight: 60, fontSize: 35, bgcolor:'orange'}}>
+                    {userDetails[1]}
+                </Box>
 
-            <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Typography variant="h4" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>Email:</Typography>
-            </Box>
-            <Box sx={{ width: '25%', height: 80, alignItems: 'center', float: 'left', display: 'flex'}}>
-                <Typography fontFamily="Sora" style={{fontWeight: 60, fontSize: 35,  textAlign: 'right', width: '80%'}}>example@mail.com</Typography>
             </Box>
 
-            <Box sx={{clear: 'both', height: 10}}></Box>
-            <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Typography variant="h4" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('teams')}:</Typography>
+
+            <Box sx={{display: 'flex', flexDirection: 'row',gap:30,marginLeft:'10%'}}>
+                <Typography variant="h4" fontFamily="Sora" style={{fontWeight: 600}}>{t('teams')}:</Typography>
+                <Box sx={{alignItems: 'center', display: 'flex'}}>
+                    <Stack direction="column">
+                        {
+                            teams.map(t => {
+                                return (
+                                    <Link to={'/team/' + t.id} style={{textDecoration: "none", color: 'black'}}>
+                                        <Box sx={{width: 400, height: 45, alignItems: 'center', display: 'flex'}}>
+                                            <ListItemIcon>
+                                                <FiberManualRecordIcon/>
+                                            </ListItemIcon>
+                                            <Typography variant="h4" fontFamily="Sora" style={{
+                                                fontWeight: 60,
+                                                textAlign: 'left',
+                                                fontSize: 35,
+                                                width: 200
+                                            }}>{t.name}</Typography>
+                                        </Box>
+                                    </Link>)
+                            })
+                        }
+
+                    </Stack>
+                </Box>
             </Box>
-            
-            <Box sx={{ width: 500, height: 130, alignItems: 'center', display: 'flex'}}>
-                <Stack direction="column" >
-                    <Box sx={{ width: 400, height: 45, alignItems: 'center', display: 'flex'}}>
-                        <ListItemIcon>
-                            <FiberManualRecordIcon />
-                        </ListItemIcon>
-                        <Typography variant="h4" fontFamily="Sora" style={{fontWeight: 60, textAlign: 'left', fontSize: 35, width: 200}}>Team A</Typography>
-                    </Box>
-                    <Box sx={{ width: 400, height: 45, alignItems: 'center', display: 'flex'}}>
-                        <ListItemIcon>
-                            <FiberManualRecordIcon />
-                        </ListItemIcon>
-                        <Typography variant="h4" fontFamily="Sora" style={{fontWeight: 60, textAlign: 'left', fontSize: 35, width: 200}}>Team B </Typography>
-                    </Box>
-                </Stack>
-            </Box>
-            <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Typography variant="h4" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('projects')}:</Typography>
-            </Box>
-            <Box sx={{marginLeft: 250, width: '100%', height: 90, alignItems: 'center', display: 'flex', float: 'left'}}>
-                <Grid container spacing={10}>
-                    <Grid item xs={3}>
-                    <Link to="/project/Project A" style={{textDecoration: 'none'}}>
-                        <ProjectCard cardColor="#4F6C89" teamName="Team A" projectName="Project A" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Link>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <Link to="/project/Project B" style={{textDecoration: 'none'}}>
-                        <ProjectCard cardColor="#467AAE" teamName="Team B" projectName="Project B" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Link>
-                    </Grid>
-                    <Grid item xs={3}>
-                    <Link to="/project/Project C" style={{textDecoration: 'none'}}>
-                        <ProjectCard cardColor="#6396C8" teamName="Team A" projectName="Project C" description="Some quick example of project description to build on the card title and make up the bulk of the card's content."/>
-                    </Link>
-                    </Grid>
+
+            <Box sx={{display: 'flex', flexDirection: 'row',marginTop:10,gap:30,marginLeft:'10%', marginBottom:'50px'}}>
+                <Typography variant="h4" fontFamily="Sora"
+                            style={{fontWeight: 600}}>{t('projects')}:</Typography>
+
+                <Grid container  spacing={5} >
+                    {
+                        projects.map(p => {
+                            return (
+                                <Grid item xs={4} >
+                                    <ProjectCard cardColor="#4F6C89" id={p.id} projectName={p.name} isOwner={p.isOwner}
+                                                 description={p.description}/>
+                                </Grid>
+                            )
+                        })
+                    }
+
+
                 </Grid>
+
+
             </Box>
-            </Box>
-            <Box sx={{clear:'both'}}></Box>
-        </Container>
+                {
+                    error && <Alert severity="error">{error}</Alert>
+                }
+
+
+        </Box>
     );
 }
+
 export default UserProfile;

@@ -11,7 +11,7 @@ import ChangeHistoryTwoToneIcon from '@mui/icons-material/ChangeHistoryTwoTone';
 
 function Member(props) {
 const t = useTranslation()[0]
-const l = "/userprofile/" + props.fullname;
+const l = "/userprofile/" + props?.id;
 const [isHovering, setHovering] = useState(false);
 
 const HoverInfo = () => {
