@@ -39,10 +39,10 @@ function EditTeam({t}) {
                 <Link to='/dashboard'>
                     <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>
                 </Link>
-
                 <Box sx={{width: '80%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
-                    <Typography variant="h3"
-                                fontFamily="Sora">{t('editteam') + ': "' + teamInfo?.name + '"'}</Typography>
+                    {teamInfo!=null ? (
+                        <Typography variant="h3" fontFamily="Sora">{t('editteam') + ': "' + teamInfo?.name + '"'}</Typography>
+                    ) : (<div></div>)}
                 </Box>
                 <Box sx={{width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
                 <Box sx={{margin: 20}}></Box>

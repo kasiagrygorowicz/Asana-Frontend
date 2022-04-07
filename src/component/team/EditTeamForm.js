@@ -1,4 +1,4 @@
-import {Box, Checkbox, FormControl, Input, MenuItem, Select, Typography} from "@material-ui/core";
+import {Box, Input, Typography} from "@material-ui/core";
 import Button from "@mui/material/Button";
 import {makeStyles} from "@mui/styles";
 import {useContext, useEffect, useRef, useState} from "react";
@@ -20,7 +20,6 @@ const useStyles = makeStyles({
 const EditTeamForm = ({t, teamInfo}) => {
     const teamNameInput = useRef();
 
-    const membersRef = useRef([]);
     const { teamId } = useParams();
     const { isLoading, error, sendRequest: editTeamRequest } = useFetch();
     const { isMembersLoading, membersError, sendRequest: fetchMembers } = useFetch();
@@ -29,37 +28,18 @@ const EditTeamForm = ({t, teamInfo}) => {
     const verticalBarCtx = useContext(VerticalBarContext);
     const [ users, setUsers ] = useState([]);
     const [ selectedUsers, setSelectedUsers ] = useState([]);
-    const [ currentUsers, setCurrentUsers ] = useState([]);
 
 
     useEffect(() => {
-        const userId = jwt_decode(authCtx.authToken).id;
-
         const handleGetUsers = (usersObj) => {
             const loadedUsers = [];
-            const loadedUsers_1 = [];
             for (const usersKey in usersObj) {
                 loadedUsers.push({ 
                     id: usersObj[usersKey].id, 
                     name: usersObj[usersKey].name,
                     email: usersObj[usersKey].email });
             }
-            for(let i = 0; i < loadedUsers.length; i++){
-                if(loadedUsers[i].id !== userId){
-                    loadedUsers_1.push(loadedUsers[i]);
-                }
-            }
-            setUsers(loadedUsers_1);
-
-            const tmpUsers = [];
-            for( let i = 0; i < teamInfo?.members.length; i++){
-                tmpUsers.push({
-                    id: usersObj[i].id, 
-                    name: usersObj[i].name,
-                    email: usersObj[i].email });
-            }
-            setCurrentUsers(tmpUsers);
-            console.log('tmpUsers = '+tmpUsers.length)
+            setUsers(loadedUsers);
         }
 
         const urlRequest = `/user/all`;
@@ -69,9 +49,12 @@ const EditTeamForm = ({t, teamInfo}) => {
         fetchMembers(fetchUsersRequest, handleGetUsers);
     }, [fetchMembers]);
 
+
     const submitHandler = (event) => {
         event.preventDefault();
         const enteredTeamName = teamNameInput.current.value;
+        const userId = jwt_decode(authCtx.authToken).id;
+
 
         const members = []
 
@@ -79,17 +62,21 @@ const EditTeamForm = ({t, teamInfo}) => {
             members.push(selectedUsers[i].id)
         }
         const handleEditProject = (response) => {
-            const createTeamAdress = `/team/${teamId}`;
+            let createTeamAdress = `/team/${teamId}`
+            if(!members.includes(userId)){
+                createTeamAdress= `/dashboard`;
+            } 
             verticalBarCtx.updateKey++;
             navigate(createTeamAdress, { replace: true })
+            
         }
 
         const addProjectRequestContent = {
             url: "/team/" + teamId,
             method: "PUT",
             body: {
-                'name': enteredTeamName
-                //'members': selectedUsers
+                'name': enteredTeamName,
+                'members': members
             },
             headers: {
                 'Content-Type': 'application/json'
@@ -100,19 +87,19 @@ const EditTeamForm = ({t, teamInfo}) => {
     }
 
     const sendSelectedUsers = (selected) => {
-        console.log('ilu jest nowych członków: ' + selected.length);
         setSelectedUsers(selected);
     };
 
-    const classes = useStyles();
     return (
         <form onSubmit={submitHandler}>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('teamName')}:</Typography>
             </Box>
+            {teamInfo!=null ? (
             <Box sx={{ width: '40%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
                 <Input name="name" inputRef={teamNameInput} defaultValue={teamInfo?.name} key={teamInfo?.name} placeholder={t('teamNameInput')} disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}}></Input>
             </Box>
+            ) : (<div></div>)}
             <Box sx={{clear: 'both', height: 10}}></Box>
 
             <Box sx={{clear: 'both', height: 10}}></Box>
@@ -120,7 +107,9 @@ const EditTeamForm = ({t, teamInfo}) => {
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('members')}:</Typography>
             </Box>
             <Box sx={{ width: '40%', float: 'left', borderRadius: '30px', margin: 10, display: 'flex' }}>
-                <EditMembers t={t}  users={users} currentMembers={currentUsers} sendSelectedUsers={sendSelectedUsers}/>
+                {teamInfo!=null ? (
+                    <EditMembers t={t}  users={users} sendSelectedUsers={sendSelectedUsers} teamInfoMembers={teamInfo.members}/>
+                ) : (<div></div>)}
             </Box>
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>

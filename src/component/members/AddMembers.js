@@ -16,6 +16,7 @@ import { Alarm } from "@mui/icons-material";
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 
 
@@ -25,33 +26,48 @@ export default function AddMemebers({t, users, sendSelectedUsers}) {
     const fixedOptions = [];
     const [value, setValue] = React.useState([]);
 
+    const theme = createTheme({
+        components: {
+          MuiOutlinedInput: {
+            styleOverrides: {
+              root: {
+                borderRadius: '30px',
+                minHeight: 60
+              }
+            }
+          }
+        }
+      });
+
     return (
         <div>
-        <Autocomplete
-        multiple
-        id="fixed-tags-demo"
-        value={value}
-        onChange={(event, newValue) => {
-            setValue([
-            ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
-            ])
-        }}
-        options={users}
-        getOptionLabel={(option) => option.email}
-        renderTags={(tagValue, getTagProps) =>
-            tagValue.map((option, index) => (
-            <Chip
-                label={option.email}
-                {...getTagProps({ index })}
-                disabled={fixedOptions.indexOf(option) !== -1}
-            />
-            ))
-        }
-        style={{ width: 500 }}
-        renderInput={(params) => (
-            <TextField {...params} sx={{ input: { color: 'black' }, width: '112%' }}  placeholder={t('addmember')}/>
-        )}
-        />   
+        <ThemeProvider theme={theme}>
+            <Autocomplete
+                multiple
+                id="fixed-tags-demo"
+                value={value}
+                onChange={(event, newValue) => {
+                    setValue([
+                    ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
+                    ])
+                }}
+                options={users}
+                getOptionLabel={(option) => option.email}
+                renderTags={(tagValue, getTagProps) =>
+                    tagValue.map((option, index) => (
+                    <Chip
+                        label={option.email}
+                        {...getTagProps({ index })}
+                        disabled={fixedOptions.indexOf(option) !== -1}
+                    />
+                    ))
+                }
+                style={{ width: 500 }}
+                renderInput={(params) => (
+                    <TextField {...params} sx={{ input: { color: 'black' }, width: '112%' }}  placeholder={t('addmember')}/>
+                )}
+            /> 
+        </ThemeProvider>  
         {sendSelectedUsers(value)}
         </div>
     );

@@ -1,64 +1,100 @@
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Input from "@mui/material/Input";
-import Button from "@mui/material/Button";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
 import useFetch from "../hook/use-fetch";
-import {useContext, useEffect, useRef, useState} from "react";
-import {useNavigate} from "react-router-dom";
-import jwt_decode from "jwt-decode"
-import { makeStyles } from '@material-ui/core/styles';
+import {useEffect, useState} from "react";
+import {useParams} from "react-router-dom";
 import React from 'react';
-import { Alarm } from "@mui/icons-material";
 import Chip from '@mui/material/Chip';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 
 
 
-export default function EditMembers({t, users, currentMembers, sendSelectedUsers}) {
+export default function EditMembers({t, users, sendSelectedUsers, teamInfoMembers}) {
 
     const fixedOptions = [];
     const [value, setValue] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(false);
+    const {isTeamLoading, isTeamError, sendRequest: fetchTeam} = useFetch();
+    const [teamInfo, setTeamInfo] = useState(null);
+    const {teamId} = useParams();
+
 
 
     useEffect(() => {
-        setValue(currentMembers);
-    }, []);
 
+        const handleTeam = (response) => {
+            setTeamInfo(response);
+        }
+
+        const fetchTeamRequest = {
+            url: `/team/${teamId}`
+        }
+
+        fetchTeam(fetchTeamRequest, handleTeam);
+        setIsLoading(true);
+
+        const t = [];
+
+        for(let i = 0; i < teamInfoMembers.length; i++){
+            for(let j = 0; j < users.length; j++){
+                if(teamInfoMembers[i].id === users[j].id){
+                    t.push(users[j])
+                    break
+                }
+            }
+        }
+        setValue(t);
+
+    }, [fetchTeam, teamId])
+
+    const theme = createTheme({
+        components: {
+          MuiOutlinedInput: {
+            styleOverrides: {
+              root: {
+                borderRadius: '30px',
+                minHeight: 60
+              }
+            }
+          }
+        }
+      });
 
     return (
         <div>
-        <Autocomplete
-        multiple
-        id="fixed-tags-demo"
-        value={value}
-        onChange={(event, newValue) => {
-            setValue([
-            ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
-            ])
-        }}
-        options={users}
-        getOptionLabel={(option) => option.email}
-        renderTags={(tagValue, getTagProps) =>
-            tagValue.map((option, index) => (
-            <Chip
-                label={option.email}
-                {...getTagProps({ index })}
-                disabled={fixedOptions.indexOf(option) !== -1}
-            />
-            ))
-        }
-        style={{ width: 500 }}
-        renderInput={(params) => (
-            <TextField {...params} sx={{ input: { color: 'black' }, width: '112%' }}  placeholder={t('addmember')}/>
-        )}
-        />   
+        {isLoading ?  (
+            <ThemeProvider theme={theme}>
+                <Autocomplete
+                multiple
+                id="fixed-tags-demo"
+                value={value}
+                onChange={(event, newValue) => {
+                    setValue([
+                    ...newValue.filter((option) => fixedOptions.indexOf(option) === -1),
+                    ])
+                }}
+                options={users}
+                getOptionLabel={(option) => option.email}
+                renderTags={(tagValue, getTagProps) =>
+                    tagValue.map((option, index) => (
+                    <Chip
+                        label={option.email}
+                        {...getTagProps({ index })}
+                        disabled={fixedOptions.indexOf(option) !== -1}
+                    />
+                    ))
+                }
+                style={{ width: 500 }}
+                renderInput={(params) => (
+                    <TextField {...params} sx={{ input: { color: 'black' }, width: '112%' }}  placeholder={t('addmember')}/>
+                )}
+                /> 
+            </ThemeProvider>  
+        ) : (
+        <div></div>   ) }
         {sendSelectedUsers(value)}
         </div>
+        
     );
 }
