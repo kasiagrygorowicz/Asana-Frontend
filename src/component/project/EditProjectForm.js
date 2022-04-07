@@ -6,8 +6,7 @@ import useFetch from "../../hook/use-fetch";
 import {useNavigate, useParams} from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 import jwt_decode from "jwt-decode"
-import Members from '../members/Members'
-import AddMemebers from "../members/AddMembers";
+import EditMembers from "../EditMembers";
 import VerticalBarContext from "../../store/verticalbar-context";
 
 const useStyles = makeStyles({
@@ -30,6 +29,7 @@ const EditProjectForm = ({t, projectInfo}) => {
     const authCtx = useContext(AuthContext);
     const verticalBarCtx = useContext(VerticalBarContext)
 
+
     useEffect(() => {
         const handleGetUserTeams = (teamsObj) => {
             const loadedUserTeams = [];
@@ -48,14 +48,50 @@ const EditProjectForm = ({t, projectInfo}) => {
         fetchUserTeams(fetchUserTeamsRequest, handleGetUserTeams);
     }, [fetchUserTeams]);
 
+
+    const [ users, setUsers ] = useState([]);
+    const [ selectedUsers, setSelectedUsers ] = useState([]);
+    const { isUsersLoading, usersError, sendRequest: fetchUsers } = useFetch();
+
+
+    useEffect(() => {
+        const handleGetUsers = (usersObj) => {
+            const loadedUsers = [];
+            for (const usersKey in usersObj) {
+                loadedUsers.push({ 
+                    id: usersObj[usersKey].id, 
+                    name: usersObj[usersKey].name,
+                    email: usersObj[usersKey].email });
+            }
+            setUsers(loadedUsers);
+        }
+
+        const urlRequest = `/user/all`;
+        const fetchUsersRequest = {
+            url: urlRequest
+        };
+        fetchUsers(fetchUsersRequest, handleGetUsers);
+    }, [fetchUsers]);
+
     const submitHandler = (event) => {
         event.preventDefault();
         const enteredProjectName = projectNameInput.current.value;
         const enteredProjectDescription = descriptionInput.current.value;
         const category = "IT";
+        const userId = jwt_decode(authCtx.authToken).id;
+
+        console.log('nowi członkwoie projektu')
+        const members = []
+        for(let i = 0; i < selectedUsers.length; i++){
+            members.push(selectedUsers[i].id)
+            console.log(selectedUsers[i].email)
+        }
 
         const handleEditProject = (response) => {
-            const createdProjectAddress = `/project/${projectId}`;
+            let createdProjectAddress = `/project/${projectId}`;
+            if(!members.includes(userId)){
+                createdProjectAddress= `/dashboard`;
+            } 
             verticalBarCtx.updateKey++;
             navigate(createdProjectAddress, { replace: true })
         }
@@ -66,7 +102,9 @@ const EditProjectForm = ({t, projectInfo}) => {
             body: {
                 'name': enteredProjectName,
                 'category': category,
-                'description': enteredProjectDescription
+                'description': enteredProjectDescription,
+                // 'members': members
+                
             },
             headers: {
                 'Content-Type': 'application/json'
@@ -79,6 +117,11 @@ const EditProjectForm = ({t, projectInfo}) => {
     let teamsToDisplay = userTeams.map((team) => (
         <MenuItem value={team.id} key={team.id}>{team.name}</MenuItem>
     ));
+
+    const sendSelectedUsers = (selected) => {
+        setSelectedUsers(selected);
+    };
+
 
     const classes = useStyles();
     return (
@@ -123,8 +166,11 @@ const EditProjectForm = ({t, projectInfo}) => {
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('members')}:</Typography>
             </Box>
             {console.log(projectInfo)},
-            <Members members={projectInfo?.members}/>
-            <AddMemebers t={t} membersRef={membersRef}/>
+            <Box sx={{ width: '40%', float: 'left', borderRadius: '30px', margin: 10, display: 'flex' }}>
+            {projectInfo!=null ? (
+                    <EditMembers t={t}  users={users} sendSelectedUsers={sendSelectedUsers} teamInfoMembers={projectInfo.members}/>
+                ) : (<div></div>)}
+            </Box>
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
