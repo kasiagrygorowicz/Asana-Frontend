@@ -1,16 +1,11 @@
 import {
     Box,
     Typography,
-    Input,
-    Select,
-    MenuItem,
-    FormControl
+    Input
   } from "@material-ui/core";
 import * as React from 'react';
-import {useContext, useEffect, useRef, useState} from "react";
+import {useContext, useRef, useState} from "react";
 import Button from "@mui/material/Button";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { makeStyles } from '@mui/styles';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
@@ -18,7 +13,7 @@ import DatePicker from '@mui/lab/DatePicker';
 import useFetch from "../../hook/use-fetch";
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../../store/auth-context";
-import jwt_decode from "jwt-decode"
+import AddOneMemeber from "../members/AddOneMember";
 
 function AddTaskForm({t, projectInfo}) {
     const taskNameInput = useRef();
@@ -26,7 +21,8 @@ function AddTaskForm({t, projectInfo}) {
     const descriptionInput = useRef();
     const { isLoading, error, sendRequest: addTaskRequest } = useFetch();
     const navigate = useNavigate();
-    const authCtx = useContext(AuthContext);
+    const [ selectedUser, setSelectedUser ] = useState();
+
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -55,15 +51,20 @@ function AddTaskForm({t, projectInfo}) {
                 'startDate': startDateJSON,
                 "deadLine" : jsonDate,
                 "priority" : "MEDIUM",
-                "status": "UNDONE"
+                "status": "UNDONE",
+                "member": selectedUser.id
             },
             headers: {
                 'Content-Type': 'application/json'
             }
         };
-
+        console.log("członka email = " + selectedUser.email + " | id = " + selectedUser.id)
         addTaskRequest(addTaskRequestContent, navigate(createdProjectAddress, { replace: true }));
     }
+
+    const sendSelectedUser = (selected) => {
+        setSelectedUser(selected);
+    };
 
     const [value, setValue] = React.useState(null);
     return (
@@ -104,12 +105,11 @@ function AddTaskForm({t, projectInfo}) {
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('assigned')}:</Typography>
             </Box>
-            <Button variant="contained" size="large" sx={{ width: 300, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none'}}>
-                <AddCircleOutlineIcon sx={{width: 32, height: 32, marginRight: 2}}/>
-                <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
-                {t('assignedAdd')}
-                </Typography>
-            </Button>
+            <Box sx={{width: '40%', float: 'left', borderRadius: '30px', margin: 10, display: 'flex'}}>
+                {projectInfo!=null ? (
+                    <AddOneMemeber t={t} projectMembers={projectInfo.members} sendSelectedUser={sendSelectedUser}/>
+                    ) : (<div></div>)}
+            </Box>
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
                 <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>

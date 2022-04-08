@@ -102,8 +102,8 @@ const EditProjectForm = ({t, projectInfo}) => {
             body: {
                 'name': enteredProjectName,
                 'category': category,
-                'description': enteredProjectDescription,
-                // 'members': members
+                'description': enteredProjectDescription
+                // , 'members': members
                 
             },
             headers: {

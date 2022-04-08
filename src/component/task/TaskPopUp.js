@@ -23,6 +23,7 @@ import useUserProjects from "../../hook/use-projects";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {timerActions} from "../../store/timer";
+import AddOneMemeber from "../members/AddOneMember";
 
 export default function TaskPopUp(props) {
     const navigate = useNavigate();
@@ -335,6 +336,11 @@ export default function TaskPopUp(props) {
         {t('assignedAdd')}
         </Typography>
     </Button>
+    {/* <Box sx={{width: '40%', float: 'left', borderRadius: '30px', margin: 10, display: 'flex'}}>
+                {props.task!=null ? (
+                    <AddOneMemeber t={t} projectMembers={projectInfo.members} sendSelectedUser={sendSelectedUser}/>
+                    ) : (<div></div>)}
+    </Box> */}
     </Stack>
     <Box sx={{clear: 'both', height: 20}}></Box>
     <Button type="submit" variant="contained" size="large" sx={{ width: 150, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>

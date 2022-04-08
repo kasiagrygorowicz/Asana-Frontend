@@ -16,24 +16,12 @@ export default function EditMembers({t, users, sendSelectedUsers, teamInfoMember
     const [value, setValue] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(false);
     const {isTeamLoading, isTeamError, sendRequest: fetchTeam} = useFetch();
-    const [teamInfo, setTeamInfo] = useState(null);
     const {teamId} = useParams();
 
 
 
     useEffect(() => {
-
-        const handleTeam = (response) => {
-            setTeamInfo(response);
-        }
-
-        const fetchTeamRequest = {
-            url: `/team/${teamId}`
-        }
-
-        fetchTeam(fetchTeamRequest, handleTeam);
         setIsLoading(true);
-
         const t = [];
 
         for(let i = 0; i < teamInfoMembers.length; i++){

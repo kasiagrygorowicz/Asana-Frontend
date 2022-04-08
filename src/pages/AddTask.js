@@ -23,7 +23,8 @@ function AddTask({t}) {
               id: response.id,
               name: response.name,
               category: response.category,
-              description: response.description
+              description: response.description,
+              members: response.members
             };
             setProjectInfo(projectInfo);
         }
