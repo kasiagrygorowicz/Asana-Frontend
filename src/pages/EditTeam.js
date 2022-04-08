@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import {Link, useParams, useNavigate} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { IconButton } from '@material-ui/core';
 import Members from '../component/members/Members'
 import useFetch from "../hook/use-fetch";
 import EditTeamForm from '../component/team/EditTeamForm'
@@ -35,10 +36,12 @@ function EditTeam({t}) {
 
     return (
         <Container maxWidth="xl" style={{marginLeft: '15%'}}>
-            <Box sx={{width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
-                <Link to='/dashboard'>
-                    <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>
-                </Link>
+            <Box sx={{ alignSelf: 'left' }}>
+                <IconButton onClick={() => navigate(-1)}>
+                    <ArrowBackIcon sx={{width: 40, height: 40, color: 'black'}}/>
+                </IconButton>
+            </Box>
+            <Box sx={{width: '75%', height: 700, alignItems: 'center', float: 'left', marginLeft: 50}}>
                 <Box sx={{width: '80%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
                     {teamInfo!=null ? (
                         <Typography variant="h3" fontFamily="Sora">{t('editteam') + ': "' + teamInfo?.name + '"'}</Typography>

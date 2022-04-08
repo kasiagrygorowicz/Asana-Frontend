@@ -5,7 +5,8 @@ import {
     Typography
   } from "@material-ui/core";
 import Button from "@mui/material/Button";
-import {Link, useParams} from "react-router-dom";
+import { IconButton } from "@material-ui/core";
+import {Link, useParams, useNavigate} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import useFetch from "../hook/use-fetch";
@@ -36,6 +37,7 @@ function Project({t}) {
     const { isProjectLoading, projectError, sendRequest: fetchProject } = useFetch();
     const [ projectInfo, setProjectInfo ] = useState(null);
     const { projectId } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleProject = (response) => {
@@ -69,10 +71,15 @@ function Project({t}) {
 
     return (
         <Container maxWidth="xl" style={{marginLeft:'15%'}}>
-            <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
-                <Link to='/dashboard'>
+            <Box sx={{ alignSelf: 'left' }}>
+                <IconButton onClick={() => navigate(-1)}>
+                    <ArrowBackIcon sx={{width: 40, height: 40, color: 'black'}}/>
+                </IconButton>
+            </Box>
+            <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginLeft: 50}}>
+                {/* <Link to='/dashboard'>
                     <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>
-                </Link>
+                </Link> */}
             
             <Box sx={{ width: '95%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
                 <Link to={`/addtask/${projectId}`}>

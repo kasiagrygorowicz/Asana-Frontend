@@ -5,7 +5,8 @@ import {
   } from "@material-ui/core";
   import * as React from 'react';
 
-import {Link} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import { IconButton } from "@material-ui/core";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { useParams } from "react-router-dom";
 import useFetch from "../hook/use-fetch";
@@ -16,6 +17,7 @@ function AddTask({t}) {
     const { isProjectLoading, projectError, sendRequest: fetchProject } = useFetch();
     const [ projectInfo, setProjectInfo ] = useState(null);
     const { projectId } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleProject = (response) => {
@@ -38,11 +40,12 @@ function AddTask({t}) {
 
     return (
         <Container maxWidth="xl" style={{marginLeft:'15%'}}>
-            <Box sx={{ width: '75%', height: 750, alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50}}>
-                <Link to={`/project/${projectId}`}>
-                    <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>
-                </Link>
-            
+            <Box sx={{ alignSelf: 'left' }}>
+                <IconButton onClick={() => navigate(-1)}>
+                    <ArrowBackIcon sx={{width: 40, height: 40, color: 'black'}}/>
+                </IconButton>
+            </Box>
+            <Box sx={{ width: '75%', height: 750, alignItems: 'center', float: 'left', marginLeft: 50}}>
                 <Box sx={{ width: '80%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
                 <Typography variant="h3" fontFamily="Sora">{t('addtask')}</Typography>
             </Box>

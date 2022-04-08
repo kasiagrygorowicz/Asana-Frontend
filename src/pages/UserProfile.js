@@ -6,7 +6,7 @@ import {
 } from "@material-ui/core";
 import Button from "@mui/material/Button";
 import Stack from '@mui/material/Stack';
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams, useNavigate} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import GridViewIcon from '@mui/icons-material/GridView';
@@ -14,6 +14,7 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TaskCard from '../component/task/TaskCard'
 import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import { IconButton } from "@material-ui/core";
 import ProjectCard from "../component/project/ProjectCard";
 
 import useFetch from "../hook/use-fetch";
@@ -29,6 +30,7 @@ function UserProfile({t}) {
     const [projects, setProjects] = useState([]);
     const [teams, setTeams] = useState([]);
     const authCtx = useContext(AuthContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const handleGetUserDetails = (detailsObj) => {
@@ -86,12 +88,12 @@ function UserProfile({t}) {
 
 
              }}>
-
-            <Box sx={{width: '100%', alignItems: 'center', float: 'left', marginTop: 20, marginLeft: 50,marginRight:'0%'}}>
-                {/*todo naprawic strzalki cofania*/}
-                <Link to='/dashboard'>
-                    <ArrowBackIcon sx={{width: 40, height: 40,  color: 'black'}}/>
-                </Link>
+            <Box sx={{ alignSelf: 'left', marginLeft: '1.6%' }}>
+                <IconButton onClick={() => navigate(-1)}>
+                    <ArrowBackIcon sx={{width: 40, height: 40, color: 'black'}}/>
+                </IconButton>
+            </Box>
+            <Box sx={{width: '100%', alignItems: 'center', float: 'left', marginLeft: 50, marginRight:'0%'}}>
                 <Box sx={{width: '100%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
                     <Typography variant="h3" fontFamily="Sora">{userDetails[2]}</Typography>
                     <Box sx={{width: '100%',  height: 2, borderBottom: '2px solid black'}}></Box>
