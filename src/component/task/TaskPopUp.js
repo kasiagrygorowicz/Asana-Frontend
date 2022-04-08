@@ -25,11 +25,11 @@ import { useSelector, useDispatch } from "react-redux";
 import {timerActions} from "../../store/timer";
 
 export default function TaskPopUp(props) {
-    console.log(props.project);
     const navigate = useNavigate();
     const { isLoadingDelete, errorDelete, sendRequest: deleteTaskRequest} = useFetch();
     const { isLoadingEdit, errorEdit, sendRequest: editTaskRequest } = useFetch();
     const { isLoadingSetTimer, errorSetTimer, sendRequest: setTimerRequest } = useFetch();
+    const [ setterOn, setSetterOn ] = useState(false);
 
     const deleteTaskHandler = () => {
 
@@ -111,6 +111,43 @@ export default function TaskPopUp(props) {
     }
 
     const handleTimeSetter = () => {
+        if (setterOn) {
+            setSetterOn(false);
+        }
+        else {
+            setSetterOn(true);
+        }
+    }
+
+    const hoursInput = useRef();
+    const minutesInput = useRef();
+    const secondsInput = useRef();
+
+    const handleSetterSubmit = () => {
+        const hoursValue = parseInt(hoursInput.current.value);
+        const minutesValue = parseInt(minutesInput.current.value);
+        const secondsValue = parseInt(secondsInput.current.value);
+
+        const timeValue = hoursValue * 3600 + minutesValue * 60 + secondsValue;
+
+        const actionPayload = {
+            taskId: props.task.id,
+            timeValue: timeValue
+        };
+
+        dispatch(timerActions.setTime(actionPayload));
+        const setTimerRequestContent = {
+            url: `/project/task/${props.task.id}/settime`,
+            method: "PUT",
+            body: {
+                time: timeValue
+            },
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        };
+        setTimerRequest(setTimerRequestContent);
+        setSetterOn(false);
     }
 
     const seconds = <span>{("0" + Math.floor(timer.time % 60)).slice(-2)}</span>;
@@ -130,17 +167,19 @@ export default function TaskPopUp(props) {
         </Typography>
     </Button>
     <Box sx={{clear: 'both', height: 10}}></Box>
+    {!setterOn && 
     <Stack
     direction="row"
     justifyContent="flex-start"
     alignItems="flex-start"
     spacing={0}
     >
-    <Box sx={{ width: '20%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
-        <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%'}}>{t('time')}:</Typography>
-    </Box>
-    <Box sx={{ width: '25%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
-        <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%', paddingLeft: '10%'}}>{hours}:{minutes}:{seconds}</Typography>
+        <Box sx={{ width: '20%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
+            <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%'}}>{t('time')}:</Typography>
+        </Box>
+        <Box sx={{ width: '25%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
+        <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%', paddingLeft: '10%'}}>
+            {hours}:{minutes}:{seconds}</Typography>
         <IconButton onClick={handleClick} sx={{paddingRight: '5%', alignSelf: 'right'}}> 
             {!timer.timerOn &&
                 <PlayArrowRoundedIcon fontSize='large'/>
@@ -149,20 +188,70 @@ export default function TaskPopUp(props) {
                 <PauseRoundedIcon fontSize='large'/>
             }
         </IconButton>
-    </Box>
-    <Box sx={{float: 'left', width: 10}}></Box>
-    <Button disabled={timer.timerOn} onClick={handleReset} variant="contained" size="large" sx={{ width: 120, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
-        <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
-        {t('reset')}
-        </Typography>
-    </Button>
-    <Box sx={{float: 'left', width: 20}}></Box>
-    <Button disabled={timer.timerOn} onClick={handleTimeSetter} variant="contained" size="large" sx={{ width: 150, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
-        <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
-        {t('setTime')}
-        </Typography>
-    </Button>
+        </Box>
+        <Box sx={{float: 'left', width: 10}}></Box>
+        <Button disabled={timer.timerOn} onClick={handleReset} variant="contained" size="large" sx={{ width: 120, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
+            <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
+            {t('reset')}
+            </Typography>
+        </Button>
+        <Box sx={{float: 'left', width: 20}}></Box>
+        <Button disabled={timer.timerOn} onClick={handleTimeSetter} variant="contained" size="large" sx={{ width: 150, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
+            <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
+            {t('setTime')}
+            </Typography>
+        </Button>
     </Stack>
+    }
+    
+    {setterOn && 
+    <Stack
+    direction="row"
+    justifyContent="flex-start"
+    alignItems="flex-start"
+    spacing={0}
+    >
+        <Box sx={{ width: '20%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
+            <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%'}}>{t('time')}:</Typography>
+        </Box>
+        <Box sx={{ width: '28%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
+        <Stack
+        direction="row"
+        spacing={0.25}
+        >
+            <Box sx={{ width: 20 }}></Box>
+            <Box sx={{ width: '27%', border: '1px solid grey'}}>
+                <Input inputRef={hoursInput} disableUnderline='true' type="number" inputProps={{min: 0, max: 99}} defaultValue='00' 
+                sx={{ align: 'center'}} style={{fontSize: 24, fontWeight: 600, textAlign: 'center', width: 45 }}></Input>
+            </Box>
+            <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600}}>:</Typography>
+            <Box sx={{ width: '27%', border: '1px solid grey'}}>
+                <Input inputRef={minutesInput} disableUnderline='true' type="number" inputProps={{min: 0, max: 99}} defaultValue='00'
+                sx={{ align: 'center'}} style={{fontSize: 24, fontWeight: 600, textAlign: 'center', width: 45 }}></Input>
+            </Box>
+            <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600}}>:</Typography>
+            <Box sx={{ width: '27%', border: '1px solid grey'}}>
+                <Input inputRef={secondsInput} disableUnderline='true' type="number" inputProps={{min: 0, max: 99}} defaultValue='00'
+                sx={{ align: 'center'}} style={{fontSize: 24, fontWeight: 600, textAlign: 'center', width: 45 }}></Input>
+            </Box>
+        </Stack>
+        </Box>
+        <Box sx={{float: 'left', width: 10}}></Box>
+        <Button disabled={timer.timerOn} onClick={handleSetterSubmit} variant="contained" size="large" color="success"
+         sx={{ width: 120, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
+            <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
+            {t('submit')}
+            </Typography>
+        </Button>
+        <Box sx={{float: 'left', width: 20}}></Box>
+        <Button disabled={timer.timerOn} onClick={handleTimeSetter} variant="contained" size="large" color="error"
+         sx={{ width: 120, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
+            <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
+                {t('cancel')}
+            </Typography>
+        </Button>
+    </Stack>
+    }
     <Box sx={{clear: 'both', height: 10}}></Box>
     <Stack
     direction="row"

@@ -52,6 +52,7 @@ const polish = {
     by: 'o',
     days: 'dni',
     manageTime: 'Zarządzaj czasem',
+    cancel: 'Anuluj',
 
     signupPage : {
         username : 'Nazwa użytkownika',

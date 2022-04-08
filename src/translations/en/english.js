@@ -52,6 +52,7 @@ const english = {
     by: 'by',
     days: 'days',
     manageTime: 'Manage your time',
+    cancel: 'Cancel',
 
     signupPage : {
         username : 'Username',

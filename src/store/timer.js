@@ -21,6 +21,9 @@ const timerSlice = createSlice({
         resetTime: (state, action) => {
             state.find(timer => timer.id === action.payload).time = 0;
         },
+        setTime: (state, action) => {
+            state.find(timer => timer.id === action.payload.taskId).time = action.payload.timeValue;
+        },
         getTimer: (state, action) => {
             return state.find(timer => timer.id === action.payload);
         }
