@@ -14,6 +14,13 @@ function ProjectCard(props) {
     const {isLoading, error, sendRequest: deleteProjectRequest} = useFetch();
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
+
+    let handleProjectClick = (e) => {
+        if(open) {
+            e.preventDefault();
+        }
+    }
+
     const open = Boolean(anchorEl);
 
     const handleClick = (event) => {
@@ -27,7 +34,7 @@ function ProjectCard(props) {
     const deleteProjectHandler = () => {
 
         const deleteProjectRequestContent = {
-            url: `/project/${props?.id}`,
+            url: `/project/${props?.projectId}`,
             method: "DELETE",
             body: null,
             headers: {
@@ -37,7 +44,8 @@ function ProjectCard(props) {
 
         const handleDeleteProject = (response) => {
             verticalBarCtx.updateKey++;
-            navigate(`/team/${props.teamId}`, {replace: true})
+            navigate(`/dashboard`, {replace: true})
+            window.location.reload(false);
         }
 
         deleteProjectRequest(deleteProjectRequestContent, handleDeleteProject);
@@ -46,20 +54,22 @@ function ProjectCard(props) {
 
   return (
     <>
+    <Link to={`/project/${props.projectId}`} style={{textDecoration: 'none'}} key={props.projectId} onClick={handleProjectClick}>
         <Box sx={{width: '105%', height: 193, background: props.cardColor, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 30}}>
           <Box sx={{width: '100%', height: 30, color: '#FFFFFF'}}>
               <Box
                   sx={{paddingLeft: 20, height: 25, paddingTop: 5,display:'flex',justifyContent:'space-between',alignItems:'center', mx:1}}>
-                  <Typography variant="h6" fontFamily="Sora"> {props.teamName} </Typography>
+                  <Typography noWrap={true} variant="h6" fontFamily="Sora"> {props.teamName} </Typography>
+                  <Link to={`/dashboard`}>
                   <SettingsIcon
-                      sx={{display: "flex", float: "right", marginRight: "5px"}}
+                      sx={{display: "flex", float: "right", marginRight: "5px", color:'white'}}
                       onClick={handleClick}
                       size="small"
                       aria-controls={open ? 'account-menu' : undefined}
                       aria-haspopup="true"
                       aria-expanded={open ? 'true' : undefined}
                   />
-
+                  </Link>
                   <Menu
                       anchorEl={anchorEl}
                       id="account-menu"
@@ -71,7 +81,7 @@ function ProjectCard(props) {
                   >
 
 
-                          <MenuItem component={Link} to={`/editproject/${props.id}`}>
+                          <MenuItem component={Link} to={`/editproject/${props.projectId}`}>
                               Edit
                           </MenuItem>
                       {props?.isOwner &&
@@ -84,18 +94,15 @@ function ProjectCard(props) {
 
 
               <Box sx={{ width: '100%', height: 2, borderBottom: '2px solid white'}}></Box>
-              <Link to={'/project/'+props?.id} style={{textDecoration: 'none'}}>
+              
               <Box sx={{paddingLeft: 20, height: '100%', paddingTop: 5,color:'white'}}>
-                <Typography variant="h5" fontFamily="Sora"> {props.projectName}</Typography>
+                <Typography noWrap={true} variant="h5" fontFamily="Sora"> {props.projectName}</Typography>
                 <Typography fontFamily="Sora">{props.description}</Typography>
               </Box>
-              </Link>
+              
           </Box>
         </Box>
-
-
-
-
+    </Link>
     </>
 
   );
