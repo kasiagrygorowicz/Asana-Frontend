@@ -95,7 +95,6 @@ function Team({t}) {
                         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                     >
 
-
                         <MenuItem component={Link} to={`/editteam/${teamId}`}>
                             Edit
                         </MenuItem>
@@ -144,7 +143,7 @@ function Team({t}) {
                     </Grid>
                 </Box>
             </Box>
-            // <Box sx={{clear: 'both'}}></Box>
+            <Box sx={{clear: 'both'}}></Box>
         </Container>
     );
 }

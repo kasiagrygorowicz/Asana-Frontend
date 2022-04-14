@@ -75,7 +75,7 @@ export default function EditMembers({t, users, sendSelectedUsers, teamInfoMember
                 }
                 style={{ width: 500 }}
                 renderInput={(params) => (
-                    <TextField {...params} sx={{ input: { color: 'black' }, width: '112%' }}  placeholder={t('addmember')}/>
+                    <TextField {...params} sx={{ input: { color: 'black',  marginLeft: 1.5  }, width: '112%' }}  placeholder={t('addmember')}/>
                 )}
                 /> 
             </ThemeProvider>  

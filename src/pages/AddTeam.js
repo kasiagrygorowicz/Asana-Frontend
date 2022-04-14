@@ -6,7 +6,7 @@ import {
   } from "@material-ui/core";
 import Button from "@mui/material/Button";
 import { IconButton } from "@material-ui/core";
-import AddMemebers from "../component/members/AddMembers";
+import AddMemebers from "../component/team/AddMembers";
 import {Link, useNavigate} from "react-router-dom";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {useContext, useRef, useEffect, useState} from "react";

@@ -104,12 +104,6 @@ const AddProjectForm = ({t}) => {
             </Select>
         </FormControl>
     </Box>
-    <Box sx={{ width: '10%', height: 80, marginLeft: '5%', alignItems: 'center', display: 'flex', float: 'left'}}>
-        <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600}}>{t('private')}:</Typography>
-    </Box>
-    <Box sx={{ width: '4%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
-        <Checkbox style={{transform: "scale(1.25)", color: "#195FA5"}}/>
-    </Box>
     <Box sx={{clear: 'both', height: 10}}></Box>
     <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
         <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('description')}:</Typography>

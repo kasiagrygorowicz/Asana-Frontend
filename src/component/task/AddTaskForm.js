@@ -52,7 +52,7 @@ function AddTaskForm({t, projectInfo}) {
                 "deadLine" : jsonDate,
                 "priority" : "MEDIUM",
                 "status": "UNDONE",
-                "member": selectedUser.id
+                "assigneeId": selectedUser.id
             },
             headers: {
                 'Content-Type': 'application/json'
