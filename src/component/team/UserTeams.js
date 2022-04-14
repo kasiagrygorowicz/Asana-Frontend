@@ -14,9 +14,7 @@ const UserTeams =()=>{
     return (
 
         userTeams.map((team)=>(
-            <Link to={`/team/${team.id}`} style={{textDecoration: 'none'}} key={team.id}>
                 <TeamCardSmall title={team.name} id={team.id} isOwner={team.isOwner}/>
-            </Link>
         ))
 
     );

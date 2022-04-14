@@ -16,9 +16,25 @@ function ProjectCardSmall(props) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+    event.preventDefault();
   };
+
+  let handleProjectClick = (e) => {
+    if(open) {
+      e.preventDefault();
+    }
+    if(props.type == "add") {
+      e.preventDefault();
+      navigate("/addproject", {replace: true})
+    }
+    if(props.type == "time") {
+      e.preventDefault();
+      navigate("/management/time", {replace: true})
+    }
+  }
 
   const {isLoading, error, sendRequest: deleteProjectRequest} = useFetch();
 
@@ -43,7 +59,12 @@ function ProjectCardSmall(props) {
 
     const handleDeleteProject = (response) => {
       verticalBarCtx.updateKey++;
-      navigate('/dashboard', {replace: true})
+      if(window.location.pathname == `/project/${props.id}`) {
+          navigate(-1)
+      }
+      else {
+          window.location.reload(false);
+      }
     }
 
     deleteProjectRequest(deleteProjectRequestContent, handleDeleteProject);
@@ -55,6 +76,7 @@ function ProjectCardSmall(props) {
   }
 
   return (
+    <Link to={`/project/${props.id}`} style={{textDecoration: 'none'}} key={props.id} onClick={handleProjectClick}>
     <Box sx={{width: '100%', height: 32, background: '#4399EF', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 30, marginTop: 10}}>
       <Box sx={{width: '95%', height: 20, color: '#FFFFFF'}}>
         <Box sx={{paddingLeft: 20, height: 25, paddingTop: 5, display: 'flex', justifyContent: 'space-between'}}>
@@ -67,7 +89,7 @@ function ProjectCardSmall(props) {
             {props.type == "time" &&
                 <AccessTimeFilledIcon sx={{display: "flex", float: "right"}}/>
             }
-            {props.type != "add" && props.type != "time" &&
+            {props.type != "add" && props.type != "time" && props?.isOwner &&
 <>
                 <SettingsIcon
                     sx={{display: "flex", float: "right"}}
@@ -90,11 +112,11 @@ function ProjectCardSmall(props) {
 
 
               <MenuItem component={Link} to={`/editproject/${props.id}`}>
-              Edit
+                Edit
               </MenuItem>
             {props?.isOwner &&
               <MenuItem onClick={deleteProjectHandler}>
-              Delete
+                Delete
               </MenuItem>
             }
               </Menu>
@@ -104,6 +126,7 @@ function ProjectCardSmall(props) {
         </Box>
       </Box>
     </Box>
+    </Link>
   );
 }
 export default ProjectCardSmall;
