@@ -54,7 +54,7 @@ export default function AddOneMemeber({t, projectMembers, sendSelectedUser, curr
             options={projectMembers}
             getOptionLabel={(option) => option.email}
             renderInput={(params) => (
-            <TextField {...params} sx={{ input: { color: 'black' }, width: '100%' }}  placeholder={t('addmember')} />
+            <TextField {...params} sx={{ input: { color: 'black', marginLeft: 1.5 }, width: '100%' }}  placeholder={t('addmember')} />
         )}
         />
         </ThemeProvider>  

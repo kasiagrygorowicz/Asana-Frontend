@@ -40,6 +40,7 @@ const english = {
     taskName: 'Task name',
     taskNameInput: 'Enter task name',
     assigned: 'Assigned members',
+    assignedOne: 'Assigned member',
     assignedAdd: 'Assign member',
     remove: 'Remove',
     enterEmail: 'Enter email',
