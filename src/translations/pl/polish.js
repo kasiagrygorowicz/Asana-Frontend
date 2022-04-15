@@ -54,6 +54,7 @@ const polish = {
     days: 'dni',
     manageTime: 'Zarządzaj czasem',
     cancel: 'Anuluj',
+    projectMembers: 'Członkowie projektu',
 
     signupPage : {
         username : 'Nazwa użytkownika',

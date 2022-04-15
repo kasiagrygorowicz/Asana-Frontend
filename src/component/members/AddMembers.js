@@ -21,7 +21,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 
 
-export default function AddMemebers({t, users, sendSelectedUsers}) {
+export default function AddMembers({t, users, sendSelectedUsers}) {
 
     const fixedOptions = [];
     const [value, setValue] = React.useState([]);
