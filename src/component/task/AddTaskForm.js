@@ -13,7 +13,7 @@ import DatePicker from '@mui/lab/DatePicker';
 import useFetch from "../../hook/use-fetch";
 import {useNavigate} from "react-router-dom";
 import AuthContext from "../../store/auth-context";
-import AddOneMemeber from "../members/AddOneMember";
+import AddOneMember from "./AddOneMember";
 
 function AddTaskForm({t, projectInfo}) {
     const taskNameInput = useRef();
@@ -107,7 +107,7 @@ function AddTaskForm({t, projectInfo}) {
             </Box>
             <Box sx={{width: '40%', float: 'left', borderRadius: '30px', margin: 10, display: 'flex'}}>
                 {projectInfo!=null ? (
-                    <AddOneMemeber t={t} projectMembers={projectInfo.members} sendSelectedUser={sendSelectedUser}/>
+                    <AddOneMember t={t} projectMembers={projectInfo.members} sendSelectedUser={sendSelectedUser}/>
                     ) : (<div></div>)}
             </Box>
             <Box sx={{clear: 'both', height: 20}}></Box>

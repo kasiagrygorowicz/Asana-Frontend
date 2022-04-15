@@ -23,7 +23,7 @@ import useUserProjects from "../../hook/use-projects";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {timerActions} from "../../store/timer";
-import AddOneMemeber from "../members/AddOneMember";
+import AddOneMember from "./AddOneMember";
 
 export default function TaskPopUp(props) {
     const navigate = useNavigate();
@@ -31,6 +31,36 @@ export default function TaskPopUp(props) {
     const { isLoadingEdit, errorEdit, sendRequest: editTaskRequest } = useFetch();
     const { isLoadingSetTimer, errorSetTimer, sendRequest: setTimerRequest } = useFetch();
     const [ setterOn, setSetterOn ] = useState(false);
+    
+
+    const { isMembersLoading, membersError, sendRequest: fetchMembers } = useFetch();
+    const [members, setMembers] = useState(null);
+    const [selectedMember, setSelectedMember] = useState(null);
+
+    useEffect(() => {
+        const handleGetUsers = (usersObj) => {
+            const loadedUsers = [];
+            for (const usersKey in usersObj) {
+                loadedUsers.push({ 
+                    id: usersObj[usersKey].id, 
+                    name: usersObj[usersKey].name,
+                    email: usersObj[usersKey].email });
+            }
+            setMembers(loadedUsers);
+            console.log("członków pobrano = " + loadedUsers.length)
+        }
+
+        const urlRequest = `/project/${props.project.id}/members/all`;
+        const fetchUsersRequest = {
+            url: urlRequest
+        };
+        fetchMembers(fetchUsersRequest, handleGetUsers);
+    }, [fetchMembers]);
+
+
+    const sendSelectedMember = (selected) => {
+        setSelectedMember(selected);
+    };
 
     const deleteTaskHandler = () => {
 
@@ -53,6 +83,10 @@ export default function TaskPopUp(props) {
     const taskNameInput = useRef();
     const dueDateInput = useRef();
     const descriptionInput = useRef();
+
+    
+
+
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -78,7 +112,8 @@ export default function TaskPopUp(props) {
                 "deadLine": jsonDate,
                 "priority": props.task.priority,
                 "status": props.task.status,
-                "totalTime": props.task.totalTime
+                "totalTime": props.task.totalTime,
+                "assigneeId" : selectedMember.id
             },
             headers: {
                 'Content-Type': 'application/json'
@@ -330,17 +365,11 @@ export default function TaskPopUp(props) {
     <Box sx={{ width: '25%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
         <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left'}}>{t('assigned')}:</Typography>
     </Box>
-    <Button variant="contained" size="large" sx={{ width: 300, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none'}}>
-        <AddCircleOutlineIcon sx={{width: 32, height: 32, marginRight: 2}}/>
-        <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
-        {t('assignedAdd')}
-        </Typography>
-    </Button>
-    {/* <Box sx={{width: '40%', float: 'left', borderRadius: '30px', margin: 10, display: 'flex'}}>
-                {props.task!=null ? (
-                    <AddOneMemeber t={t} projectMembers={projectInfo.members} sendSelectedUser={sendSelectedUser}/>
+    <Box sx={{width: '40%', float: 'left', borderRadius: '30px', display: 'flex'}}>
+                {props.task!=null && members!=null ? (
+                    <AddOneMember t={t} projectMembers={members} currentSelectedUser={props.task.assignees[0]} sendSelectedUser={sendSelectedMember}/>
                     ) : (<div></div>)}
-    </Box> */}
+    </Box>
     </Stack>
     <Box sx={{clear: 'both', height: 20}}></Box>
     <Button type="submit" variant="contained" size="large" sx={{ width: 150, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>

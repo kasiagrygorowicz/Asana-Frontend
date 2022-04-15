@@ -21,7 +21,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 
 
-export default function AddOneMemeber({t, projectMembers, sendSelectedUser, currentSelectedUser}) {
+export default function AddOneMember({t, projectMembers, sendSelectedUser, currentSelectedUser}) {
 
     const [value, setValue] = React.useState([]);
 
@@ -31,10 +31,12 @@ export default function AddOneMemeber({t, projectMembers, sendSelectedUser, curr
             styleOverrides: {
               root: {
                 borderRadius: '30px',
+                borderColor:"white",
                 minHeight: 60,
-                minWidth: 300
+                minWidth: 300,
+                backgroundColor:'#ABB5BE'
               }
-            }
+            } 
           }
         }
       });
@@ -54,7 +56,7 @@ export default function AddOneMemeber({t, projectMembers, sendSelectedUser, curr
             options={projectMembers}
             getOptionLabel={(option) => option.email}
             renderInput={(params) => (
-            <TextField {...params} sx={{ input: { color: 'black', marginLeft: 1.5 }, width: '100%' }}  placeholder={t('addmember')} />
+            <TextField {...params} sx={{ input: { color: 'black', marginLeft: 1.5 }, width: '100%'  }}  placeholder={t('addmember')} />
         )}
         />
         </ThemeProvider>  
