@@ -55,6 +55,7 @@ const english = {
     manageTime: 'Manage your time',
     cancel: 'Cancel',
     projectMembers: 'Project members',
+    noUsersAvailable: 'No users available',
 
     signupPage : {
         username : 'Username',

@@ -26,7 +26,10 @@ export default function AddTeamsAndMembers({t, users, teams, sendSelectedUsersAn
     const [valueUsers, setValueUsers] = React.useState([]);
     const [valueTeams, setValueTeams] = React.useState([]);
 
-    const [usersInTeams, setUsersInTeams] = React.useState([]);
+    const [optionUsers, setOptionUsers] = React.useState(users);
+    const [optionTeams, setOptionTeams] = React.useState(teams);
+
+    const [f, setF] = React.useState(true)
 
     const theme = createTheme({
         components: {
@@ -42,15 +45,22 @@ export default function AddTeamsAndMembers({t, users, teams, sendSelectedUsersAn
       });
 
     const updateUsers = () => {
+      console.log("start update users______________")
       const usersFromTeams = [];
 
       for(let i = 0; i < valueTeams.length; i++ ){
-        for(let j = 0; j < valueTeams[i].members.length; i++){
+        for(let j = 0; j < valueTeams[i].members.length; j++){
+          console.log(valueTeams[i].members[j]);
           usersFromTeams.push(valueTeams[i].members[j]);
         }
       };
+      // console.log("users from teams" );
+      // console.log(usersFromTeams);
+
 
       const newListUsers = [];
+      const newListOptionsUsers = [];
+      
 
       for(let j = 0; j < valueUsers.length; j++){
         let flag = true;
@@ -64,12 +74,50 @@ export default function AddTeamsAndMembers({t, users, teams, sendSelectedUsersAn
         }
       }
 
+      console.log("ile opcji: " + optionUsers.length)
+
+      for(let j = 0; j < users.length; j++){
+        let flag = false;
+        for(let i = 0; i < usersFromTeams.length; i++){
+          if(users[j].id === usersFromTeams[i].id){
+            flag = true;
+          }
+        }
+        if(flag === false){
+          newListOptionsUsers.push(users[j]);
+        }
+      }
+
+      console.log("nowi do ustawienia = " );
+      console.log(newListUsers);
+      console.log("obecni = " );
+      console.log(valueUsers);
+      const tet = [];
+      console.log(tet);
+
+
       setValueUsers(newListUsers);
+      setOptionUsers(newListOptionsUsers);
     }
+
+    useEffect(() => {
+      if(f){
+        updateUsers();
+        setF(false)
+      } 
+
+      if(!f){
+        setF(true)
+      } 
+
+      sendSelectedUsersAndTeams(valueUsers, valueTeams)
+    }, [valueUsers, valueTeams]);
+
+
 
     return (
         <div>
-        
+        {/* {updateUsers()} */}
         <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
         <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('teams')}:</Typography>
         </Box>
@@ -84,7 +132,7 @@ export default function AddTeamsAndMembers({t, users, teams, sendSelectedUsersAn
                     ...newValue.filter((option) => fixedOptions1.indexOf(option) === -1),
                     ])
                 }}
-                options={teams}
+                options={optionTeams}
                 getOptionLabel={(option) => option.name}
                 renderTags={(tagValue, getTagProps) =>
                     tagValue.map((option, index) => (
@@ -114,12 +162,13 @@ export default function AddTeamsAndMembers({t, users, teams, sendSelectedUsersAn
                 multiple
                 id="fixed-tags-demo"
                 value={valueUsers}
+                noOptionsText={t('noUsersAvailable')}
                 onChange={(event, newValue) => {
                     setValueUsers([
                     ...newValue.filter((option) => fixedOptions2.indexOf(option) === -1),
                     ])
                 }}
-                options={users}
+                options={optionUsers}
                 getOptionLabel={(option) => option.email}
                 renderTags={(tagValue, getTagProps) =>
                     tagValue.map((option, index) => (
@@ -137,8 +186,6 @@ export default function AddTeamsAndMembers({t, users, teams, sendSelectedUsersAn
             /> 
         </ThemeProvider>  
         </Box>
-        {updateUsers}
-        {sendSelectedUsersAndTeams(valueUsers, valueTeams)} 
         </div>
     );
 }

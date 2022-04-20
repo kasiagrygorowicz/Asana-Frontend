@@ -55,6 +55,8 @@ const polish = {
     manageTime: 'Zarządzaj czasem',
     cancel: 'Anuluj',
     projectMembers: 'Członkowie projektu',
+    noUsersAvailable: 'Brak dostępnych użytkowników',
+
 
     signupPage : {
         username : 'Nazwa użytkownika',

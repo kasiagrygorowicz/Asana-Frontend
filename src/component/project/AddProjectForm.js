@@ -103,7 +103,9 @@ const AddProjectForm = ({t}) => {
             body: {
                 'name': enteredProjectName,
                 'category': category,
-                'description': enteredProjectDescription
+                'description': enteredProjectDescription,
+                // 'teams': selectedTeams,
+                // 'users': selectedUsers
             },
             headers: {
                 'Content-Type': 'application/json'
@@ -114,21 +116,24 @@ const AddProjectForm = ({t}) => {
     }
 
     const sendSelectedUsersAndTeams = (sendSelectedUsers, sendSelectedTeams) => {
-        // let sU =[];
-        // let sT =[];
+        let sU =[];
+        let sT =[];
 
-        // for(let i = 0; i < sendSelectedUsers.length; i++){
-        //     sU.push(sendSelectedUsers.id)
-        // }
-        // for(let i = 0; i < sendSelectedTeams.length; i++){
-        //     sT.push(sendSelectedTeams.id)
-        // }
+        for(let i = 0; i < sendSelectedUsers.length; i++){
+            sU.push(sendSelectedUsers[i].id)
+        }
+        for(let i = 0; i < sendSelectedTeams.length; i++){
+            sT.push(sendSelectedTeams[i].id)
+        }
 
-        // setSelectedUsers(sU);
-        // setSelectedTeams(sT);
+        console.log("zespoły")
+        console.log(sT)
+        console.log("uzytkownicy")
+        console.log(sU)
+        setSelectedUsers(sU);
+        setSelectedTeams(sT);
     };
 
-    const classes = useStyles();
     return (
         <form onSubmit={submitHandler}>
         <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
@@ -145,17 +150,9 @@ const AddProjectForm = ({t}) => {
         <Input inputRef={descriptionInput} name="name" type="name" multiline placeholder={t('descriptionInput')} disableUnderline={true} sx={{ align: 'center'}} style={{paddingLeft: '5%', width: '95%'}} rows={4}></Input>
     </Box>
     <Box sx={{clear: 'both', height: 10}}></Box>
-
     {users!=null && teams!=null ? 
         <AddTeamsAndMembers t={t} users={users} teams={teams} sendSelectedUsersAndTeams={sendSelectedUsersAndTeams}/>
         :  (<div></div>)}
-    
-    {/* {console.log("użytkowników jest= " + users?.length)}
-    {console.log("teamów jest= " + teams?.length)} */}
-
-    
-
-
     <Box sx={{clear: 'both', height: 20}}></Box>
     <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
         <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
