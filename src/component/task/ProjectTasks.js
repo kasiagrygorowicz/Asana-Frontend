@@ -9,6 +9,7 @@ import TaskCard from "./TaskCard";
 import TasksColumn from "./TasksColumn";
 import {useDispatch, useSelector} from "react-redux";
 import {timerActions} from "../../store/timer";
+import member from "../members/Member";
 
 const ProjectTasks = ({t, projectInfo}) => {
     const dispatch = useDispatch();
@@ -31,7 +32,8 @@ const ProjectTasks = ({t, projectInfo}) => {
                     description: tasksObj[taskKey].description,
                     deadLine: tasksObj[taskKey].deadLine,
                     status: tasksObj[taskKey].status,
-                    totalTime: tasksObj[taskKey].totalTime
+                    totalTime: tasksObj[taskKey].totalTime,
+                    assignees: tasksObj[taskKey].assignees
                 });
             }
 
@@ -43,6 +45,7 @@ const ProjectTasks = ({t, projectInfo}) => {
                 const firstSplit = taskDateJSON.split("T");
                 const dateSplit = firstSplit[0].split("-");
                 const taskDate = dateSplit[2] + "." + dateSplit[1] + "." + dateSplit[0];
+                // console.log(loadedTasks[i].assignees);
 
                 const taskTimer = {
                     id: loadedTasks[i].id,
@@ -64,7 +67,9 @@ const ProjectTasks = ({t, projectInfo}) => {
                                        totalTime={loadedTasks[i].totalTime}
                                        taskName={loadedTasks[i].name}
                                        taskType={taskStatus}
-                                       date={taskDate} />,
+                                       date={taskDate}
+                                       assingnee={loadedTasks[i].assignees[0] ?? undefined}
+                    />,
                     show: true
                 }
             }

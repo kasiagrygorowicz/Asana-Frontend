@@ -12,13 +12,17 @@ import LoopIcon from '@mui/icons-material/Loop';
 import PlayArrowRoundedIcon from '@mui/icons-material/PlayArrowRounded';
 import PauseRoundedIcon from '@mui/icons-material/PauseRounded';
 import IconButton from '@mui/material/IconButton';
+import Member from '../members/Member';
 import { useState } from "react";
 import { FOCUSABLE_SELECTOR } from "@testing-library/user-event/dist/utils";
 import {useDispatch, useSelector} from "react-redux";
 import {timerActions} from "../../store/timer";
+import randomColor from "randomcolor";
 
 function TaskCard(props) {
     const dispatch = useDispatch();
+    const member = props.assingnee;
+    // console.log(member, props.id);
 
     const t = useTranslation()[0]
     const timer = useSelector((state) => state.timer).find(timer => timer.id === props.id);
@@ -35,7 +39,7 @@ function TaskCard(props) {
     const hours = <span>{("0" + Math.floor(timer.time / 3600)).slice(-2)}</span>;
 
     return (
-        <Box sx={{width: '60%', height: 130, background: props.cardColor, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 30, marginTop: 20}}>
+        <Box sx={{width: '65%', height: 130, background: props.cardColor, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 30, marginTop: 20}}>
         <Box sx={{width: '95%', height: 120, color: '#FFFFFF'}}>
         <Stack direction="column">
             <Stack direction="row">
@@ -65,19 +69,21 @@ function TaskCard(props) {
                 </Box>
                 <Box sx={{paddingLeft: 30, height: 40, width: '90%', marginTop: 15}}>
                 {props.taskType !== "DONE" && props.taskType !== "DOING" &&
-                    <CloseRoundedIcon sx={{display: "flex", float: "right", marginRight: 1, color: "#FF4153"}}/>
+                    <CloseRoundedIcon fontSize={"large"} sx={{display: "flex", float: "right", color: "#FF4153"}}/>
                 }
                 {props.taskType === "DOING" &&
-                    <LoopIcon sx={{display: "flex", float: "right", marginRight: 1, color: "#FFD350"}}/>
+                    <LoopIcon fontSize={"large"} sx={{display: "flex", float: "right", color: "#FFD350"}}/>
                 }
                 {props.taskType === "DONE" &&
-                    <CheckCircleOutlineIcon sx={{display: "flex", float: "right", marginRight: 1, color: "#1ADC46"}}/>
+                    <CheckCircleOutlineIcon fontSize={"large"} sx={{display: "flex", float: "right", color: "#1ADC46"}}/>
                 }
                 </Box>
-                {/* <Box sx={{ height: 40, alignItems: 'center', display: 'flex', float: 'right',
-                        border: '3px solid white', borderRadius: 5, background: "#17A2B8"}}>
-                    <Typography fontFamily="Sora" style={{fontWeight: 600, fontSize: 36, lineHeight: 1.2, width: '75%', color: 'black', margin: 9.5}}>+</Typography>
-                </Box> */}
+                {props.assingnee !== undefined &&
+                <Box sx={{ height: 60, alignItems: 'center', display: 'flex'}}>
+                    {/*<Typography fontFamily="Sora" style={{fontSize: 36, lineHeight: 1.2, width: '75%', color: 'black', margin: 9.5}}>a</Typography>*/}
+                    <Member color={randomColor()} initials={member.name.split(" ").map((n)=>n[0])} fullname={member.name} email={member.email} key={member.id} id={member.id} size={40}></Member>
+                </Box>
+                }
                 <Box sx={{ width: '100%', height: 40, alignItems: 'center', display: 'flex', float: 'right', borderRadius: 5}}>
                 </Box>
             </Stack>
