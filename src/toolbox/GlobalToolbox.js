@@ -1,5 +1,4 @@
 import {useCallback, useEffect} from "react";
-import globalToolbox from "./globalToolbox";
 import {useNavigate} from "react-router-dom";
 
 

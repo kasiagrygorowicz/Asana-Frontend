@@ -25,7 +25,8 @@ import AccountConfirmationPage from "./pages/AccountConfirmationPage";
 import VerticalBar from './component/VerticalBar';
 import Layout from "./component/layout/Layout";
 import TimeManagement from "./pages/TimeManagement";
-import GlobalToolbox from "./toolbox/Toolbox";
+import GlobalToolbox from'./toolbox/GlobalToolbox.js'
+
 
 function App() {
     const authCtx = useContext(AuthContext)
