@@ -12,10 +12,36 @@ import Divider from '@mui/material/Divider';
 const TimeManagement = () =>{
     const { isProjectLoading, projectError, sendRequest: fetchProject } = useFetch();
     let [ projectsInfo, setProjectsInfo ] = useState([]);
+    let [ totalTime, setTotalTime ] = useState();
+    let [ avgTaskTime, setAvgTaskTime ] = useState();
+    let [ doneTasksTime, setDoneTasksTime ] = useState();
+
+    const calcualteTime = (response) => {
+        totalTime = 0;
+        doneTasksTime = 0;
+        let taskCount = 0;
+
+        console.log(response);
+
+        response.forEach((project) => {
+            totalTime += project.totalTimeOnProject;
+            project.timeOnTaskList.forEach((task) => {
+                if(task.taskStatus == "DONE"){
+                    doneTasksTime += task.timeSpent;
+                }
+            });
+            taskCount += project.timeOnTaskList.length;
+        });
+
+        setTotalTime(totalTime);
+        setAvgTaskTime(totalTime/taskCount);
+        setDoneTasksTime(doneTasksTime);
+    }
 
     useEffect(() => {
             const handleProject = (response) => {
                 setProjectsInfo(response);
+                calcualteTime(response);
             }
     
             const fetchProjectRequest = {
@@ -63,8 +89,8 @@ const TimeManagement = () =>{
                     }}>
                         <Typography sx={{ color: "#2196f3", fontSize: "36px" }}>{project.projectName}</Typography>
                         <Typography sx={{ color: "#2196f3", fontSize: "16px"}}>
-                            <span>{("0" + Math.floor(project.totalTimeOnProject / 3600)).slice(-2)}</span>h : 
-                            <span>{("0" + Math.floor(project.totalTimeOnProject / 60 % 60)).slice(-2)}</span>m : 
+                            <span>{("0" + Math.floor(project.totalTimeOnProject / 3600)).slice(-2)}</span>h:
+                            <span>{("0" + Math.floor(project.totalTimeOnProject / 60 % 60)).slice(-2)}</span>m:
                             <span>{("0" + Math.floor(project.totalTimeOnProject % 60)).slice(-2)}</span>s
                         </Typography>
                     </Box>
@@ -118,9 +144,27 @@ const TimeManagement = () =>{
                 justifyContent: "space-between",
                 marginTop: "50px"
             }}>
-                <TimeInfoCard header={"Total time"} content={"24h:32m:48s"}/>
-                <TimeInfoCard header={"Week average"} content={"5h:12m:16s"}/>
-                <TimeInfoCard header={"Done tasks"} content={"8h:21m:32s"}/>
+                <TimeInfoCard header={"Total time"} content={
+                    <>
+                        <span>{("0" + Math.floor(totalTime / 3600)).slice(-2)}</span>h:
+                        <span>{("0" + Math.floor(totalTime / 60 % 60)).slice(-2)}</span>m:
+                        <span>{("0" + Math.floor(totalTime % 60)).slice(-2)}</span>s
+                    </>
+                }/>
+                <TimeInfoCard header={"Task average"} content={
+                    <>
+                    <span>{("0" + Math.floor(avgTaskTime / 3600)).slice(-2)}</span>h:
+                    <span>{("0" + Math.floor(avgTaskTime / 60 % 60)).slice(-2)}</span>m:
+                    <span>{("0" + Math.floor(avgTaskTime % 60)).slice(-2)}</span>s
+                    </>
+                }/>
+                <TimeInfoCard header={"Done tasks"} content={
+                    <>
+                    <span>{("0" + Math.floor(doneTasksTime / 3600)).slice(-2)}</span>h:
+                    <span>{("0" + Math.floor(doneTasksTime / 60 % 60)).slice(-2)}</span>m:
+                    <span>{("0" + Math.floor(doneTasksTime % 60)).slice(-2)}</span>s
+                </>
+                }/>
             </Box>
             <Typography color="text.secondary" variant="h5" sx={{
                 alignSelf: "center",
