@@ -12,7 +12,7 @@ const UserProjects = ({t}) => {
         <Grid item xs={3} key={project.id}>
             <ProjectCard cardColor="#4F6C89"
                          isOwner={project.isOwner} teamName={project.teamName}
-                         projectName={project.name} description={project.description} projectId={project.id}  />
+                         projectName={project.name} description={project.description} projectId={project.id} t={t} />
         </Grid>
     ));
 

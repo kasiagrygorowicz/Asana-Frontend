@@ -56,6 +56,8 @@ const english = {
     cancel: 'Cancel',
     projectMembers: 'Project members',
     noUsersAvailable: 'No users available',
+    leave: 'Leave',
+    edit: 'Edit',
 
     signupPage : {
         username : 'Username',

@@ -56,6 +56,8 @@ const polish = {
     cancel: 'Anuluj',
     projectMembers: 'Członkowie projektu',
     noUsersAvailable: 'Brak dostępnych użytkowników',
+    leave: 'Opuść',
+    edit: 'Edytuj',
 
 
     signupPage : {
