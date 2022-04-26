@@ -17,7 +17,9 @@ const useUserProjects = () => {
                     id: projectsObj[projectKey].id,
                     name: projectsObj[projectKey].name,
                     description: projectsObj[projectKey].description,
-                    isOwner : projectsObj[projectKey].owner
+                    isOwner : projectsObj[projectKey].owner,
+                    teamId : projectsObj[projectKey].teamId,
+                    teamName : projectsObj[projectKey].teamName
                 });
             }
             setUserProjects(loadedUserProjects);
