@@ -26,6 +26,7 @@ import VerticalBar from './component/VerticalBar';
 import Layout from "./component/layout/Layout";
 import TimeManagement from "./pages/TimeManagement";
 import GlobalToolbox from'./toolbox/GlobalToolbox.js'
+import ProjectManagement from "./pages/ProjectManagement";
 
 
 function App() {
@@ -62,6 +63,8 @@ function App() {
                                        element={<> <VerticalBar t={t}/> <UserProfile t={t}/> </>}/>
                                 <Route path="/management/time"
                                        element={<><VerticalBar t={t}/><TimeManagement t={t}/> </>}/>
+                                <Route path="/project/:projectId/management"
+                                       element={<><VerticalBar t={t}/><ProjectManagement t={t}/> </>}/>
                                 <Route path="/team/:teamId" element={<>
                                     <VerticalBar t={t}/><Team t={t}/> </>}/>
 
