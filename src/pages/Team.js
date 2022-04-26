@@ -10,7 +10,8 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SettingsIcon from '@mui/icons-material/Settings';
 import useFetch from "../hook/use-fetch";
 import VerticalBarContext from '../store/verticalbar-context';
-
+import jwt_decode from "jwt-decode";
+import AuthContext from '../store/auth-context';
 
 function Team({t}) {
     const {isTeamLoading, isTeamError, sendRequest: fetchTeam} = useFetch();
@@ -18,6 +19,8 @@ function Team({t}) {
     const {teamId} = useParams();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
+
+    const authCtx = useContext(AuthContext);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -43,6 +46,7 @@ function Team({t}) {
     }, [fetchTeam, teamId])
 
     const {isLoading, error, sendRequest: deleteTeamRequest} = useFetch();
+
     const deleteTeamHandler = () => {
 
         const deleteTeamRequestContent = {
@@ -62,6 +66,27 @@ function Team({t}) {
         deleteTeamRequest(deleteTeamRequestContent, handleDeleteTeam);
     }
 
+    const {isLeaveLoading, leaveError, sendRequest: leaveTeamRequest} = useFetch();
+    
+    const leaveTeamHandler = () => {
+        const userId = jwt_decode(authCtx.authToken).id;
+        const leaveTeamRequestContent = {
+            url: `/team/${teamId}/leave/${userId}`,
+            method: "DELETE",
+            body: null,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const handleLeaveTeam = (response) => {
+            verticalBarCtx.updateKey++;
+            navigate('/dashboard', {replace: true})
+        }
+
+        deleteTeamRequest(leaveTeamRequestContent, handleLeaveTeam);
+    }
+
 
     return (
         <Container maxWidth="xl" style={{marginLeft: '15%'}}>
@@ -77,7 +102,7 @@ function Team({t}) {
 
                 <Box>
                     <SettingsIcon
-                        sx={{display: "flex", float: "right", marginRight: "5px"}}
+                        sx={{display: "flex", float: "right", marginRight: "5px", width: 48, height: 48, top: 50, right: 100, position: 'absolute'}}
                         onClick={handleClick}
                         size="small"
                         aria-controls={open ? 'account-menu' : undefined}
@@ -94,14 +119,20 @@ function Team({t}) {
                         transformOrigin={{horizontal: 'left', vertical: 'top'}}
                         anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                     >
-
-                        <MenuItem component={Link} to={`/editteam/${teamId}`}>
-                            Edit
-                        </MenuItem>
-                        {teamInfo?.isOwner &&
-                            <MenuItem onClick={deleteTeamHandler}>
-                                Delete
+                        {!teamInfo?.isOwner &&
+                            <MenuItem onClick={leaveTeamHandler}>
+                                {t("leave")}
                             </MenuItem>
+                        }
+                        {teamInfo?.isOwner &&
+                            <>
+                            <MenuItem component={Link} to={`/editteam/${teamId}`}>
+                                {t("edit")}
+                            </MenuItem>
+                            <MenuItem onClick={deleteTeamHandler}>
+                                {t("delete")}
+                            </MenuItem>
+                            </>
                         }
                     </Menu>
                 </Box>
@@ -131,7 +162,7 @@ function Team({t}) {
                                 console.log(teamInfo.isOwner)
                                 return (<Grid item xs={4}>
                                     <ProjectCard cardColor="#4F6C89" teamName={teamInfo.name} teamId={teamId} projectName={p.name} isOwner={p.owner}
-                                                 description={p.description} id={p.id}/>
+                                                 description={p.description} id={p.id} t={t} projectId={p.id}/>
 
                                 </Grid>)
 
