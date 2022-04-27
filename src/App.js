@@ -27,6 +27,8 @@ import Layout from "./component/layout/Layout";
 import TimeManagement from "./pages/TimeManagement";
 import GlobalToolbox from'./toolbox/GlobalToolbox.js'
 import ProjectManagement from "./pages/ProjectManagement";
+import TeamToolbox from "./toolbox/TeamToolbox";
+import ProjectToolbox from "./toolbox/ProjectToolbox";
 
 
 function App() {
@@ -53,20 +55,20 @@ function App() {
                                 <Route path="/dashboard" element={<><VerticalBar t={t}/><Dashboard t={t}/></>}/>
                                 <Route path="/addproject" element={<> <VerticalBar t={t}/><AddProject t={t}/></>}/>
                                 <Route path="/addteam" element={<> <VerticalBar t={t}/><AddTeam t={t}/> </>}/>
-                                <Route path="/project/:projectId" element={<> <VerticalBar t={t}/><Project t={t}/></>}/>
+                                <Route path="/project/:projectId" element={<ProjectToolbox><VerticalBar t={t}/><Project t={t}/></ProjectToolbox>}/>
                                 <Route path="/addtask/:projectId"
                                        element={<> <VerticalBar t={t}/><AddTask t={t}/> </>}/>
                                 <Route path="/editteam/:teamId" element={<> <VerticalBar t={t}/><EditTeam t={t}/></>}/>
                                 <Route path="/editproject/:projectId"
-                                       element={<> <VerticalBar t={t}/><EditProject t={t}/> </>}/>
+                                       element={<ProjectToolbox> <VerticalBar t={t}/><EditProject t={t}/> </ProjectToolbox>}/>
                                 <Route path="/userprofile/:userId"
                                        element={<> <VerticalBar t={t}/> <UserProfile t={t}/> </>}/>
                                 <Route path="/management/time"
                                        element={<><VerticalBar t={t}/><TimeManagement t={t}/> </>}/>
                                 <Route path="/project/:projectId/management"
                                        element={<><VerticalBar t={t}/><ProjectManagement t={t}/> </>}/>
-                                <Route path="/team/:teamId" element={<>
-                                    <VerticalBar t={t}/><Team t={t}/> </>}/>
+                                <Route path="/team/:teamId" element={<TeamToolbox>
+                                    <VerticalBar t={t}/><Team t={t}/> </TeamToolbox>}/>
 
                             </>
 

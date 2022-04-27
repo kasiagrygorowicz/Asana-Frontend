@@ -1,21 +1,30 @@
-import {useCallback, useEffect} from "react";
+import {useCallback, useContext, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import AuthContext from "../store/auth-context";
 
 
 export default function GlobalToolbox(props){
     const navigate = useNavigate();
+    const authCtx = useContext(AuthContext);
 
     const globalToolbox = useCallback((event) => {
 
         if(event.ctrlKey === true && event.keyCode === 80){
-            console.log('Redirecting to creating new project')
             navigate('/addproject/')
         }
 
         if(event.ctrlKey === true && event.keyCode === 84){
-            console.log('Redirecting to creating new team')
             navigate('/addteam/')
         }
+
+        if(event.ctrlKey === true && event.keyCode === 77){
+            navigate('/management/time')
+        }
+
+        if(event.ctrlKey === true && event.keyCode === 87){
+            authCtx.logout()
+        }
+
 
 
     }, []);
