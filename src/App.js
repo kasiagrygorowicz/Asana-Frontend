@@ -29,6 +29,7 @@ import GlobalToolbox from'./toolbox/GlobalToolbox.js'
 import ProjectManagement from "./pages/ProjectManagement";
 import TeamToolbox from "./toolbox/TeamToolbox";
 import ProjectToolbox from "./toolbox/ProjectToolbox";
+import AddTaskNoProject from "./pages/AddTaskNoProject";
 
 
 function App() {
@@ -69,7 +70,8 @@ function App() {
                                        element={<><VerticalBar t={t}/><ProjectManagement t={t}/> </>}/>
                                 <Route path="/team/:teamId" element={<TeamToolbox>
                                     <VerticalBar t={t}/><Team t={t}/> </TeamToolbox>}/>
-
+                                <Route path="/addtask" element={<>
+                                    <VerticalBar t={t}/><AddTaskNoProject t={t}/> </>}/>
                             </>
 
                         )}

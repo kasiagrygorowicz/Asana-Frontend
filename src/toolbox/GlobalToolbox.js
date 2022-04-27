@@ -17,6 +17,11 @@ export default function GlobalToolbox(props){
             navigate('/addteam/')
         }
 
+        if(event.ctrlKey === true && event.keyCode === 78){
+            console.log('Redirecting to creating new task')
+            navigate(`/addtask`)
+        }
+
         if(event.ctrlKey === true && event.keyCode === 77){
             navigate('/management/time')
         }
