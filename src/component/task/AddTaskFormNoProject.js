@@ -23,6 +23,9 @@ export default function AddTaskFormNoProject({t}) {
     const navigate = useNavigate();
     const [ selectedUser, setSelectedUser ] = useState();
 
+    let projectId= 1
+    let assignee = 2
+
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -39,26 +42,26 @@ export default function AddTaskFormNoProject({t}) {
 
         const jsonDate = year + "-" + month + "-" + day + "T18:25:43.511Z"
 
-        const createdProjectAddress = `/project/1`;
+        const createdProjectAddress = `/project/${projectId}`;
 
         const addTaskRequestContent = {
             url: "/project/task/add",
             method: "POST",
             body: {
-                'projectId': 1,
+                'projectId': projectId,
                 'name': enteredTaskName,
                 'description': enteredTaskDescription,
                 'startDate': startDateJSON,
                 "deadLine" : jsonDate,
                 "priority" : "MEDIUM",
                 "status": "UNDONE",
-                "assigneeId": selectedUser.id
+                "assigneeId": assignee
             },
             headers: {
                 'Content-Type': 'application/json'
             }
         };
-        console.log("członka email = " + selectedUser.email + " | id = " + selectedUser.id)
+
         addTaskRequest(addTaskRequestContent, navigate(createdProjectAddress, { replace: true }));
     }
 
@@ -106,9 +109,7 @@ export default function AddTaskFormNoProject({t}) {
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('assignedOne')}:</Typography>
             </Box>
             <Box sx={{width: '40%', float: 'left', borderRadius: '30px', margin: 10, display: 'flex'}}>
-                {/*{projectInfo!=null ? (*/}
-                {/*    <AddOneMember t={t} projectMembers={projectInfo.members} sendSelectedUser={sendSelectedUser}/>*/}
-                {/*) : (<div></div>)}*/}
+             autocomplete
             </Box>
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
