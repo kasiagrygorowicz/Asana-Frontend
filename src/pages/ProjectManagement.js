@@ -23,12 +23,15 @@ const ProjectManagement = ({t}) =>{
 
         console.log(response);
 
-            response.timeOnTaskList.forEach((task) => {
+        response.forEach((project) => {
+            totalTime += project.totalTimeOnProject;
+            project.timeOnTaskList.forEach((task) => {
                 if(task.taskStatus == "DONE"){
                     doneTasksTime += task.timeSpent;
                 }
             });
-            taskCount += projectInfo.timeOnTaskList.length;
+            taskCount += project.timeOnTaskList.length;
+        });
 
         setTotalTime(totalTime);
         setAvgTaskTime(totalTime/taskCount);
@@ -43,13 +46,80 @@ const ProjectManagement = ({t}) =>{
             }
     
             const fetchProjectRequest = {
-                url: `/project/${projectId}`
+                url: `/project/${projectId}/owner/time`
             }
     
             fetchProject(fetchProjectRequest, handleProject);
     }, [fetchProject])
 
     let seconds, minutes, hours;
+
+    let membersToDisplay = projectInfo.map((project) => (
+        <Box sx={{
+            border: "1px solid #ADB5BD",
+            boxSizing: "border-box",
+            boxShadow: "2px 3px 5px rgba(0, 0, 0, 0.25)",
+            borderRadius: "20px",
+            padding: "30px",
+            paddingBottom: "10px",
+            paddingTop: "10px",
+            marginTop: "30px",
+            width: "100%"
+        }}>
+            <Box sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: 'flex-start',
+                backgroundColor: "#f5f5f5",
+                borderRadius: "10px",
+                padding: "5px 10px",
+                gap: 3
+            }}>
+                <Box sx={{
+                    display: "flex",
+                    flexDirection: "column"
+                }}>
+                    <Typography sx={{
+                        fontSize: "36px",
+                        color: "#495057"
+                    }}>Project: </Typography>
+                    <Typography sx={{fontSize: "16px"}}>Total time spent:</Typography>
+                </Box>
+                <Box sx={{
+                    display: "flex",
+                    flexDirection: "column"
+                }}>
+                    <Typography sx={{ color: "#2196f3", fontSize: "36px" }}>{project.projectName}</Typography>
+                    <Typography sx={{ color: "#2196f3", fontSize: "16px"}}>
+                        <span>{("0" + Math.floor(project.totalTimeOnProject / 3600)).slice(-2)}</span>h:
+                        <span>{("0" + Math.floor(project.totalTimeOnProject / 60 % 60)).slice(-2)}</span>m:
+                        <span>{("0" + Math.floor(project.totalTimeOnProject % 60)).slice(-2)}</span>s
+                    </Typography>
+                </Box>
+            </Box>
+            <Box sx={{
+                display: "flex",
+                justifyContent: 'flex-start',
+                gap: 4,
+                flexWrap: "wrap",
+                borderTop: "1px solid #DEE2E6",
+                marginTop: "15px",
+                padding: "15px 0"
+            }}>
+                {
+                    project.timeOnTaskList.map((task) => (
+                        <TaskCardTime
+                        taskName={task.taskName}
+                        taskType={task.taskStatus}
+                        cardColor="#4F6C89"
+                        time={task.timeSpent}
+                        />
+                    ))
+                }
+            </Box>
+        </Box>
+    ));
+
 
     return(
         <Container maxWidth={false} sx={{
@@ -99,62 +169,7 @@ const ProjectManagement = ({t}) =>{
                 </>
                 }/>
             </Box>
-
-            <Box sx={{
-                border: "1px solid #ADB5BD",
-                boxSizing: "border-box",
-                boxShadow: "2px 3px 5px rgba(0, 0, 0, 0.25)",
-                borderRadius: "20px",
-                padding: "30px",
-                paddingBottom: "10px",
-                paddingTop: "10px",
-                marginTop: "30px",
-                width: "100%"
-            }}>
-                <Box sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    justifyContent: 'flex-start',
-                    backgroundColor: "#f5f5f5",
-                    borderRadius: "10px",
-                    padding: "5px 10px",
-                    gap: 3
-                }}>
-                    <Box sx={{
-                        display: "flex",
-                        flexDirection: "column"
-                    }}>
-                        <Typography sx={{
-                            fontSize: "36px",
-                            color: "#495057"
-                        }}>Project: </Typography>
-                        <Typography sx={{fontSize: "16px"}}>Total time spent:</Typography>
-                    </Box>
-                    <Box sx={{
-                        display: "flex",
-                        flexDirection: "column"
-                    }}>
-                        <Typography sx={{ color: "#2196f3", fontSize: "36px" }}>{projectInfo.name}</Typography>
-                        <Typography sx={{ color: "#2196f3", fontSize: "16px"}}>
-                            <span>{("0" + Math.floor(projectInfo.totalTimeOnProject / 3600)).slice(-2)}</span>h:
-                            <span>{("0" + Math.floor(projectInfo.totalTimeOnProject / 60 % 60)).slice(-2)}</span>m:
-                            <span>{("0" + Math.floor(projectInfo.totalTimeOnProject % 60)).slice(-2)}</span>s
-                        </Typography>
-                    </Box>
-                </Box>
-                <Box sx={{
-                    display: "flex",
-                    justifyContent: 'flex-start',
-                    gap: 4,
-                    flexWrap: "wrap",
-                    borderTop: "1px solid #DEE2E6",
-                    marginTop: "15px",
-                    padding: "15px 0"
-                }}>
-
-                </Box>
-            </Box>
-            
+            {membersToDisplay}
         </Container>
     );
 }
