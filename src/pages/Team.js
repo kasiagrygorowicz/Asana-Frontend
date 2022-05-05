@@ -29,7 +29,6 @@ function Team({t}) {
         setAnchorEl(null);
     };
 
-
     const navigate = useNavigate();
 
     const verticalBarCtx = useContext(VerticalBarContext);
@@ -157,20 +156,14 @@ function Team({t}) {
                     <Grid container spacing={5}
                           sx={{marginLeft: 200, marginBottom: 20, alignItems: 'center'}}>
                         {
-
                             teamInfo?.projects.map(p => {
                                 console.log(teamInfo.isOwner)
                                 return (<Grid item xs={4}>
                                     <ProjectCard cardColor="#4F6C89" teamName={teamInfo.name} teamId={teamId} projectName={p.name} isOwner={p.owner}
                                                  description={p.description} id={p.id} t={t} projectId={p.id}/>
-
                                 </Grid>)
-
                             })
-
                         }
-
-
                     </Grid>
                 </Box>
             </Box>

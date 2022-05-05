@@ -114,6 +114,9 @@ function ProjectCard({t, projectId, description, projectName, teamName, isOwner,
                             <MenuItem component={Link} to={`/editproject/${projectId}`}>
                                 {t('edit')}
                             </MenuItem>
+                            <MenuItem component={Link} to={`/project/${projectId}/management`}>
+                                {t('manage')}
+                            </MenuItem>
                             <MenuItem onClick={deleteProjectHandler}>
                                 {t('delete')}
                             </MenuItem>

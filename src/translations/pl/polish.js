@@ -68,6 +68,8 @@ const polish = {
         terms: 'Przeczytałem i akceptuję <strong>Warunki korzystania</strong>, <strong>Politykę prywatności</strong> i <strong>Warunki dotyczące plików cookie</strong>'
     },
 
+    manage: 'Zarządzaj',
+
     homePage: {
         title: 'Przebuduj tworzenie swojego projektu',
         subtitle :'Zarządzaj łatwiej',

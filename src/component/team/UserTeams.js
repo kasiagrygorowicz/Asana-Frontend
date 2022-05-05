@@ -7,14 +7,14 @@ import {Link} from "react-router-dom";
 import useUserProjects from "../../hook/use-projects";
 import useUserTeams from "../../hook/use-teams";
 
-const UserTeams =()=>{
+const UserTeams =({t}) =>{
 
     const { isLoading, error, userTeams, setUserTeams } = useUserTeams();
 
     return (
 
         userTeams.map((team)=>(
-                <TeamCardSmall key={team.id} title={team.name} id={team.id} isOwner={team.isOwner}/>
+                <TeamCardSmall t={t} key={team.id} title={team.name} id={team.id} isOwner={team.isOwner}/>
         ))
 
     );

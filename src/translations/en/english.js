@@ -67,7 +67,7 @@ const english = {
         terms: 'I have read and accept <strong>Terms of use</strong>, <strong>Privacy Policy</strong> and <strong>Cookie Terms</strong>'
     },
 
-
+    manage: 'Manage',
 
     homePage: {
         title: 'Rebuild your project creation',

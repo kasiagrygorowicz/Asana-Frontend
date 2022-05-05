@@ -8,9 +8,10 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {Link, useNavigate} from "react-router-dom";
 import useFetch from "../../hook/use-fetch";
 import VerticalBarContext from "../../store/verticalbar-context";
+import jwt_decode from "jwt-decode";
+import AuthContext from '../../store/auth-context';
 
-
-function TeamCardSmall(props) {
+function TeamCardSmall({t, key, title, id, isOwner, type}) {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -25,7 +26,7 @@ function TeamCardSmall(props) {
         if(open) {
             e.preventDefault();
         }
-        else if(props.type == "add") {
+        else if(type == "add") {
             e.preventDefault();
             navigate("/addteam", {replace: true})
         }
@@ -35,6 +36,7 @@ function TeamCardSmall(props) {
         setAnchorEl(null);
     };
 
+    const authCtx = useContext(AuthContext);
     const {isLoading, error, sendRequest: deleteTeamRequest} = useFetch();
     const verticalBarCtx = useContext(VerticalBarContext)
 
@@ -42,7 +44,7 @@ function TeamCardSmall(props) {
 
 
         const deleteTeamRequestContent = {
-            url: `/team/delete/${props.id}`,
+            url: `/team/delete/${id}`,
             method: "DELETE",
             body: null,
             headers: {
@@ -52,7 +54,7 @@ function TeamCardSmall(props) {
 
         const handleDeleteTeam = (response) => {
             verticalBarCtx.updateKey++;
-            if(window.location.pathname == `/team/${props.id}`) {
+            if(window.location.pathname == `/team/${id}`) {
                 navigate(-1)
             }
             else {
@@ -61,11 +63,31 @@ function TeamCardSmall(props) {
         }
 
         deleteTeamRequest(deleteTeamRequestContent, handleDeleteTeam);
+    }
 
+    const {isLeaveLoading, leaveError, sendRequest: leaveTeamRequest} = useFetch();
+    
+    const leaveTeamHandler = () => {
+        const userId = jwt_decode(authCtx.authToken).id;
+        const leaveTeamRequestContent = {
+            url: `/team/${id}/leave/${userId}`,
+            method: "DELETE",
+            body: null,
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        const handleLeaveTeam = (response) => {
+            verticalBarCtx.updateKey++;
+            navigate('/dashboard', {replace: true})
+        }
+
+        deleteTeamRequest(leaveTeamRequestContent, handleLeaveTeam);
     }
 
     return (
-        <Link to={`/team/${props.id}`} style={{textDecoration: 'none'}} key={props.id} onClick={handleTeamClick}>
+        <Link to={`/team/${id}`} style={{textDecoration: 'none'}} key={id} onClick={handleTeamClick}>
             <Box sx={{
                 width: '100%',
                 height: 32,
@@ -77,13 +99,13 @@ function TeamCardSmall(props) {
                 <Box sx={{width: '95%', height: 20, color: '#FFFFFF'}}>
                     <Box sx={{paddingLeft: 20, height: 25, paddingTop: 5, display: 'flex', justifyContent: 'space-between'}}>
                         <Box sx={{textDecoration: 'none', outline: "none", color: "white", width: "85%"}}>
-                            <Typography noWrap={true} fontFamily="Sora"> {props.title} </Typography>
+                            <Typography noWrap={true} fontFamily="Sora"> {title} </Typography>
                         </Box>
-                        {props.type == "add" &&
+                        {type == "add" &&
                             <AddCircleOutlineIcon sx={{display: "flex", float: "right"}}/>
                         }
 
-                        {props.type !== "add" && props.isOwner &&
+                        {type !== "add" &&
                             <SettingsIcon
                                 sx={{display: "flex", float: "right"}}
                                 onClick={handleClick}
@@ -103,15 +125,20 @@ function TeamCardSmall(props) {
                             transformOrigin={{horizontal: 'left', vertical: 'top'}}
                             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
                         >
-                            {props.isOwner &&
-                                <MenuItem component={Link} to={`/editteam/${props.id}`}>
-                                    Edit
+                            {!isOwner &&
+                                <MenuItem onClick={leaveTeamHandler}>
+                                    {t("leave")}
                                 </MenuItem>
                             }
-                            {props.isOwner &&
-                                <MenuItem onClick={deleteTeamHandler}>
-                                    Delete
+                            {isOwner &&
+                            <>
+                                 <MenuItem component={Link} to={`/editteam/${id}`}>
+                                    {t("edit")}
                                 </MenuItem>
+                                <MenuItem onClick={deleteTeamHandler}>
+                                    {t("delete")}
+                                </MenuItem>
+                            </>
                             }
                         </Menu>
 

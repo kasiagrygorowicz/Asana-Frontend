@@ -9,13 +9,17 @@ import {Link, useNavigate} from "react-router-dom";
 import useFetch from "../../hook/use-fetch";
 import VerticalBarContext from "../../store/verticalbar-context";
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
+import AuthContext from "../../store/auth-context";
+import jwt_decode from "jwt-decode";
 
 
-function ProjectCardSmall(props) {
+function ProjectCardSmall({t, projectId, description, projectName, teamName, isOwner, cardColor, type}) {
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const navigate = useNavigate();
+  const {isLeaveLoading, isLeaveError, sendRequest: leaveProjectRequest} = useFetch();
+  const authCtx = useContext(AuthContext);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -26,11 +30,11 @@ function ProjectCardSmall(props) {
     if(open) {
       e.preventDefault();
     }
-    if(props.type == "add") {
+    if(type == "add") {
       e.preventDefault();
       navigate("/addproject", {replace: true})
     }
-    if(props.type == "time") {
+    if(type == "time") {
       e.preventDefault();
       navigate("/management/time", {replace: true})
     }
@@ -48,7 +52,7 @@ function ProjectCardSmall(props) {
 
 
     const deleteProjectRequestContent = {
-      url: `/project/${props.id}`,
+      url: `/project/${projectId}`,
       method: "DELETE",
       body: null,
       headers: {
@@ -59,7 +63,7 @@ function ProjectCardSmall(props) {
 
     const handleDeleteProject = (response) => {
       verticalBarCtx.updateKey++;
-      if(window.location.pathname == `/project/${props.id}`) {
+      if(window.location.pathname == `/project/${projectId}`) {
           navigate(-1)
       }
       else {
@@ -71,25 +75,45 @@ function ProjectCardSmall(props) {
 
   }
 
+  const leaveProjectHandler = () => {
+    const userId = jwt_decode(authCtx.authToken).id;
+    const leaveProjectRequestContent = {
+        url: `/project/${projectId}/leave/${userId}`,
+        method: "DELETE",
+        body: null,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+
+    const handleLeaveProject = (response) => {
+        verticalBarCtx.updateKey++;
+        navigate(`/dashboard`, {replace: true})
+        window.location.reload(false);
+    }
+
+    leaveProjectRequest(leaveProjectRequestContent, handleLeaveProject);
+}
+
   if(error){
     console.log(error)
   }
 
   return (
-    <Link to={`/project/${props.id}`} style={{textDecoration: 'none'}} key={props.id} onClick={handleProjectClick}>
+    <Link to={`/project/${projectId}`} style={{textDecoration: 'none'}} key={projectId} onClick={handleProjectClick}>
     <Box sx={{width: '100%', height: 32, background: '#4399EF', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 30, marginTop: 10}}>
       <Box sx={{width: '95%', height: 20, color: '#FFFFFF'}}>
         <Box sx={{paddingLeft: 20, height: 25, paddingTop: 5, display: 'flex', justifyContent: 'space-between'}}>
           <Box sx={{textDecoration: 'none', outline: "none", color: "white", width: "85%"}}>
-            <Typography noWrap={true} fontFamily="Sora" > {props.title} </Typography>
+            <Typography noWrap={true} fontFamily="Sora" > {projectName} </Typography>
           </Box>
-            {props.type == "add" &&
+            {type == "add" &&
                 <AddCircleOutlineIcon sx={{display: "flex", float: "right"}}/>
             }
-            {props.type == "time" &&
+            {type == "time" &&
                 <AccessTimeFilledIcon sx={{display: "flex", float: "right"}}/>
             }
-            {props.type != "add" && props.type != "time" && props?.isOwner &&
+            {type != "add" && type != "time" &&
 <>
                 <SettingsIcon
                     sx={{display: "flex", float: "right"}}
@@ -110,14 +134,23 @@ function ProjectCardSmall(props) {
               anchorOrigin={{horizontal: 'right', vertical: 'top'}}
               >
 
-
-              <MenuItem component={Link} to={`/editproject/${props.id}`}>
-                Edit
+            {!isOwner &&
+              <MenuItem onClick={leaveProjectHandler}>
+                {t('leave')}
               </MenuItem>
-            {props?.isOwner &&
+            }
+            {isOwner &&
+            <>
+              <MenuItem component={Link} to={`/editproject/${projectId}`}>
+                {t('edit')}
+              </MenuItem>
+              <MenuItem component={Link} to={`/project/${projectId}/management`}>
+                {t('manage')}
+              </MenuItem>
               <MenuItem onClick={deleteProjectHandler}>
-                Delete
+                {t('delete')}
               </MenuItem>
+            </>
             }
               </Menu>
 </>
