@@ -43,6 +43,7 @@ const AddProjectForm = ({t}) => {
                     members: teamsObj[teamKey].members
                 });
             }
+
             setTeams(loadedUserTeams);
         }
 
@@ -104,8 +105,8 @@ const AddProjectForm = ({t}) => {
                 'name': enteredProjectName,
                 'category': category,
                 'description': enteredProjectDescription,
-                // 'teams': selectedTeams,
-                // 'users': selectedUsers
+                'projectTeamsToAdd': selectedTeams,
+                'membersToAdd': selectedUsers
             },
             headers: {
                 'Content-Type': 'application/json'
@@ -120,16 +121,11 @@ const AddProjectForm = ({t}) => {
         let sT =[];
 
         for(let i = 0; i < sendSelectedUsers.length; i++){
-            sU.push(sendSelectedUsers[i].id)
+            sU.push({"memberId": sendSelectedUsers[i].id})
         }
         for(let i = 0; i < sendSelectedTeams.length; i++){
-            sT.push(sendSelectedTeams[i].id)
+            sT.push({"teamId": sendSelectedTeams[i].id})
         }
-
-        console.log("zespoły")
-        console.log(sT)
-        console.log("uzytkownicy")
-        console.log(sU)
         setSelectedUsers(sU);
         setSelectedTeams(sT);
     };

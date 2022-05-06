@@ -52,11 +52,11 @@ export default function AddMembers({t, users, sendSelectedUsers}) {
                     ])
                 }}
                 options={users}
-                getOptionLabel={(option) => option.email}
+                getOptionLabel={(option) => option.name}
                 renderTags={(tagValue, getTagProps) =>
                     tagValue.map((option, index) => (
                     <Chip
-                        label={option.email}
+                        label={option.name}
                         {...getTagProps({ index })}
                         disabled={fixedOptions.indexOf(option) !== -1}
                     />
