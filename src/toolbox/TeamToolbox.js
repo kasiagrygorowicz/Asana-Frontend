@@ -10,7 +10,7 @@ export default function TeamToolbox(props){
     const globalToolbox = useCallback((event) => {
 
 
-        if(event.ctrlKey === true && event.keyCode === 69){
+        if(event.shiftKey === true && event.keyCode === 69){
             console.log('Redirecting to editing current team')
             console.log(teamId)
             navigate(`/editteam/${teamId}`)

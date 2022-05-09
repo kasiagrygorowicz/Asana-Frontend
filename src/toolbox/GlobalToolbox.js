@@ -9,24 +9,21 @@ export default function GlobalToolbox(props){
 
     const globalToolbox = useCallback((event) => {
 
-        if(event.ctrlKey === true && event.keyCode === 80){
+
+        if(event.shiftKey === true && event.keyCode === 80){
             navigate('/addproject/')
         }
 
-        if(event.ctrlKey === true && event.keyCode === 84){
+        if(event.shiftKey === true && event.keyCode === 84){
             navigate('/addteam/')
         }
 
-        if(event.ctrlKey === true && event.keyCode === 78){
-            console.log('Redirecting to creating new task')
-            navigate(`/addtask`)
-        }
 
-        if(event.ctrlKey === true && event.keyCode === 77){
+        if(event.shiftKey === true && event.keyCode === 77){
             navigate('/management/time')
         }
 
-        if(event.ctrlKey === true && event.keyCode === 87){
+        if(event.shiftKey === true && event.keyCode === 87){
             authCtx.logout()
         }
 

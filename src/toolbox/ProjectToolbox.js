@@ -10,12 +10,12 @@ export default function ProjectToolbox(props){
     const globalToolbox = useCallback((event) => {
 
 
-        if(event.ctrlKey === true && event.keyCode === 69){
+        if(event.shiftKey === true && event.keyCode === 69 ){
             console.log('Redirecting to editing current project')
             navigate(`/editproject/${projectId}`)
         }
 
-        if(event.ctrlKey === true && event.keyCode === 78){
+        if(event.shiftKey === true && event.keyCode === 78){
             console.log('Redirecting to creating new task')
             navigate(`/addtask/${projectId}`)
         }
