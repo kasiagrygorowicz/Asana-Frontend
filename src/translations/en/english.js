@@ -80,9 +80,18 @@ const english = {
         join :'Join us for new growth opportunities',
         joinMsg :'Discover a new side of planning with Mr. Project and let him rebuild your way of designing'
 
-    }
+    },
 
+    timeManagement: 'Time managemnet',
+    projectManagement: 'Project management',
+    summary: 'Summary',
+    yourProjects: 'Your projects',
 
+    totalTime: 'Total time',
+    taskAvg: 'Task average',
+    doneTasks: 'Done tasks',
+    user: 'User',
+    timeSpent: 'Total time spent:'
 };
 
 export default english

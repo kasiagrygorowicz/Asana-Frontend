@@ -2,14 +2,12 @@ import Container from "@mui/material/Container";
 import {Box, Typography} from "@mui/material";
 import React, {useEffect, useState} from 'react'
 import TaskCardTime from "../component/time/TaskCardTime";
-import useUserProjects from "../hook/use-projects";
 import useFetch from "../hook/use-fetch";
 import TimeInfoCard from "../component/time/TimeInfoCard";
-import Divider from '@mui/material/Divider';
+import TimeIndication from "../component/time/TimeIndication"
 
 
-
-const TimeManagement = () =>{
+const TimeManagement = ({t}) =>{
     const { isProjectLoading, projectError, sendRequest: fetchProject } = useFetch();
     let [ projectsInfo, setProjectsInfo ] = useState([]);
     let [ totalTime, setTotalTime ] = useState();
@@ -33,8 +31,14 @@ const TimeManagement = () =>{
             taskCount += project.timeOnTaskList.length;
         });
 
+        avgTaskTime = 0;
+        if(totalTime > 0 && taskCount > 0)
+        {
+            avgTaskTime = totalTime/taskCount;
+        }
+
         setTotalTime(totalTime);
-        setAvgTaskTime(totalTime/taskCount);
+        setAvgTaskTime(avgTaskTime);
         setDoneTasksTime(doneTasksTime);
     }
 
@@ -51,7 +55,6 @@ const TimeManagement = () =>{
             fetchProject(fetchProjectRequest, handleProject);
     }, [fetchProject])
 
-    let seconds, minutes, hours;
     let projectsToDisplay = projectsInfo.map((project) => (
             <Box sx={{
                 border: "1px solid #ADB5BD",
@@ -80,8 +83,8 @@ const TimeManagement = () =>{
                         <Typography sx={{
                             fontSize: "36px",
                             color: "#495057"
-                        }}>Project: </Typography>
-                        <Typography sx={{fontSize: "16px"}}>Total time spent:</Typography>
+                        }}>{t('project')} </Typography>
+                        <Typography sx={{fontSize: "16px"}}>{t('timeSpent')}</Typography>
                     </Box>
                     <Box sx={{
                         display: "flex",
@@ -89,9 +92,7 @@ const TimeManagement = () =>{
                     }}>
                         <Typography sx={{ color: "#2196f3", fontSize: "36px" }}>{project.projectName}</Typography>
                         <Typography sx={{ color: "#2196f3", fontSize: "16px"}}>
-                            <span>{("0" + Math.floor(project.totalTimeOnProject / 3600)).slice(-2)}</span>h:
-                            <span>{("0" + Math.floor(project.totalTimeOnProject / 60 % 60)).slice(-2)}</span>m:
-                            <span>{("0" + Math.floor(project.totalTimeOnProject % 60)).slice(-2)}</span>s
+                            <TimeIndication time={project.totalTimeOnProject}/>
                         </Typography>
                     </Box>
                 </Box>
@@ -128,14 +129,14 @@ const TimeManagement = () =>{
         }}>
             {/*<Box width="100%" height="20px" borderBottom="1px solid black">*/}
             <Typography color="text.secondary" variant="h2" sx={{ alignSelf: "center" }}>
-                Time Management
+                {t('timeManagement')}
             </Typography>
             <Typography color="text.secondary" variant="h5" sx={{
                 alignSelf: "center",
                 margin: "40px 10px 0",
                 letterSpacing: "0.1em"
             }}>
-                Summary
+                {t('summary')}
             </Typography>
             <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '22.5%', marginTop: -2}}></Box>
             <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '57.5%', marginTop: -0.25}}></Box>
@@ -144,26 +145,14 @@ const TimeManagement = () =>{
                 justifyContent: "space-between",
                 marginTop: "50px"
             }}>
-                <TimeInfoCard header={"Total time"} content={
-                    <>
-                        <span>{("0" + Math.floor(totalTime / 3600)).slice(-2)}</span>h:
-                        <span>{("0" + Math.floor(totalTime / 60 % 60)).slice(-2)}</span>m:
-                        <span>{("0" + Math.floor(totalTime % 60)).slice(-2)}</span>s
-                    </>
+                <TimeInfoCard header={t('totalTime')} content={
+                    <TimeIndication time={totalTime} />
                 }/>
-                <TimeInfoCard header={"Task average"} content={
-                    <>
-                    <span>{("0" + Math.floor(avgTaskTime / 3600)).slice(-2)}</span>h:
-                    <span>{("0" + Math.floor(avgTaskTime / 60 % 60)).slice(-2)}</span>m:
-                    <span>{("0" + Math.floor(avgTaskTime % 60)).slice(-2)}</span>s
-                    </>
+                <TimeInfoCard header={t('taskAvg')} content={
+                    <TimeIndication time={avgTaskTime} />
                 }/>
-                <TimeInfoCard header={"Done tasks"} content={
-                    <>
-                    <span>{("0" + Math.floor(doneTasksTime / 3600)).slice(-2)}</span>h:
-                    <span>{("0" + Math.floor(doneTasksTime / 60 % 60)).slice(-2)}</span>m:
-                    <span>{("0" + Math.floor(doneTasksTime % 60)).slice(-2)}</span>s
-                </>
+                <TimeInfoCard header={t('doneTasks')} content={
+                    <TimeIndication time={doneTasksTime} />
                 }/>
             </Box>
             <Typography color="text.secondary" variant="h5" sx={{
@@ -172,7 +161,7 @@ const TimeManagement = () =>{
                 marginBottom: "15px",
                 letterSpacing: "0.1em"
             }}>
-                Your projects
+                {t('yourProjects')}
             </Typography>
             <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '20%', marginTop: -4, marginBottom: 4}}></Box>
             <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '60%', marginTop: -4.25}}></Box>

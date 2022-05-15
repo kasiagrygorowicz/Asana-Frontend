@@ -83,6 +83,16 @@ const polish = {
 
     },
 
+    timeManagement: 'Zarządzanie czasem',
+    projectManagement: 'Zarządzanie projektem',
+    summary: 'Podsumowanie',
+    yourProjects: 'Twoje projekty',
+
+    totalTime: 'Całkowity czas',
+    taskAvg: 'Średnia na zadanie',
+    doneTasks: 'Skończone zadania',
+    user: 'Użytkownik',
+    timeSpent: 'Całkowity poświęceony czas:'
 }
 
 export default polish

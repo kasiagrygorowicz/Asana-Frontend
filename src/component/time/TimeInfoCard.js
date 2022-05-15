@@ -13,7 +13,7 @@ const TimeInfoCard = ({header, content}) => {
     return (
         <Card sx={{
             width: "350px",
-            height: "220px"
+            height: "180px"
         }}>
             <CardContent sx={{
                 display: "flex",
@@ -27,7 +27,7 @@ const TimeInfoCard = ({header, content}) => {
                 {/*    fontSize: "150px",*/}
                 {/*    color: "#2196f3"*/}
                 {/*}}/>*/}
-                <Typography variant="h3">
+                <Typography variant="h4">
                     {header}
                 </Typography>
                 <Typography sx={{
