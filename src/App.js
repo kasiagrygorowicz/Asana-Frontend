@@ -38,7 +38,7 @@ function App() {
     return (
         <Router>
             <Layout t={t}>
-                <GlobalToolbox>
+
                     <Routes>
                         <Route path="/" element={<Home t={t}/>}/>
                         <Route path="/features" element={<Features t={t}/>}/>
@@ -52,7 +52,7 @@ function App() {
 
                         }
                         {authCtx.isLoggedIn && (
-                            <>
+                            <GlobalToolbox>
                                 <Route path="/dashboard" element={<><VerticalBar t={t}/><Dashboard t={t}/></>}/>
                                 <Route path="/addproject" element={<> <VerticalBar t={t}/><AddProject t={t}/></>}/>
                                 <Route path="/addteam" element={<> <VerticalBar t={t}/><AddTeam t={t}/> </>}/>
@@ -72,13 +72,13 @@ function App() {
                                     <VerticalBar t={t}/><Team t={t}/> </TeamToolbox>}/>
                                 <Route path="/addtask" element={<>
                                     <VerticalBar t={t}/><AddTaskNoProject t={t}/> </>}/>
-                            </>
+                            </GlobalToolbox>
 
                         )}
                         <Route path='*' element={<Navigate to="/"/>}/>
 
                     </Routes>
-                </GlobalToolbox>
+
             </Layout>
             {/*<Footer t={t} />*/}
         </Router>
