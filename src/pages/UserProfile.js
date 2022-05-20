@@ -148,7 +148,7 @@ function UserProfile({t}) {
                         projects.map(p => {
                             return (
                                 <Grid item xs={4} >
-                                    <ProjectCard cardColor="#4F6C89" id={p.id} projectName={p.name} isOwner={p.isOwner}
+                                    <ProjectCard t={t} cardColor="#4F6C89" id={p.id} projectName={p.name} isOwner={p.isOwner}
                                                  description={p.description}/>
                                 </Grid>
                             )
