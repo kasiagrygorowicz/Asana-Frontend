@@ -15,18 +15,16 @@ import IconButton from '@mui/material/IconButton';
 import Member from '../members/Member';
 import { useState } from "react";
 import { FOCUSABLE_SELECTOR } from "@testing-library/user-event/dist/utils";
-import {useDispatch, useSelector} from "react-redux";
+import {useSelector} from "react-redux";
 import {timerActions} from "../../store/timer";
 import randomColor from "randomcolor";
+import assignee, {assigneeActions} from "../../store/assignee";
 
 function TaskCard(props) {
-    const dispatch = useDispatch();
-    const member = props.assingnee;
-    // console.log(member, props.id);
-
     const t = useTranslation()[0]
     const timer = useSelector((state) => state.timer).find(timer => timer.id === props.id);
-    //console.log(timer);
+    const member = useSelector((state) => state.assignee).find(assignee => assignee.taskId === props.id);
+
     // const timer = dispatch(timerActions.setLastTimerOffTime(props.id));
 
     const handleClick = (e) => {
@@ -78,12 +76,21 @@ function TaskCard(props) {
                     <CheckCircleOutlineIcon fontSize={"large"} sx={{display: "flex", float: "right", color: "#1ADC46"}}/>
                 }
                 </Box>
-                {props.assingnee !== undefined &&
+
                 <Box sx={{ height: 60, alignItems: 'center', display: 'flex'}}>
                     {/*<Typography fontFamily="Sora" style={{fontSize: 36, lineHeight: 1.2, width: '75%', color: 'black', margin: 9.5}}>a</Typography>*/}
-                    <Member color={randomColor()} initials={member.name.split(" ").map((n)=>n[0])} fullname={member.name} email={member.email} key={member.id} id={member.id} size={40}></Member>
+                    {/*{props.assingnee !== undefined &&*/}
+                    {/*<Member color={randomColor()} initials={member.name.split(" ").map((n)=>n[0])} fullname={member.name} email={member.email} key={member.id} id={member.id} size={40}></Member>*/}
+                    {/*}*/}
+                    {member !== undefined &&
+                        <Member color={member.randomColor} initials={member.memberName.split(" ").map((n)=>n[0])} fullname={member.memberName} email={member.memberEmail} key={member.memberId} id={member.memberId} size={40}></Member>
+                    }
+                    {member === undefined &&
+                        <Box sx={{ width: 60, height: 60, display: 'flex', float: 'left', margin: 15}}></Box>
+                    }
+
                 </Box>
-                }
+
                 <Box sx={{ width: '100%', height: 40, alignItems: 'center', display: 'flex', float: 'right', borderRadius: 5}}>
                 </Box>
             </Stack>

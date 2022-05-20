@@ -9,7 +9,9 @@ import TaskCard from "./TaskCard";
 import TasksColumn from "./TasksColumn";
 import {useDispatch, useSelector} from "react-redux";
 import {timerActions} from "../../store/timer";
+import {assigneeActions} from "../../store/assignee";
 import member from "../members/Member";
+import randomColor from "randomcolor";
 
 const ProjectTasks = ({t, projectInfo}) => {
     const dispatch = useDispatch();
@@ -52,6 +54,19 @@ const ProjectTasks = ({t, projectInfo}) => {
                     timerOn: false,
                     time: loadedTasks[i].totalTime,
                     lastTimerOffTime: loadedTasks[i].totalTime
+                }
+
+                const assigneeMember = loadedTasks[i].assignees[0] ?? undefined;
+
+                if (assigneeMember !== undefined) {
+                    const assignee = {
+                        taskId: loadedTasks[i].id,
+                        memberId: assigneeMember.id,
+                        memberName: assigneeMember.name,
+                        memberEmail: assigneeMember.email,
+                        randomColor: randomColor()
+                    }
+                    dispatch(assigneeActions.addAssignee(assignee));
                 }
 
                 dispatch(timerActions.addTimer(taskTimer));
@@ -169,6 +184,7 @@ const ProjectTasks = ({t, projectInfo}) => {
                                   date={draggedTask.content.props.date}
                                   totalTime={draggedTask.content.props.totalTime}
                                   timer={draggedTask.content.props.timer}
+                                  // assignee={draggedTask.content.props.assignee}
 
         />;
 

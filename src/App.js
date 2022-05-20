@@ -38,7 +38,7 @@ function App() {
     return (
         <Router>
             <Layout t={t}>
-<GlobalToolbox>
+                <GlobalToolbox>
                     <Routes>
                         <Route path="/" element={<Home t={t}/>}/>
                         <Route path="/features" element={<Features t={t}/>}/>
@@ -78,7 +78,7 @@ function App() {
                         <Route path='*' element={<Navigate to="/"/>}/>
 
                     </Routes>
-</GlobalToolbox>
+                </GlobalToolbox>
             </Layout>
             {/*<Footer t={t} />*/}
         </Router>

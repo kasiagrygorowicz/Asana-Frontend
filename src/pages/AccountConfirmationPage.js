@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import image5 from "./images/image5.png";
-import unicorn from "./images/unicorn.png";
+// import unicorn from "./images/unicorn.png";
 import Button from "@mui/material/Button";
 
 const AccountConfirmationPage = (props, response) => {
