@@ -136,7 +136,7 @@ function Project({t}) {
             <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
             <Box sx={{ margin: 5}}></Box>
 
-                <ProjectTasks t={t} projectInfo={projectInfo}/>
+                <ProjectTasks t={t} projectInfo={projectInfo} unicornFun={startUnicorn}/>
 
             </Box>
             <Box sx={{clear:'both'}}></Box>

@@ -13,7 +13,7 @@ import {assigneeActions} from "../../store/assignee";
 import member from "../members/Member";
 import randomColor from "randomcolor";
 
-const ProjectTasks = ({t, projectInfo}) => {
+const ProjectTasks = ({t, projectInfo, unicornFun}) => {
     const dispatch = useDispatch();
 
     const { areTasksLoading, tasksError, sendRequest: fetchTasks } = useFetch();
@@ -23,6 +23,8 @@ const ProjectTasks = ({t, projectInfo}) => {
     const [ tasks, setTasks ] = useState({ cards: {}, columns: {} });
 
     let { projectId } = useParams();
+
+    const [ isStart, setIsStart ] = useState(true);
 
     useEffect(() => {
         const handleProjectTasks = (tasksObj) => {
@@ -126,7 +128,16 @@ const ProjectTasks = ({t, projectInfo}) => {
         }
     }
 
+    const areAllTaskIsCompleted = () => {
+        if(tasks.columns.DOING.cardIds.length === 0 && tasks.columns.UNDONE.cardIds.length === 0){
+            if(!isStart) {
+                unicornFun();
+            }
+        }
+    }
+
     const onDragEnd = result => {
+        setIsStart(false);
         const {destination, source, draggableId, type} = result;
         if(!destination) {
             return;
@@ -215,8 +226,16 @@ const ProjectTasks = ({t, projectInfo}) => {
         fetchChangeTaskStatus(changeTaskStatusRequest);
         if (!changeTaskStatusError) {
             setTasks(updatedTasksState);
+            
         }
+        
     }
+
+    useEffect(() => {
+        if(!isStart) {
+            areAllTaskIsCompleted();
+        }
+    }, [tasks]);
 
     return (
         <>
