@@ -16,6 +16,7 @@ import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import MoveDeadlines from '../component/task/MoveDeadlines';
+import Unicorn from '../component/Unicorn';
 
 const useStyles = makeStyles(theme => ({
     modal: {
@@ -39,6 +40,10 @@ function Project({t}) {
     const { projectId } = useParams();
     const navigate = useNavigate();
 
+    const [unicornStart, setUnicornStart] = useState(0);
+    const [unicornKey, setUniocnKey] = useState();
+
+
     useEffect(() => {
         const handleProject = (response) => {
             const projectInfo = {
@@ -61,6 +66,7 @@ function Project({t}) {
 
     const handleOpen = () => {
         setOpen(true);
+        startUnicorn();
     };
 
     const handleClose = () => {
@@ -69,8 +75,14 @@ function Project({t}) {
 
     const classes = useStyles();
 
+    const startUnicorn = () => {
+        setUnicornStart(1);
+        setUniocnKey(Math.random)
+    }
+
     return (
         <Container maxWidth="xl" style={{marginLeft:'15%'}}>
+            <Unicorn start={unicornStart} key={unicornKey}/>
             <Box sx={{ alignSelf: 'left' }}>
                 <IconButton onClick={() => navigate(-1)}>
                     <ArrowBackIcon sx={{width: 40, height: 40, color: 'black'}}/>
