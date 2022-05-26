@@ -66,7 +66,6 @@ function Project({t}) {
 
     const handleOpen = () => {
         setOpen(true);
-        startUnicorn();
     };
 
     const handleClose = () => {
