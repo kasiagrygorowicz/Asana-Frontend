@@ -11,7 +11,7 @@ import VerticalBarContext from "../../store/verticalbar-context";
 import jwt_decode from "jwt-decode";
 import AuthContext from '../../store/auth-context';
 
-function TeamCardSmall({t, key, title, id, isOwner, type}) {
+function TeamCardSmall({t, key, title, id, isOwner, type, cardColor}) {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -91,7 +91,7 @@ function TeamCardSmall({t, key, title, id, isOwner, type}) {
             <Box sx={{
                 width: '100%',
                 height: 32,
-                background: '#4399EF',
+                background: cardColor,
                 boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
                 borderRadius: 30,
                 marginTop: 10

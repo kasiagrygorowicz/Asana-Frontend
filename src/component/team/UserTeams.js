@@ -14,7 +14,7 @@ const UserTeams =({t}) =>{
     return (
 
         userTeams.map((team)=>(
-                <TeamCardSmall t={t} key={team.id} title={team.name} id={team.id} isOwner={team.isOwner}/>
+                <TeamCardSmall t={t} key={team.id} title={team.name} id={team.id} isOwner={team.isOwner} cardColor={'#4399EF'}/>
         ))
 
     );

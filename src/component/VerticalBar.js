@@ -33,7 +33,7 @@ function VerticalBar({t}) {
             <Box sx={{width: '70%', margin: '10%', marginLeft: '15%'}}>
                 <UserTeams t={t}/>
                 <Link to="/addteam" style={{textDecoration: 'none'}}>
-                    <TeamCardSmall title={t('addteam')} type="add" t={t}/>
+                    <TeamCardSmall title={t('addteam')} type="add" t={t} cardColor={'#4caf50'}/>
                 </Link>
             </Box>
 
@@ -44,10 +44,10 @@ function VerticalBar({t}) {
             <Box sx={{width: '70%', margin: '10%', marginLeft: '15%'}}>
                 <UserProjectsBar t={t}/>
                 <Link to="/addproject" style={{textDecoration: 'none'}}>
-                    <ProjectCardSmall projectName={t('addproject')} type="add"/>
+                    <ProjectCardSmall projectName={t('addproject')} type="add" cardColor={'#4caf50'}/>
                 </Link>
                 <Link to="/management/time" style={{textDecoration: 'none'}}>
-                    <ProjectCardSmall projectName={t('manageTime')} type="time"/>
+                    <ProjectCardSmall projectName={t('manageTime')} type="time" cardColor={'#d500f9'}/>
                 </Link>
             </Box>
         </Box>

@@ -17,6 +17,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import MoveDeadlines from '../component/task/MoveDeadlines';
 import Unicorn from '../component/Unicorn';
+import Stack from "@mui/material/Stack";
 
 const useStyles = makeStyles(theme => ({
     modal: {
@@ -82,56 +83,68 @@ function Project({t}) {
     return (
         <Container maxWidth="xl" style={{marginLeft:'15%'}}>
             <Unicorn start={unicornStart} key={unicornKey}/>
-            <Box sx={{ alignSelf: 'left' }}>
+            <Box sx={{ alignSelf: 'left', marginBottom: '-1%'}}>
                 <IconButton onClick={() => navigate(-1)}>
                     <ArrowBackIcon sx={{width: 40, height: 40, color: 'black'}}/>
                 </IconButton>
             </Box>
-            <Box sx={{ width: '75%', height: 700, alignItems: 'center', float: 'left', marginLeft: 50}}>
-                {/* <Link to='/dashboard'>
-                    <ArrowBackIcon sx={{width: 40, height: 40, marginLeft: '-2%', color: 'black'}}/>
-                </Link> */}
-            
-            <Box sx={{ width: '95%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
-                <Link to={`/addtask/${projectId}`}>
-                <Button variant="contained"
-                sx={{ width: 250, height: 50, alignSelf: 'end', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: 2}}>
-                <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
-                {t('addtask')}
-                </Typography>
-                <AddCircleOutlineIcon sx={{width: 32, height: 32, marginLeft: 2}}/> 
-            </Button>
-            </Link>
+            <Box sx={{ width: '75%', alignItems: 'center', float: 'left', marginLeft: 50}}>
 
-            <div>
-            <Button onClick={handleOpen} variant="contained" color='secondary'
-             sx={{ width: 250, height: 50, alignSelf: 'end', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: 2, marginRight: 1}}>
-                <Typography style={{ fontSize: 24, alignSelf: 'center'}}>
-                {t('moveDeadlines')}
-                </Typography> 
-            </Button>
-            <Modal
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                    timeout: 500,
-                }}
-            >
-                <Fade in={open}>
-                    <div className={classes.paper}>
-                        <MoveDeadlines projectInfo={projectInfo}/>
+            {/*<Box sx={{ width: '95%', height: 80, alignItems: 'center', marginLeft: '2%'}}>*/}
+                <Stack
+                    direction="row"
+                >
+                    <Box sx={{ width: '72.5%', alignItems: 'end', float: 'left', marginTop: '2%'}}>
+                        <Typography variant="h3" fontFamily="Sora">{projectInfo?.name}</Typography>
+                    </Box>
+
+                <Stack
+                    direction="column"
+                    justifyContent="flex-start"
+                    spacing={1}
+                >
+
+                    <Link to={`/addtask/${projectId}`}>
+                        <Button variant="contained"
+                                sx={{ width: 295, height: 50, borderRadius: 30, textTransform: 'none', float: 'right'}}>
+                            <Typography style={{ fontSize: 24 }}>
+                                {t('addtask')}
+                            </Typography>
+                            <AddCircleOutlineIcon sx={{width: 32, height: 32, marginLeft: 1}}/>
+                        </Button>
+                    </Link>
+
+                    <div>
+                        <Button onClick={handleOpen} variant="contained" color='secondary'
+                                sx={{ width: 295, height: 50, borderRadius: 30, textTransform: 'none', float: 'right', marginBottom: '4%'}}>
+                            <Typography style={{ fontSize: 24 }}>
+                                {t('moveDeadlines')}
+                            </Typography>
+                        </Button>
+                        <Modal
+                            aria-labelledby="transition-modal-title"
+                            aria-describedby="transition-modal-description"
+                            className={classes.modal}
+                            open={open}
+                            onClose={handleClose}
+                            closeAfterTransition
+                            BackdropComponent={Backdrop}
+                            BackdropProps={{
+                                timeout: 500,
+                            }}
+                        >
+                            <Fade in={open}>
+                                <div className={classes.paper}>
+                                    <MoveDeadlines projectInfo={projectInfo}/>
+                                </div>
+                            </Fade>
+                        </Modal>
                     </div>
-                </Fade>
-            </Modal>
-            </div>
 
-                <Typography variant="h3" fontFamily="Sora">{projectInfo?.name}</Typography>
-            </Box>
+                </Stack>
+
+            {/*</Box>*/}
+                </Stack>
             <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
             <Box sx={{ margin: 10}}></Box>
 

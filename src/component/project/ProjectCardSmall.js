@@ -101,7 +101,7 @@ function ProjectCardSmall({t, projectId, description, projectName, teamName, isO
 
   return (
     <Link to={`/project/${projectId}`} style={{textDecoration: 'none'}} key={projectId} onClick={handleProjectClick}>
-    <Box sx={{width: '100%', height: 32, background: '#4399EF', boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 30, marginTop: 10}}>
+    <Box sx={{width: '100%', height: 32, background: cardColor, boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)', borderRadius: 30, marginTop: 10}}>
       <Box sx={{width: '95%', height: 20, color: '#FFFFFF'}}>
         <Box sx={{paddingLeft: 20, height: 25, paddingTop: 5, display: 'flex', justifyContent: 'space-between'}}>
           <Box sx={{textDecoration: 'none', outline: "none", color: "white", width: "85%"}}>

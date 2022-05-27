@@ -43,7 +43,7 @@ const TasksColumn = ({t, tasks, type}) => {
                 <Droppable droppableId={type} direction="vertical" type="cards">
                     {provided => (
                         <div {...provided.droppableProps} ref={provided.innerRef}
-                             style={{width: '100%', height: '100%', marginLeft: '20%'}}>
+                             style={{width: '100%', height: '100%', marginLeft: '18%'}}>
                             <Stack direction="column" alignItems="center" spacing={1} sx={{width: '100%'}}>
                                 <div>
                                     {tasks.columns[type]?.cardIds.map((card, sequence) => (

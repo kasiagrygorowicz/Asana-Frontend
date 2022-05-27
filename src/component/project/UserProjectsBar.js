@@ -8,7 +8,7 @@ const UserProjectsBar = ({t}) => {
 
     return (
         userProjects.map((project) => (
-                <ProjectCardSmall key={project.id} projectName={project.name} projectId={project.id} isOwner={project.isOwner} t={t}/>
+                <ProjectCardSmall key={project.id} projectName={project.name} projectId={project.id} isOwner={project.isOwner} t={t} cardColor={'#4399EF'}/>
         ))
     );
 }
