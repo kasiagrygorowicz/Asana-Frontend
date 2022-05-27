@@ -32,7 +32,7 @@ const english = {
     teams: 'Teams',
     private: 'Private',
     done: 'Done',
-    undone: 'Undone',
+    undone: 'Not started',
     doing: 'In progress',
     dueDate: 'Due date',
     project: 'Project',

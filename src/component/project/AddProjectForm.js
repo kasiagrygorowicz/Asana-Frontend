@@ -135,14 +135,14 @@ const AddProjectForm = ({t}) => {
         <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
         <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('projectName')}:</Typography>
     </Box>
-    <Box sx={{ width: '40%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
+    <Box sx={{ width: '44.5%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
         <Input inputRef={projectNameInput} name="name" type="name" placeholder={t('projectNameInput')} disableUnderline={true} sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}}></Input>
     </Box>
     <Box sx={{clear: 'both', height: 10}}></Box>
     <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
         <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('description')}:</Typography>
     </Box>
-    <Box sx={{ width: '40%', height: 120, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
+    <Box sx={{ width: '44.5%', height: 120, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
         <Input inputRef={descriptionInput} name="name" type="name" multiline placeholder={t('descriptionInput')} disableUnderline={true} sx={{ align: 'center'}} style={{paddingLeft: '5%', width: '95%'}} rows={4}></Input>
     </Box>
     <Box sx={{clear: 'both', height: 10}}></Box>
@@ -150,11 +150,18 @@ const AddProjectForm = ({t}) => {
         <AddTeamsAndMembers t={t} users={users} teams={teams} sendSelectedUsersAndTeams={sendSelectedUsersAndTeams}/>
         :  (<div></div>)}
     <Box sx={{clear: 'both', height: 20}}></Box>
-    <Button type="submit" variant="contained" size="large" sx={{ width: 250, height: 65, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
-        <Typography style={{ fontSize: 24, alignSelf: 'center', fontWeight: 'bold' }}>
-            {t('submit')}
-        </Typography>
+    <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
+
+    </Box>
+    <Box sx={{ width: '40%', height: 60, alignItems: 'center', float: 'left', borderRadius: '30px', margin: 10, display: 'flex' }}>
+        <Button type="submit" variant="contained" size="large" sx={{ width: 190, height: 59, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
+            <Typography style={{ fontSize: 22, alignSelf: 'center', fontWeight: 'bold' }}>
+                {t('submit')}
+            </Typography>
     </Button>
+    </Box>
+
+    
     <Box sx={{margin: 30}}>
     </Box>
         </form>

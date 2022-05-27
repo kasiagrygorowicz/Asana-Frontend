@@ -133,7 +133,7 @@ function Project({t}) {
                 <Typography variant="h3" fontFamily="Sora">{projectInfo?.name}</Typography>
             </Box>
             <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
-            <Box sx={{ margin: 5}}></Box>
+            <Box sx={{ margin: 10}}></Box>
 
                 <ProjectTasks t={t} projectInfo={projectInfo} unicornFun={startUnicorn}/>
 

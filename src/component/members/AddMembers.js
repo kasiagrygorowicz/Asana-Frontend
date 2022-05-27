@@ -41,6 +41,10 @@ export default function AddMembers({t, users, sendSelectedUsers}) {
 
     return (
         <div>
+        <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
+        <Typography variant="h5" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('members')}:</Typography>
+        </Box>
+        <Box sx={{ width: '40%', float: 'left', borderRadius: '30px', margin: 1, display: 'flex' }}>
         <ThemeProvider theme={theme}>
             <Autocomplete
                 multiple
@@ -68,6 +72,7 @@ export default function AddMembers({t, users, sendSelectedUsers}) {
                 )}
             /> 
         </ThemeProvider>  
+        </Box>
         {sendSelectedUsers(value)}
         </div>
     );

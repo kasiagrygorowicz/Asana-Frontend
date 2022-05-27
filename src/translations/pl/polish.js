@@ -32,7 +32,7 @@ const polish = {
     teams: 'Zespoły',
     private: 'Prywatny',
     done: 'Zrobione',
-    undone: 'Nie zrobione',
+    undone: 'Nie zaczęte',
     doing: 'W trakcie',
     dueDate: 'Termin',
     project: 'Projekt',

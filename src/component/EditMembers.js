@@ -1,4 +1,6 @@
 import useFetch from "../hook/use-fetch";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import React from 'react';
@@ -51,7 +53,13 @@ export default function EditMembers({t, users, sendSelectedUsers, teamInfoMember
 
     return (
         <div>
+        <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
+        <Typography variant="h5" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('members')}:</Typography>
+        </Box>
+        <Box sx={{ width: '40%', float: 'left', borderRadius: '30px', margin: 1, display: 'flex' }}>
         {isLoading ?  (
+            
+            
             <ThemeProvider theme={theme}>
                 <Autocomplete
                 multiple
@@ -78,9 +86,11 @@ export default function EditMembers({t, users, sendSelectedUsers, teamInfoMember
                     <TextField {...params} sx={{ input: { color: 'black',  marginLeft: 1.5  }, width: '112%' }}  placeholder={t('addmember')}/>
                 )}
                 /> 
-            </ThemeProvider>  
+            </ThemeProvider> 
+            
         ) : (
         <div></div>   ) }
+        </Box> 
         {sendSelectedUsers(value)}
         </div>
         

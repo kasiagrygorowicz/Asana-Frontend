@@ -1,6 +1,6 @@
 import GridViewIcon from "@mui/icons-material/GridView";
 import FormatListBulletedIcon from "@mui/icons-material/FormatListBulleted";
-import {Grid} from "@material-ui/core";
+import {Grid, Box} from "@material-ui/core";
 import {DragDropContext} from "react-beautiful-dnd";
 import React, {useContext, useEffect, useState} from "react";
 import useFetch from "../../hook/use-fetch";
@@ -239,8 +239,6 @@ const ProjectTasks = ({t, projectInfo, unicornFun}) => {
 
     return (
         <>
-            <GridViewIcon fontSize='medium' sx={{float: 'right'}}/>
-            <FormatListBulletedIcon fontSize='medium' sx={{float: 'right'}}/>
             <Grid container alignItems="stretch" justifyContent="center">
                 <DragDropContext onDragEnd={onDragEnd}>
                     <TasksColumn t={t} tasks={tasks} type='UNDONE' key='UNDONE'/>
