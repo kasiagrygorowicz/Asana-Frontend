@@ -101,7 +101,7 @@ function TeamCardSmall({t, key, title, id, isOwner, type, cardColor}) {
                         <Box sx={{textDecoration: 'none', outline: "none", color: "white", width: "85%"}}>
                             <Typography noWrap={true} fontFamily="Sora"> {title} </Typography>
                         </Box>
-                        {type == "add" &&
+                        {type === "add" &&
                             <AddCircleOutlineIcon sx={{display: "flex", float: "right"}}/>
                         }
 

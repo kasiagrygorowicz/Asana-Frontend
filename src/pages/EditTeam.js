@@ -35,7 +35,7 @@ function EditTeam({t}) {
     }, [fetchTeam, teamId])
 
     return (
-        <Container maxWidth="xl" style={{marginLeft: '15%'}}>
+        <Container maxWidth="xl" style={{marginLeft: '15%', maxWidth:'85%'}}>
             <Box sx={{ alignSelf: 'left' }}>
                 <IconButton onClick={() => navigate(-1)}>
                     <ArrowBackIcon sx={{width: 40, height: 40, color: 'black'}}/>
@@ -47,7 +47,7 @@ function EditTeam({t}) {
                         <Typography variant="h3" fontFamily="Sora">{t('editteam') + ': "' + teamInfo?.name + '"'}</Typography>
                     ) : (<div></div>)}
                 </Box>
-                <Box sx={{width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
+                <Box sx={{width: '130%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
                 <Box sx={{margin: 20}}></Box>
                 <EditTeamForm t={t} teamInfo={teamInfo}/>
             </Box>

@@ -13,7 +13,7 @@ import { IconButton } from "@material-ui/core";
 function AddProject({t}) {
     const navigate = useNavigate();
     return (
-        <Container maxWidth="xl" style={{marginLeft:'15%'}}>
+        <Container maxWidth="xl" style={{marginLeft:'15%', maxWidth:'85%'}}>
             <Box sx={{ alignSelf: 'left' }}>
                 <IconButton onClick={() => navigate(-1)}>
                     <ArrowBackIcon sx={{width: 40, height: 40, color: 'black'}}/>
@@ -23,7 +23,7 @@ function AddProject({t}) {
                 <Box sx={{ width: '80%', height: 80, alignItems: 'center', marginLeft: '2%'}}>
                 <Typography variant="h3" fontFamily="Sora">{t('addproject')}</Typography>
             </Box>
-            <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
+            <Box sx={{ width: '130%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
             <Box sx={{margin: 20}}></Box>
             <AddProjectForm t={t}/>
             </Box>

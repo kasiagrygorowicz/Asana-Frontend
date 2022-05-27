@@ -40,7 +40,7 @@ function App() {
             <Layout t={t}>
                 <GlobalToolbox>
                     <Routes>
-                        <Route path="/" element={<Home t={t}/>}/>
+                        <Route path="/" element={<><Home t={t}/> <Footer t={t} /></>}/>
                         <Route path="/features" element={<Features t={t}/>}/>
                         <Route path="/pricing" element={<Pricing t={t}/>}/>
                         <Route path="/about" element={<About t={t}/>}/>

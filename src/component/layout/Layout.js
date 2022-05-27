@@ -19,7 +19,6 @@ export default function Layout(props){
                     position: 'relative'
                 }}
             >{props.children}</main>
-            <Footer t={props.t}/>
             </div>
 
 

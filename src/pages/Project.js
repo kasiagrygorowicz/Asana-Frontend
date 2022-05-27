@@ -81,7 +81,7 @@ function Project({t}) {
     }
 
     return (
-        <Container maxWidth="xl" style={{marginLeft:'15%'}}>
+        <Container maxWidth="xl" style={{marginLeft:'15%', maxWidth:'95%'}}>
             <Unicorn start={unicornStart} key={unicornKey}/>
             <Box sx={{ alignSelf: 'left', marginBottom: '-1%'}}>
                 <IconButton onClick={() => navigate(-1)}>
@@ -145,13 +145,12 @@ function Project({t}) {
 
             {/*</Box>*/}
                 </Stack>
-            <Box sx={{ width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
-            <Box sx={{ margin: 10}}></Box>
+            <Box sx={{ width: '109%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
+            <Box sx={{ margin: 5}}></Box>
 
                 <ProjectTasks t={t} projectInfo={projectInfo} unicornFun={startUnicorn}/>
 
-            </Box>
-            <Box sx={{clear:'both'}}></Box>
+             <Box sx={{ margin: 10}}></Box></Box>
         </Container>
     );
   }

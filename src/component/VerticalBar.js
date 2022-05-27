@@ -12,11 +12,11 @@ function VerticalBar({t}) {
     const context = useContext(VerticalBarContext)
 
     return (
-        <Box fluid
+        <Box fluid 
             key={context.updateKey}
             sx={{
                 width: '15%',
-                height: '100%',
+                height: '200%',
                 position: 'absolute',
                 background: '#195FA5',
                 color: 'white',

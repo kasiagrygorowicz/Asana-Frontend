@@ -21,7 +21,7 @@ const HoverInfo = () => {
             <Box sx={{ width: 60, height: 60, alignItems: 'center', display: 'flex', float: 'left', background: props.color, border: '3px solid black', margin: 15}} >
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, width: 60, textAlign: 'center', color: 'black'}}> { props.initials } </Typography>
             </Box>
-            <Typography fontFamily="Sora" style={{fontWeight: 600, fontSize: 24, lineHeight: 1.2, marginTop: 10, width: '75%', color: 'black'}}>{props.fullname}</Typography>
+            <Typography fontFamily="Sora" style={{fontWeight: 600, fontSize: 21 , lineHeight: 1.2, marginTop: 10, width: '75%', color: 'black'}}>{props.fullname}</Typography>
             <Typography fontFamily="Sora" style={{fontWeight: 400, fontSize: 14, color: 'black'}}>{props.email}</Typography>
         </Box>           
     );

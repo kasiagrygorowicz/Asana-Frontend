@@ -14,7 +14,7 @@ function Footer({t}) {
 
 <footer>
         <Toolbar
-            sx={{background: '#6C757D', height: 156,  display: 'flex',width:'100%', justifyContent: 'space-around'}}>
+            sx={{background: '#6C757D', height: 156,  display: 'flex', justifyContent: 'space-around'}}>
             <Box
                 sx={{height: 156, alignItems: 'center', display: 'flex', alignText: 'center'}}>
                 <Typography variant="h5" color="white" fontFamily="Sora">{t('company')}</Typography>

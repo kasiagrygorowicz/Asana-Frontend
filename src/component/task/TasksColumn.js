@@ -36,7 +36,7 @@ const TasksColumn = ({t, tasks, type}) => {
             </Box>
             <Box sx={{
                 width: '100%',
-                height: 500,
+                height: '150%',
                 display: 'flex',
                 borderRight: type !== 'DONE' ? '1px solid black' : 'none'
             }}>

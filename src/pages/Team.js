@@ -88,7 +88,7 @@ function Team({t}) {
 
 
     return (
-        <Container maxWidth="xl" style={{marginLeft: '15%'}}>
+        <Container maxWidth="xl" style={{marginLeft: '15%', maxWidth:'85%'}}>
             <Box sx={{ alignSelf: 'left' }}>
                 <IconButton onClick={() => navigate(-1)}>
                     <ArrowBackIcon sx={{width: 40, height: 40, color: 'black'}}/>
@@ -135,7 +135,7 @@ function Team({t}) {
                         }
                     </Menu>
                 </Box>
-                <Box sx={{width: '117%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
+                <Box sx={{width: '130%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
                 <Box sx={{margin: 5}}></Box>
 
                 <Box sx={{clear: 'both', height: 50}}></Box>
@@ -152,7 +152,7 @@ function Team({t}) {
                         width: '80%'
                     }}>{t('projects')}:</Typography>
                 </Box>
-                <Box sx={{marginLeft: 200, marginBottom: 20, alignItems: 'center'}}>
+                <Box sx={{marginLeft: '18%', marginBottom: 20, alignItems: 'center'}}>
                     <Grid container spacing={5}
                           sx={{marginLeft: 200, marginBottom: 20, alignItems: 'center'}}>
                         {
