@@ -172,6 +172,9 @@ const EditProjectForm = ({t, projectInfo}) => {
 
 
     return (
+        <div>
+        {projectInfo !== null ? (
+        <div>
         <form onSubmit={submitHandler}>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('projectName')}:</Typography>
@@ -202,6 +205,9 @@ const EditProjectForm = ({t, projectInfo}) => {
             </Box>
 
         </form>
+        </div>
+    ) : (<div></div>)}
+    </div>
         );
     }
                 

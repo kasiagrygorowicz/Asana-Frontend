@@ -68,6 +68,9 @@ function AddTaskForm({t, projectInfo}) {
 
     const [value, setValue] = React.useState(null);
     return (
+        <div>
+        {projectInfo !== null ? (
+        <div>
         <form onSubmit={submitHandler}>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('project')}:</Typography>
@@ -124,6 +127,9 @@ function AddTaskForm({t, projectInfo}) {
             <Box sx={{margin: 30}}>
             </Box>
         </form>
+        </div>
+    ) : (<div></div>)}
+    </div>
     );
   }
   export default AddTaskForm;

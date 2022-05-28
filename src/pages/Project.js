@@ -44,6 +44,8 @@ function Project({t}) {
     const [unicornStart, setUnicornStart] = useState(0);
     const [unicornKey, setUniocnKey] = useState();
 
+    let [ isLoad, setIsLoad ] = useState(false);
+
 
     useEffect(() => {
         const handleProject = (response) => {
@@ -54,6 +56,8 @@ function Project({t}) {
               description: response.description
             };
             setProjectInfo(projectInfo);
+            setIsLoad(true)
+
         }
 
         const fetchProjectRequest = {
@@ -81,6 +85,9 @@ function Project({t}) {
     }
 
     return (
+        <div>
+        {projectInfo !== null ? (
+            <div>
         <Container maxWidth="xl" style={{marginLeft:'15%', maxWidth:'95%'}}>
             <Unicorn start={unicornStart} key={unicornKey}/>
             <Box sx={{ alignSelf: 'left', marginBottom: '-1%'}}>
@@ -152,6 +159,10 @@ function Project({t}) {
 
              <Box sx={{ margin: 10}}></Box></Box>
         </Container>
+        </div>
+
+        ) : (<div></div>)}
+        </div>
     );
   }
   export default Project;

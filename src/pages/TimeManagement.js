@@ -14,6 +14,8 @@ const TimeManagement = ({t}) =>{
     let [ avgTaskTime, setAvgTaskTime ] = useState();
     let [ doneTasksTime, setDoneTasksTime ] = useState();
 
+    let [ isLoad, setIsLoad ] = useState(false);
+
     const calcualteTime = (response) => {
         totalTime = 0;
         doneTasksTime = 0;
@@ -40,6 +42,8 @@ const TimeManagement = ({t}) =>{
         setTotalTime(totalTime);
         setAvgTaskTime(avgTaskTime);
         setDoneTasksTime(doneTasksTime);
+
+        setIsLoad(true)
     }
 
     useEffect(() => {
@@ -120,6 +124,9 @@ const TimeManagement = ({t}) =>{
     ));
 
     return(
+        <div>
+        {isLoad === true ? (
+            <div>
         <Container maxWidth={false} sx={{
             display: "flex",
             flexDirection: "column",
@@ -127,6 +134,7 @@ const TimeManagement = ({t}) =>{
             marginLeft: "25%",
             width: "60%",
         }}>
+            
             {/*<Box width="100%" height="20px" borderBottom="1px solid black">*/}
             <Typography color="text.secondary" variant="h2" sx={{ alignSelf: "center" }}>
                 {t('timeManagement')}
@@ -138,21 +146,21 @@ const TimeManagement = ({t}) =>{
             }}>
                 {t('summary')}
             </Typography>
-            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '22.5%', marginTop: -2}}></Box>
-            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '57.5%', marginTop: -0.25}}></Box>
+            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '20.5%', marginTop: -2}}></Box>
+            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '59.5%', marginTop: -0.25}}></Box>
             <Box sx={{
                 display: "flex",
                 justifyContent: "space-between",
                 marginTop: "50px"
             }}>
                 <TimeInfoCard header={t('totalTime')} content={
-                    <TimeIndication time={totalTime} />
+                    totalTime >= 0 ? <TimeIndication time={totalTime} /> : <div></div>
                 }/>
                 <TimeInfoCard header={t('taskAvg')} content={
-                    <TimeIndication time={avgTaskTime} />
+                    avgTaskTime >= 0 ? <TimeIndication time={avgTaskTime} /> : <div></div>
                 }/>
                 <TimeInfoCard header={t('doneTasks')} content={
-                    <TimeIndication time={doneTasksTime} />
+                    doneTasksTime >= 0 ? <TimeIndication time={doneTasksTime} /> : <div></div>
                 }/>
             </Box>
             <Typography color="text.secondary" variant="h5" sx={{
@@ -168,6 +176,10 @@ const TimeManagement = ({t}) =>{
             {projectsToDisplay}
             
         </Container>
+        </div>
+
+        ) : (<div></div>)}
+        </div>
     );
 }
 

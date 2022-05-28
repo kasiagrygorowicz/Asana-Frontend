@@ -138,6 +138,8 @@ function Team({t}) {
                 <Box sx={{width: '130%', marginLeft: '-3.75%', height: 2, borderBottom: '2px solid black'}}></Box>
                 <Box sx={{margin: 5}}></Box>
 
+                {teamInfo!=null ? (
+                <div>
                 <Box sx={{clear: 'both', height: 50}}></Box>
                 <Box sx={{width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                     <Typography variant="h5" fontFamily="Sora"
@@ -166,6 +168,8 @@ function Team({t}) {
                         }
                     </Grid>
                 </Box>
+                </div>
+                ) : (<div></div>)}
             </Box>
             <Box sx={{clear: 'both'}}></Box>
         </Container>
