@@ -64,7 +64,7 @@ export default function MoveDeadlines(props) {
         
         <Box sx={{clear: 'both', height: 20}}></Box>
         <Button type="submit" variant="contained" size="large" 
-        sx={{ width: 150, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
+        sx={{ width: '35%', height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
             <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
             {t('submit')}
             </Typography>

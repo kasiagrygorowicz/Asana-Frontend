@@ -75,7 +75,6 @@ export default function TaskPopUp(props) {
 
         deleteTaskRequest(deleteTaskRequestContent, navigate(0));
     }
-    //TO DO: upewnienie czy chce usunąć taska?
 
     const timer = useSelector((state) => state.timer).find(timer => timer.id === props.task.id);
     const dispatch = useDispatch();
@@ -83,9 +82,6 @@ export default function TaskPopUp(props) {
     const taskNameInput = useRef();
     const dueDateInput = useRef();
     const descriptionInput = useRef();
-
-    
-
 
 
     const submitHandler = (event) => {
@@ -193,11 +189,11 @@ export default function TaskPopUp(props) {
     return (
     <form onSubmit={submitHandler}>
     <Container maxWidth='xl'>
-    <Box sx={{ width: '70%', height: 80, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
+    <Box sx={{ width: '70%', height: 80, float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
         <Input inputRef={taskNameInput} name="name" type="name" defaultValue={props.task.name} placeholder={t('taskNameInput')} disableUnderline='true' 
         sx={{ align: 'center'}} style={{paddingLeft: '5%', width: '95%', fontSize: 36, fontWeight: 600}}></Input>
     </Box>
-    <Button onClick={deleteTaskHandler} variant="contained" size="large" color='error' sx={{ width: 150, height: 40, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
+    <Button onClick={deleteTaskHandler} variant="contained" size="large" color='error' sx={{ width: 150, height: 60, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right', marginTop: '1.25%'}}>
         <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
         {t('delete')}
         </Typography>
@@ -213,7 +209,7 @@ export default function TaskPopUp(props) {
         <Box sx={{ width: '20%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
             <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%'}}>{t('time')}:</Typography>
         </Box>
-        <Box sx={{ width: '25%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
+        <Box sx={{ width: '25%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex', marginLeft: '0.5%'}}>
         <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left', width: '80%', paddingLeft: '10%'}}>
             {hours}:{minutes}:{seconds}</Typography>
         <IconButton onClick={handleClick} sx={{paddingRight: '5%', alignSelf: 'right'}}> 
@@ -226,13 +222,13 @@ export default function TaskPopUp(props) {
         </IconButton>
         </Box>
         <Box sx={{float: 'left', width: 10}}></Box>
-        <Button disabled={timer.timerOn} onClick={handleReset} variant="contained" size="large" sx={{ width: 120, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
+        <Button disabled={timer.timerOn} onClick={handleReset} variant="contained" size="large" sx={{ width: 120, height: 60, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
             <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
             {t('reset')}
             </Typography>
         </Button>
         <Box sx={{float: 'left', width: 20}}></Box>
-        <Button disabled={timer.timerOn} onClick={handleTimeSetter} variant="contained" size="large" sx={{ width: 150, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
+        <Button disabled={timer.timerOn} onClick={handleTimeSetter} variant="contained" size="large" sx={{ width: 150, height: 60, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
             <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
             {t('setTime')}
             </Typography>
@@ -281,7 +277,7 @@ export default function TaskPopUp(props) {
         </Button>
         <Box sx={{float: 'left', width: 20}}></Box>
         <Button disabled={timer.timerOn} onClick={handleTimeSetter} variant="contained" size="large" color="error"
-         sx={{ width: 120, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
+         sx={{ width: 120, height: 60, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'left'}}>
             <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
                 {t('cancel')}
             </Typography>
@@ -299,7 +295,7 @@ export default function TaskPopUp(props) {
             <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left'}}>{t('description')}:</Typography>
         </Box>
         <Box sx={{ width: '80%', height: 120, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
-            <Input inputRef={descriptionInput} name="name" type="name" defaultValue={props.task.description} multiline placeholder={t('descriptionInput')} disableUnderline='true' sx={{ align: 'center'}} style={{paddingLeft: '5%', width: '95%'}} rows={4}></Input>
+            <Input inputRef={descriptionInput} name="name" type="name" defaultValue={props.task.description} multiline placeholder={t('descriptionInput')} disableUnderline='true' sx={{ align: 'center'}} style={{paddingLeft: '3%', width: '95%'}} rows={4}></Input>
         </Box>
     </Stack>
     <Box sx={{clear: 'both', height: 10}}></Box>
@@ -314,7 +310,7 @@ export default function TaskPopUp(props) {
     </Box>
     <LocalizationProvider dateAdapter={AdapterDateFns}>
     <DatePicker readOnly value={startValue} onChange={(newValue) => { setStartValue(newValue); }} renderInput={({ inputRef, inputProps, InputProps }) => (
-        <Box sx={{ width: '35%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
+        <Box sx={{ width: '35%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex', marginLeft: '-4.25%' }}>
         <Input disableUnderline='true' ref={inputRef} {...inputProps} style={{paddingLeft: '10%', width: '70%'}}/>
         {InputProps?.endAdornment}
     </Box>
@@ -341,7 +337,7 @@ export default function TaskPopUp(props) {
     </Box>
     <LocalizationProvider dateAdapter={AdapterDateFns}>
     <DatePicker value={value} onChange={(newValue) => { setValue(newValue); }} renderInput={({ inputRef, inputProps, InputProps }) => (
-        <Box sx={{ width: '35%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
+        <Box sx={{ width: '35%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex', marginLeft: '-4%' }}>
         <Input inputRef={dueDateInput} ref={inputRef} {...inputProps} disableUnderline='true' defaultValue='03/04/2022' style={{paddingLeft: '10%', width: '70%'}}/>
         {InputProps?.endAdornment}
     </Box>
@@ -365,14 +361,14 @@ export default function TaskPopUp(props) {
     <Box sx={{ width: '25%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
         <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'left'}}>{t('assigned')}:</Typography>
     </Box>
-    <Box sx={{width: '40%', float: 'left', borderRadius: '30px', display: 'flex'}}>
+    <Box sx={{width: '93%', float: 'left', borderRadius: '30px', display: 'flex', margin: 10, marginLeft: '-0.1%'}}>
                 {props.task!=null && members!=null ? (
                     <AddOneMember t={t} projectMembers={members} currentSelectedUser={props.task.assignees[0]} sendSelectedUser={sendSelectedMember}/>
                     ) : (<div></div>)}
     </Box>
     </Stack>
     <Box sx={{clear: 'both', height: 20}}></Box>
-    <Button type="submit" variant="contained" size="large" sx={{ width: 150, height: 50, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
+    <Button type="submit" variant="contained" size="large" sx={{ width: 150, height: 60, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
         <Typography style={{ fontSize: 16, alignSelf: 'center', fontWeight: 'bold' }}>
         {t('submit')}
         </Typography>
