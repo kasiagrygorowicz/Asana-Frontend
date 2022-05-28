@@ -57,7 +57,7 @@ export default function MoveDeadlines(props) {
             <Typography variant="h4" fontFamily="Sora" style={{ textAlign: 'left'}}>{t('moveDeadlines')} {t('by')}: [{t('days')}]</Typography>
             </Box>
             <Box sx={{ width: '35%', height: 60, alignItems: 'center', background: '#ABB5BE', borderRadius: '30px', display: 'flex' }}>
-                <Input inputRef={daysInput} name="day" type="number" defaultValue='7' disableUnderline='true' inputProps={{min: 0, max: 9999}}
+                <Input inputRef={daysInput} name="day" type="number" defaultValue='7' disableUnderline='true' inputProps={{min: 0, max: 9999}} autoFocus={true}
                     sx={{ align: 'center'}} style={{paddingLeft: '20%', width: '85%', fontSize: 36, fontFamily: "Sora", textAlign: 'center'}}></Input>
             </Box>
         </Stack>

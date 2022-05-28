@@ -10,26 +10,34 @@ export default function GlobalToolbox(props){
     const globalToolbox = useCallback((event) => {
 
 
-        if(event.shiftKey === true && event.keyCode === 80){
+        // P
+        if(event.ctrlKey === true && event.altKey === true && event.keyCode === 80){
             navigate('/addproject/')
         }
 
-        if(event.shiftKey === true && event.keyCode === 84){
+        // T
+        if(event.ctrlKey === true && event.altKey === true && event.keyCode === 84){
             navigate('/addteam/')
         }
 
-
-        if(event.shiftKey === true && event.keyCode === 77){
+        // M
+        if(event.ctrlKey === true && event.altKey === true && event.keyCode === 77){
             navigate('/management/time')
         }
 
-        if(event.shiftKey === true && event.keyCode === 87){
+        // W
+        if(event.ctrlKey === true && event.altKey === true && event.keyCode === 87){
             authCtx.logout()
+        }
+
+        // B
+        if(event.ctrlKey === true && event.altKey === true && event.keyCode === 66){
+            navigate(-1)
         }
 
 
 
-    }, []);
+    }, [authCtx, navigate]);
 
 
     useEffect(() => {
