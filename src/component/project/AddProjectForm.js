@@ -131,6 +131,9 @@ const AddProjectForm = ({t}) => {
     };
 
     return (
+        <div>
+        {users !== null && teams !== null  ? (
+            <div>
         <form onSubmit={submitHandler}>
         <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
         <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('projectName')}:</Typography>
@@ -164,7 +167,11 @@ const AddProjectForm = ({t}) => {
     
     <Box sx={{margin: 30}}>
     </Box>
-        </form>
+    </form>
+    </div>
+
+    ) : (<div></div>)}
+    </div>
     );
 }
 

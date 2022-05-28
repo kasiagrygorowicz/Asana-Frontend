@@ -92,23 +92,22 @@ const EditTeamForm = ({t, teamInfo}) => {
 
     return (
         <form onSubmit={submitHandler}>
+            {teamInfo!=null ? (
+            <div>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
                 <Typography variant="h5" fontFamily="Sora" style={{fontWeight: 600, textAlign: 'right', width: '80%'}}>{t('teamName')}:</Typography>
             </Box>
-            {teamInfo!=null ? (
             <Box sx={{ width: '44.5%', height: 60, alignItems: 'center', float: 'left', background: '#ABB5BE', borderRadius: '30px', margin: 10, display: 'flex' }}>
                 <Input name="name" inputRef={teamNameInput} defaultValue={teamInfo?.name} key={teamInfo?.name} placeholder={t('teamNameInput')} disableUnderline='true' sx={{ align: 'center' }} style={{paddingLeft: '5%', width: '95%'}}></Input>
             </Box>
-            ) : (<div></div>)}
             <Box sx={{clear: 'both', height: 10}}></Box>
 
             <Box sx={{clear: 'both', height: 10}}></Box>
-                {teamInfo!=null ? (
                     <EditMembers t={t}  users={users} sendSelectedUsers={sendSelectedUsers} teamInfoMembers={teamInfo.members}/>
-                ) : (<div></div>)}
             <Box sx={{clear: 'both', height: 20}}></Box>
             <Box sx={{ width: '17%', height: 80, alignItems: 'center', display: 'flex', float: 'left'}}>
             </Box>
+
             <Box sx={{ width: '40%', height: 60, alignItems: 'center', float: 'left', borderRadius: '30px', margin: 10, display: 'flex' }}>
                 <Button type="submit" variant="contained" size="large" sx={{ width: 190, height: 59, alignSelf: 'center', borderRadius: 30, textTransform: 'none', float: 'right'}}>
                     <Typography style={{ fontSize: 22, alignSelf: 'center', fontWeight: 'bold' }}>
@@ -116,6 +115,8 @@ const EditTeamForm = ({t, teamInfo}) => {
                     </Typography>
             </Button>
             </Box>
+            </div>
+            ) : (<div></div>)}
             <Box sx={{margin: 30}}>
             </Box>
         </form>
