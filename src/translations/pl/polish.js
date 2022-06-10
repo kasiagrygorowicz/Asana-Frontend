@@ -92,7 +92,7 @@ const polish = {
     taskAvg: 'Średnia na zadanie',
     doneTasks: 'Skończone zadania',
     user: 'Użytkownik',
-    timeSpent: 'Całkowity poświęceony czas:'
+    timeSpent: 'Poświęcony czas:'
 }
 
 export default polish

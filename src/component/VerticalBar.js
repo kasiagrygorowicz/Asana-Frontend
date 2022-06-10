@@ -16,14 +16,13 @@ function VerticalBar({t}) {
             key={context.updateKey}
             sx={{
                 width: '15%',
-                height: '200%',
+                height: '100%',
                 position: 'absolute',
                 background: '#195FA5',
                 color: 'white',
                 float: 'left',
                 display:'flex',
                 flexDirection: 'column',
-
             }}
         >
             <Box sx={{margin: 15, height: 20}}>

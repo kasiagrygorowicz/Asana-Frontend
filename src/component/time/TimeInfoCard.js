@@ -13,7 +13,8 @@ const TimeInfoCard = ({header, content}) => {
     return (
         <Card sx={{
             width: "350px",
-            height: "180px"
+            height: "180px",
+            backgroundColor: "#FCFCFC"
         }}>
             <CardContent sx={{
                 display: "flex",

@@ -141,13 +141,13 @@ const TimeManagement = ({t}) =>{
             </Typography>
             <Typography color="text.secondary" variant="h5" sx={{
                 alignSelf: "center",
-                margin: "40px 10px 0",
+                margin: "50px 10px 0",
                 letterSpacing: "0.1em"
             }}>
                 {t('summary')}
             </Typography>
-            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '20.5%', marginTop: -2}}></Box>
-            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '59.5%', marginTop: -0.25}}></Box>
+            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '20%', marginTop: -2}}></Box>
+            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '60%', marginTop: -0.25}}></Box>
             <Box sx={{
                 display: "flex",
                 justifyContent: "space-between",
@@ -165,14 +165,14 @@ const TimeManagement = ({t}) =>{
             </Box>
             <Typography color="text.secondary" variant="h5" sx={{
                 alignSelf: "center",
-                margin: "80px",
-                marginBottom: "15px",
+                margin: "100px",
+                marginBottom: "50px",
                 letterSpacing: "0.1em"
             }}>
                 {t('yourProjects')}
             </Typography>
-            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '20%', marginTop: -4, marginBottom: 4}}></Box>
-            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '60%', marginTop: -4.25}}></Box>
+            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '20%', marginTop: -8, marginBottom: 4}}></Box>
+            <Box sx={{borderTop: "3px solid #DEE2E6", width: '20%', marginLeft: '60%', marginTop: -4.25, marginBottom: 3}}></Box>
             {projectsToDisplay}
             
         </Container>

@@ -4,23 +4,16 @@ import Footer from "./Footer";
 
 export default function Layout(props){
     return (
-
-            <div  style={{
-                // height : '100%',
-                width:'100%'
-            }}>
-
+            <>
             <Navbar t={props.t}/>
             <main
                 style={{
-                    minHeight : '100vh',
-                    width:'100%',
-                    justifyContent : 'center',
-                    position: 'relative'
+                    minHeight: '100vh',
+                    height: '100%',
+                    width: '100%',
+                    justifyContent : 'center'
                 }}
             >{props.children}</main>
-            </div>
-
-
+            </>
     )
 }
